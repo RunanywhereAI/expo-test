@@ -1,6 +1,7 @@
 package host.exp.exponent
 
 import com.facebook.react.ReactPackage
+import dev.runanywhere.aistudio.BuildConfig
 import expo.modules.ExpoModulesPackageList
 import expo.modules.apploader.AppLoaderPackagesProviderInterface
 import expo.modules.core.interfaces.Package
