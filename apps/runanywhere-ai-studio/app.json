@@ -1,0 +1,35 @@
+{
+  "expo": {
+    "name": "RunAnywhere AI Studio",
+    "description": "Expo Go with on-device AI capabilities powered by RunAnywhere SDK",
+    "slug": "runanywhere-ai-studio",
+    "privacy": "unlisted",
+    "sdkVersion": "54.0.0",
+    "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "primaryColor": "#6366F1",
+    "icon": "https://s3.amazonaws.com/exp-brand-assets/ExponentEmptyManifest_192.png",
+    "updates": {
+      "checkAutomatically": "NEVER",
+      "fallbackToCacheTimeout": 0
+    },
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "dev.runanywhere.aistudio"
+    },
+    "newArchEnabled": true,
+    "android": {
+      "package": "dev.runanywhere.aistudio"
+    },
+    "androidStatusBar": {
+      "barStyle": "dark-content"
+    },
+    "scheme": "runanywhere",
+    "jsEngine": "hermes",
+    "runtimeVersion": "1.0.0"
+  }
+}

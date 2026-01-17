@@ -3895,6 +3895,21 @@
   resolved "https://registry.yarnpkg.com/@rtsao/scc/-/scc-1.1.0.tgz#927dd2fae9bc3361403ac2c7a00c32ddce9ad7e8"
   integrity sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==
 
+"@runanywhere/core@^0.16.11":
+  version "0.16.11"
+  resolved "https://registry.yarnpkg.com/@runanywhere/core/-/core-0.16.11.tgz#08f745216fc75986ef98c9e9a462e8c2858adf18"
+  integrity sha512-hyNTreHXQB5HIRON0LdeX1FJ1MZIufUquYSUz3qTqRJvtg10qzfLM2IqC6RTCshNeFw46h9QAegcDgk60VLDww==
+
+"@runanywhere/llamacpp@^0.16.11":
+  version "0.16.11"
+  resolved "https://registry.yarnpkg.com/@runanywhere/llamacpp/-/llamacpp-0.16.11.tgz#5ab8833f5cc3224ca077da764c7b04a5acf47dcd"
+  integrity sha512-PQs0n5ufGN11WqPziXPSGl0HMcS2A474zGa66wEcEBA3uEq20FJK7Fbl9BFPQnC2nG/v7S8V03vhWQmaSFV42A==
+
+"@runanywhere/onnx@^0.16.11":
+  version "0.16.11"
+  resolved "https://registry.yarnpkg.com/@runanywhere/onnx/-/onnx-0.16.11.tgz#f585c37c4fba4aa7e0586950398c7599c9e3476f"
+  integrity sha512-FXTbeo7KhjGUPvjX5r2OyTPjpd218Lp5JwgKe/5sWSpris2htqTiXRculEN23S0XRyOBdRbbR1GytcitTn+Uaw==
+
 "@segment/loosely-validate-event@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@segment/loosely-validate-event/-/loosely-validate-event-2.0.0.tgz#87dfc979e5b4e7b82c5f1d8b722dfd5d77644681"
@@ -13439,6 +13454,11 @@ react-native-maps@1.26.20:
   integrity sha512-kWibDz6wLLQ0685gOEFz5jdzm4miD7PMeVdtZV7ilgftDcusC2iy7SueBJpHF0LKCoOSa1BEUiKqpx1dBMSNpA==
   dependencies:
     "@types/geojson" "^7946.0.13"
+
+react-native-nitro-modules@^0.31.10:
+  version "0.31.10"
+  resolved "https://registry.yarnpkg.com/react-native-nitro-modules/-/react-native-nitro-modules-0.31.10.tgz#d21907327200d5761ba6cf328dec36b1516bc270"
+  integrity sha512-hcvjTu9YJE9fMmnAUvhG8CxvYLpOuMQ/2eyi/S6GyrecezF6Rmk/uRQEL6v09BRFWA/xRVZNQVulQPS+2HS3mQ==
 
 react-native-pager-view@6.9.1:
   version "6.9.1"
