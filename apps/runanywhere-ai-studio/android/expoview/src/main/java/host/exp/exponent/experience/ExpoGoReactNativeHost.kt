@@ -6,6 +6,15 @@ import com.facebook.react.defaults.DefaultReactNativeHost
 import com.facebook.react.shell.MainReactPackage
 import com.swmansion.worklets.WorkletsPackage
 import com.swmansion.reanimated.ReanimatedPackage
+// RunAnywhere Native Modules
+import com.margelo.nitro.NitroModulesPackage
+import com.margelo.nitro.runanywhere.RunAnywhereCorePackage
+import com.margelo.nitro.runanywhere.llama.RunAnywhereLlamaPackage
+import com.margelo.nitro.runanywhere.onnx.RunAnywhereONNXPackage
+import com.rnfs.RNFSPackage
+import com.rnziparchive.RNZipArchivePackage
+import host.exp.exponent.audio.NativeAudioPackage
+// Expo packages
 import host.exp.exponent.ExponentManifest
 import host.exp.expoview.Exponent
 import versioned.host.exp.exponent.ExpoTurboPackage
@@ -42,6 +51,17 @@ class ExpoGoReactNativeHost(
   public override fun getPackages(): MutableList<ReactPackage> {
     return mutableListOf(
       MainReactPackage(null),
+      // RunAnywhere Native Modules
+      NitroModulesPackage(),
+      RunAnywhereCorePackage(),
+      RunAnywhereLlamaPackage(),
+      RunAnywhereONNXPackage(),
+      // SDK Peer Dependencies
+      RNFSPackage(),
+      RNZipArchivePackage(),
+      // Native Audio for STT
+      NativeAudioPackage(),
+      // Animation packages
       WorkletsPackage(),
       ReanimatedPackage(),
       ExponentPackage(
@@ -97,6 +117,17 @@ class KernelReactNativeHost(
   public override fun getPackages(): MutableList<ReactPackage> {
     return mutableListOf(
       MainReactPackage(null),
+      // RunAnywhere Native Modules
+      NitroModulesPackage(),
+      RunAnywhereCorePackage(),
+      RunAnywhereLlamaPackage(),
+      RunAnywhereONNXPackage(),
+      // SDK Peer Dependencies
+      RNFSPackage(),
+      RNZipArchivePackage(),
+      // Native Audio for STT
+      NativeAudioPackage(),
+      // Animation packages
       WorkletsPackage(),
       ReanimatedPackage(),
       ExponentPackage.kernelExponentPackage(

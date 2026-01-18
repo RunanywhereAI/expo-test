@@ -26,6 +26,8 @@
     "@runanywhere/llamacpp": "^0.16.11",
     "@runanywhere/onnx": "^0.16.11",
     "react-native-nitro-modules": "^0.31.10",
+    "react-native-fs": "^2.20.0",
+    "react-native-zip-archive": "^6.1.0",
     "@apollo/client": "^3.4.10",
     "@expo/styleguide-native": "^1.0.1",
     "@expo/vector-icons": "^15.0.2",

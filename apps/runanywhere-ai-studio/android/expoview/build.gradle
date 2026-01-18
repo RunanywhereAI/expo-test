@@ -169,6 +169,9 @@ dependencies {
   implementation project(':runanywhere_core')
   implementation project(':runanywhere_llamacpp')
   implementation project(':runanywhere_onnx')
+  // SDK Peer Dependencies (required by @runanywhere/core)
+  implementation project(':react-native-fs')
+  implementation project(':react-native-zip-archive')
   // =============================================================================
   implementation 'androidx.lifecycle:lifecycle-process:2.8.7'
   implementation 'androidx.compose.foundation:foundation-android:1.7.6'

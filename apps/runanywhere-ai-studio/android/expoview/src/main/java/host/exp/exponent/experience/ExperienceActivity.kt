@@ -501,14 +501,12 @@ open class ExperienceActivity : BaseExperienceActivity(), StartReactInstanceDele
       sdkVersion = RNObject.UNVERSIONED
     }
 
+    // RunAnywhere AI Studio: Accept ALL SDK versions to be compatible with any Metro-served project
+    // Original check restricted to only Constants.SDK_VERSION, but we want to load any project
     if (RNObject.UNVERSIONED != sdkVersion) {
-      val isValidVersion = sdkVersion == Constants.SDK_VERSION
-      if (!isValidVersion) {
-        KernelProvider.instance.handleError(
-          sdkVersion + " is not a valid SDK version. Only ${Constants.SDK_VERSION} is supported."
-        )
-        return
-      }
+      // Always treat as valid - allow any SDK version to load
+      // Treat any SDK version as UNVERSIONED to use the built-in React Native
+      sdkVersion = RNObject.UNVERSIONED
     }
 
     soLoaderInit()

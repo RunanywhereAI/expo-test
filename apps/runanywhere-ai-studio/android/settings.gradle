@@ -76,6 +76,18 @@ project(':runanywhere_onnx').projectDir =
     new File(rootDir, '../../../node_modules/@runanywhere/onnx/android')
 
 // =============================================================================
+// SDK Peer Dependencies (react-native-fs, react-native-zip-archive)
+// These are required by @runanywhere/core for file operations
+// =============================================================================
+include ':react-native-fs'
+project(':react-native-fs').projectDir =
+    new File(rootDir, '../../../node_modules/react-native-fs/android')
+
+include ':react-native-zip-archive'
+project(':react-native-zip-archive').projectDir =
+    new File(rootDir, '../../../node_modules/react-native-zip-archive/android')
+
+// =============================================================================
 
 apply from: new File(rootDir, "versioning_linking.gradle")
 
