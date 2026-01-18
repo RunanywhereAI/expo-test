@@ -145,6 +145,15 @@ dependencies {
 
   // NitroModules for RunAnywhere
   api project(':react-native-nitro-modules')
+  
+  // RunAnywhere Native Modules
+  api project(':runanywhere_core')
+  api project(':runanywhere_llamacpp')
+  api project(':runanywhere_onnx')
+  
+  // SDK Peer Dependencies (required by @runanywhere/core)
+  implementation project(':react-native-fs')
+  implementation project(':react-native-zip-archive')
 
   // Versioned react native
   // THIS COMMENT IS USED BY android-build-aar.sh DO NOT MODIFY

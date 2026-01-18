@@ -145,11 +145,15 @@ class ExpoUpdatesAppLoader @JvmOverloads constructor(
     }.toMap()
 
     val configuration = UpdatesConfiguration(null, configMap)
-    val sdkVersionsList = listOf(Constants.SDK_VERSION, RNObject.UNVERSIONED).flatMap {
+    // RunAnywhere AI Studio: Accept ALL SDK versions (SDK 48-60+) to be compatible with any project
+    // This allows loading projects from any Metro server regardless of their SDK version
+    val allSdkVersionsList = (48..60).flatMap { sdk ->
+      listOf("$sdk.0.0", "exposdk:$sdk.0.0")
+    } + listOf(Constants.SDK_VERSION, RNObject.UNVERSIONED).flatMap {
       listOf(it, "exposdk:$it")
     }
     val selectionPolicy = SelectionPolicy(
-      ExpoGoLauncherSelectionPolicyFilterAware(sdkVersionsList),
+      ExpoGoLauncherSelectionPolicyFilterAware(allSdkVersionsList),
       LoaderSelectionPolicyFilterAware(),
       ReaperSelectionPolicyDevelopmentClient()
     )
@@ -339,16 +343,25 @@ class ExpoUpdatesAppLoader @JvmOverloads constructor(
     }
 
   private fun isValidSdkVersion(sdkVersion: String?): Boolean {
-    if (sdkVersion == null) {
-      return false
-    }
-    if (RNObject.UNVERSIONED == sdkVersion) {
-      return true
-    }
-    if (Constants.SDK_VERSION == sdkVersion) {
-      return true
-    }
-    return false
+    // RunAnywhere AI Studio: Accept ALL SDK versions
+    // This allows the app to load projects from any Metro server regardless of SDK version.
+    // The native RunAnywhere modules are compiled into this app, so they work regardless
+    // of the advertised SDK version from the Metro server.
+    // Note: Some Expo features may not work if there's a major version mismatch,
+    // but the core functionality (including RunAnywhere) will work.
+    return true
+    
+    // Original Expo Go logic (commented out for reference):
+    // if (sdkVersion == null) {
+    //   return false
+    // }
+    // if (RNObject.UNVERSIONED == sdkVersion) {
+    //   return true
+    // }
+    // if (Constants.SDK_VERSION == sdkVersion) {
+    //   return true
+    // }
+    // return false
   }
 
   private fun formatExceptionForIncompatibleSdk(sdkVersion: String?): ManifestException {

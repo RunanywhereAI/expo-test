@@ -5,6 +5,12 @@ import com.facebook.react.ReactPackage
 import com.facebook.react.defaults.DefaultReactNativeHost
 import com.facebook.react.shell.MainReactPackage
 import com.margelo.nitro.NitroModulesPackage
+import com.margelo.nitro.runanywhere.RunAnywhereCorePackage
+import com.margelo.nitro.runanywhere.llama.RunAnywhereLlamaPackage
+import com.margelo.nitro.runanywhere.onnx.RunAnywhereONNXPackage
+import com.rnfs.RNFSPackage
+import com.rnziparchive.RNZipArchivePackage
+import host.exp.exponent.audio.NativeAudioPackage
 import host.exp.exponent.ExponentManifest
 import host.exp.expoview.Exponent
 import versioned.host.exp.exponent.ExpoReanimatedPackage
@@ -43,6 +49,15 @@ class ExpoGoReactNativeHost(
     return mutableListOf(
       MainReactPackage(null),
       NitroModulesPackage(),
+      // RunAnywhere Native Packages - load native libraries
+      RunAnywhereCorePackage(),
+      RunAnywhereLlamaPackage(),
+      RunAnywhereONNXPackage(),
+      // SDK Peer Dependencies - file system and archive support
+      RNFSPackage(),
+      RNZipArchivePackage(),
+      // Native Audio Module for STT recording (WAV format)
+      NativeAudioPackage(),
       ExpoReanimatedPackage(),
       ExponentPackage(
         instanceManagerBuilderProperties.experienceProperties,
@@ -98,6 +113,15 @@ class KernelReactNativeHost(
     return mutableListOf(
       MainReactPackage(null),
       NitroModulesPackage(),
+      // RunAnywhere Native Packages - load native libraries
+      RunAnywhereCorePackage(),
+      RunAnywhereLlamaPackage(),
+      RunAnywhereONNXPackage(),
+      // SDK Peer Dependencies - file system and archive support
+      RNFSPackage(),
+      RNZipArchivePackage(),
+      // Native Audio Module for STT recording (WAV format)
+      NativeAudioPackage(),
       ExpoReanimatedPackage(),
       ExponentPackage.kernelExponentPackage(
         application.applicationContext,
