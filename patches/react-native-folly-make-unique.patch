@@ -1,0 +1,13 @@
+diff --git a/packages/react-native/ReactAndroid/src/main/jni/react/jni/CatalystInstanceImpl.cpp b/packages/react-native/ReactAndroid/src/main/jni/react/jni/CatalystInstanceImpl.cpp
+index a4e021e137..d630b09fe1 100644
+--- a/packages/react-native/ReactAndroid/src/main/jni/react/jni/CatalystInstanceImpl.cpp
++++ b/packages/react-native/ReactAndroid/src/main/jni/react/jni/CatalystInstanceImpl.cpp
+@@ -300,7 +300,7 @@ void CatalystInstanceImpl::jniLoadScriptFromString(
+     const std::string& scriptStdString,
+     const std::string& sourceURL,
+     bool loadSynchronously) {
+-  std::unique_ptr<const JSBigStdString> script = folly::make_unique<const JSBigStdString>(scriptStdString);
++  std::unique_ptr<const JSBigStdString> script = std::make_unique<const JSBigStdString>(scriptStdString);
+   instance_->loadScriptFromString(std::move(script), sourceURL, loadSynchronously);
+ }
+ 

@@ -128,3 +128,23 @@ docs/pages/versions/*/react-native/*.diff
 
 # iOS
 **/ios/.xcode.env.local
+
+# Build artifacts (added for RunAnywhere AI Studio)
+packages/expo-modules-autolinking/android/expo-gradle-plugin/
+packages/expo-modules-core/expo-module-gradle-plugin/build/
+packages/expo-router/android/build/
+packages/expo-updates/android/.cxx/
+templates/expo-template-bare-minimum/*.tgz
+
+# Package build artifacts
+packages/**/android/build/
+packages/**/android/.cxx/
+packages/**/.gradle/
+packages/**/node_modules/
+**/*.class
+
+# Generated package directories (build artifacts only, no source)
+packages/@expo/log-box/
+packages/expo-age-range/
+packages/expo-blob/
+packages/expo-brownfield/
