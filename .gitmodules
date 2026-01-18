@@ -1,5 +1,5 @@
 [submodule "react-native-lab/react-native"]
   path = react-native-lab/react-native
-  url = git@github.com:expo/react-native.git
-  branch = exp-latest
+  url = https://github.com/RunanywhereAI/react-native.git
+  branch = sdk-52-runanywhere
   update = checkout
