@@ -3,6 +3,10 @@ package versioned.host.exp.exponent
 import expo.modules.application.ApplicationModule
 import expo.modules.asset.AssetModule
 import expo.modules.audio.AudioModule
+// Legacy expo-av modules for backwards compatibility
+import expo.modules.av.AVModule
+import expo.modules.av.AVPackage
+import expo.modules.av.video.VideoViewModule
 import expo.modules.backgroundfetch.BackgroundFetchModule
 import expo.modules.backgroundtask.BackgroundTaskModule
 import expo.modules.battery.BatteryModule
@@ -87,6 +91,7 @@ import host.exp.exponent.experience.splashscreen.legacy.SplashScreenPackage
 
 object ExperiencePackagePicker : ModulesProvider {
   private val EXPO_MODULES_PACKAGES = listOf(
+    AVPackage(),  // Legacy expo-av for backwards compatibility
     ExpoLinkingPackage(),
     NavigationBarPackage(),
     NotificationsPackage(),
@@ -113,6 +118,9 @@ object ExperiencePackagePicker : ModulesProvider {
 
   override fun getModulesMap(): Map<Class<out Module>, String?> = mapOf(
     AudioModule::class.java to null,
+    // Legacy expo-av modules for backwards compatibility
+    AVModule::class.java to null,
+    VideoViewModule::class.java to null,
     ApplicationModule::class.java to null,
     // Sensors
     AccelerometerModule::class.java to null,
