@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "78CEE2BF1ACD07D70095B124"
-               BuildableName = "Expo Go.app"
+               BuildableName = "RunAnywhere AI Studio.app"
                BlueprintName = "Expo Go"
                ReferencedContainer = "container:Exponent.xcodeproj">
             </BuildableReference>
@@ -44,7 +44,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "78CEE2BF1ACD07D70095B124"
-            BuildableName = "Expo Go.app"
+            BuildableName = "RunAnywhere AI Studio.app"
             BlueprintName = "Expo Go"
             ReferencedContainer = "container:Exponent.xcodeproj">
          </BuildableReference>
@@ -61,7 +61,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "78CEE2BF1ACD07D70095B124"
-            BuildableName = "Expo Go.app"
+            BuildableName = "RunAnywhere AI Studio.app"
             BlueprintName = "Expo Go"
             ReferencedContainer = "container:Exponent.xcodeproj">
          </BuildableReference>

@@ -39,7 +39,7 @@
 #endif
 
 
-#import "Expo_Go-Swift.h"
+#import "RunAnywhere_AI_Studio-Swift.h"
 
 NSString *const RCTInstanceDidLoadBundle = @"RCTInstanceDidLoadBundle";
 

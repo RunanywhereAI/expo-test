@@ -1,7 +1,7 @@
 // Copyright © 2018 650 Industries. All rights reserved.
 
 #import "EXSplashScreenService.h"
-#import "Expo_Go-Swift.h"
+#import "RunAnywhere_AI_Studio-Swift.h"
 #import <ExpoModulesCore/EXDefines.h>
 
 static NSString * const kRootViewController = @"rootViewController";

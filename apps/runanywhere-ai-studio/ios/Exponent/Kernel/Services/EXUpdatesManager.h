@@ -2,7 +2,7 @@
 
 #import "EXKernelAppRecord.h"
 
-#import "Expo_Go-Swift.h"
+#import "RunAnywhere_AI_Studio-Swift.h"
 
 @class EXManifestsManifest;
 

@@ -21,7 +21,9 @@ class AppDelegate: ExpoAppDelegate {
     reactNativeDelegate = delegate
     reactNativeFactory = factory
 
-    FirebaseApp.configure()
+    // MARK: - Firebase disabled for RunAnywhere AI Studio
+    // Uncomment and configure GoogleService-Info.plist if you need Firebase features
+    // FirebaseApp.configure()
 
     if application.applicationState != UIApplication.State.background {
       // App launched in foreground

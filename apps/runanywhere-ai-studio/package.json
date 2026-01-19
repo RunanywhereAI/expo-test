@@ -22,9 +22,9 @@
     ]
   },
   "dependencies": {
-    "@runanywhere/core": "^0.16.11",
-    "@runanywhere/llamacpp": "^0.16.11",
-    "@runanywhere/onnx": "^0.16.11",
+    "@runanywhere/core": "0.17.4",
+    "@runanywhere/llamacpp": "0.17.4",
+    "@runanywhere/onnx": "0.17.4",
     "react-native-nitro-modules": "^0.31.10",
     "react-native-fs": "^2.20.0",
     "react-native-zip-archive": "^6.1.0",

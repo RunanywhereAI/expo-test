@@ -50,7 +50,7 @@ export declare function getDefaultConfig(projectRoot: string, { mode, isCSSEnabl
         resolverMainFields: string[];
         platforms: string[];
         assetExts: string[];
-        sourceExts: string[];
+        sourceExts: any;
         nodeModulesPaths: string[];
         blockList: RegExp[];
     };
@@ -75,7 +75,7 @@ export declare function getDefaultConfig(projectRoot: string, { mode, isCSSEnabl
     server: {
         rewriteRequestUrl: (url: string) => string;
         port: number;
-        unstable_serverRoot: string;
+        unstable_serverRoot: any;
     };
     symbolicator: {
         customizeFrame: ($$PARAM_0$$: {

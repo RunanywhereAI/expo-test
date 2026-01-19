@@ -4,18 +4,18 @@
 <dict>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
-		<string>com.expo.modules.backgroundtask.processing</string>
+		<string>dev.runanywhere.backgroundtask.processing</string>
 	</array>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>Expo Go</string>
+	<string>RunAnywhere AI</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>host.exp.Exponent</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -23,7 +23,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>54.0.5</string>
+	<string>1.0.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -35,54 +35,16 @@
 			<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>exp</string>
-				<string>exps</string>
-				<string>fb1696089354000816</string>
-				<string>expauth</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>OAuthRedirect</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>host.exp.exponent</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>com.googleusercontent.apps.603386649315-vp4revvrcgrcjme51ebuhbkbspl048l9</string>
+				<string>runanywhere</string>
+				<string>runanywhere-ai</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>54.0.5</string>
-	<key>FacebookAdvertiserIDCollectionEnabled</key>
-	<false/>
-	<key>FacebookAppID</key>
-	<string>1696089354000816</string>
-	<key>FacebookAutoInitEnabled</key>
-	<false/>
-	<key>FacebookAutoLogAppEventsEnabled</key>
-	<false/>
-	<key>FacebookDisplayName</key>
-	<string>Expo Go</string>
-	<key>GADApplicationIdentifier</key>
-	<string>ca-app-pub-3940256099942544~1458002511</string>
-	<key>GADDelayAppMeasurementInit</key>
-	<true/>
+	<string>1</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>waze</string>
-		<string>fbapi</string>
-		<string>fb-messenger-api</string>
-		<string>fbauth2</string>
-		<string>fbshareextension</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -96,52 +58,37 @@
 		<string>_preflight_check._tcp</string>
 	</array>
 	<key>NSCalendarsFullAccessUsageDescription</key>
-	<string>Allow Expo projects to access your calendar</string>
+	<string>Allow RunAnywhere AI to access your calendar</string>
 	<key>NSCalendarsUsageDescription</key>
-	<string>Allow Expo projects to access your calendar</string>
+	<string>Allow RunAnywhere AI to access your calendar</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Allow Expo Go to access your camera to take photos</string>
+	<string>Allow RunAnywhere AI to access your camera for AI-powered features</string>
 	<key>NSContactsUsageDescription</key>
-	<string>Allow Expo projects to access your contacts</string>
+	<string>Allow RunAnywhere AI to access your contacts</string>
 	<key>NSLocalNetworkUsageDescription</key>
-	<string>Expo Go needs access to your local network to load projects from your development server</string>
+	<string>RunAnywhere AI needs access to your local network for development</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Allow Expo projects to use your location</string>
+	<string>Allow RunAnywhere AI to use your location</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Allow Expo projects to use your location</string>
+	<string>Allow RunAnywhere AI to use your location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>The app shows you the current location on a map and makes it available when you request it</string>
+	<string>RunAnywhere AI uses your location for location-based AI features</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Allow Expo projects to access your microphone</string>
+	<string>Allow RunAnywhere AI to access your microphone for speech recognition and audio AI features</string>
 	<key>NSMotionUsageDescription</key>
-	<string>Allow Expo projects to access your device accelerometer</string>
+	<string>Allow RunAnywhere AI to access your device sensors</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Give Expo projects permission to save photos</string>
+	<string>Allow RunAnywhere AI to save photos</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Give Expo projects permission to access your photos</string>
+	<string>Allow RunAnywhere AI to access your photos for AI processing</string>
 	<key>NSRemindersFullAccessUsageDescription</key>
-	<string>Allow Expo projects to access your reminders</string>
+	<string>Allow RunAnywhere AI to access your reminders</string>
 	<key>NSRemindersUsageDescription</key>
-	<string>Allow Expo projects to access your reminders</string>
-	<key>NSUserTrackingUsageDescription</key>
-	<string>This identifier will be used to deliver personalized ads to you</string>
+	<string>Allow RunAnywhere AI to access your reminders</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Allow RunAnywhere AI to use speech recognition for voice commands</string>
 	<key>RCTNewArchEnabled</key>
 	<true/>
-	<key>SKAdNetworkItems</key>
-	<array>
-		<dict>
-			<key>SKAdNetworkIdentifier</key>
-			<string>v9wttpbfk9.skadnetwork</string>
-		</dict>
-		<dict>
-			<key>SKAdNetworkIdentifier</key>
-			<string>n38lu8286q.skadnetwork</string>
-		</dict>
-		<dict>
-			<key>SKAdNetworkIdentifier</key>
-			<string>cstr6suwn9.skadnetwork</string>
-		</dict>
-	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>

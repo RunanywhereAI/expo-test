@@ -62,7 +62,7 @@
 		4A6280092E69DBF000D916B0 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		70D1A518C4DFB7D94147AC4B /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-Expo Go/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		71773906C5EB4CA89B3A271F /* Pods-Expo Go (main)-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Expo Go (main)-Tests.debug.xcconfig"; path = "Target Support Files/Pods-Expo Go (main)-Tests/Pods-Expo Go (main)-Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		78CEE2C01ACD07D70095B124 /* Expo Go.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Expo Go.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		78CEE2C01ACD07D70095B124 /* RunAnywhere AI Studio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RunAnywhere AI Studio.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		83BF8C0E87795C6808128A31 /* Pods-Expo Go.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Expo Go.release.xcconfig"; path = "Target Support Files/Pods-Expo Go/Pods-Expo Go.release.xcconfig"; sourceTree = "<group>"; };
 		88A25B1DAF71DFE5C4134A46 /* libPods-Expo Go-Expo Go (versioned).a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Expo Go-Expo Go (versioned).a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EE60BD85240AF63736C047A /* Pods-Expo Go-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Expo Go-Tests.debug.xcconfig"; path = "Target Support Files/Pods-Expo Go-Tests/Pods-Expo Go-Tests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -190,7 +190,7 @@
 		78CEE2C11ACD07D70095B124 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				78CEE2C01ACD07D70095B124 /* Expo Go.app */,
+				78CEE2C01ACD07D70095B124 /* RunAnywhere AI Studio.app */,
 				B505BA0E20CAF77A0046ACFB /* Tests.xctest */,
 				FCF6D36D25B34BC200808BF5 /* ExpoNotificationServiceExtension.appex */,
 			);
@@ -280,7 +280,7 @@
 			);
 			name = "Expo Go";
 			productName = Exponent;
-			productReference = 78CEE2C01ACD07D70095B124 /* Expo Go.app */;
+			productReference = 78CEE2C01ACD07D70095B124 /* RunAnywhere AI Studio.app */;
 			productType = "com.apple.product-type.application";
 		};
 		B505BA0D20CAF77A0046ACFB /* Tests */ = {
@@ -460,7 +460,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+			shellScript = "# Skip Firebase Crashlytics for RunAnywhere AI Studio (not configured)\n# \"${PODS_ROOT}/FirebaseCrashlytics/run\"\nexit 0\n";
 		};
 		7410D1B14A32E70AF6D8E0F2 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -836,7 +836,7 @@
 				CODE_SIGN_ENTITLEMENTS = Exponent/Supporting/Exponent.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = C8D8QTF339;
+				DEVELOPMENT_TEAM = AFAL2647U9;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				EX_BUNDLE_NAME = Expo;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -879,8 +879,8 @@
 					"-no_objc_category_merging",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D DEBUG -D EXPO_CONFIGURATION_DEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = host.exp.Exponent;
-				PRODUCT_NAME = "Expo Go";
+				PRODUCT_BUNDLE_IDENTIFIER = dev.runanywhere.aistudio;
+				PRODUCT_NAME = "RunAnywhere AI Studio";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_STYLE = "non-global";
 				SWIFT_OBJC_BRIDGING_HEADER = "Exponent-Bridging-Header.h";
@@ -906,10 +906,10 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Exponent/Supporting/Exponent.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Distribution";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = C8D8QTF339;
-				EX_BUNDLE_NAME = Expo;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = AFAL2647U9;
+				EX_BUNDLE_NAME = "RunAnywhere AI Studio";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Exponent/Supporting/Exponent-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -950,9 +950,9 @@
 					"-no_objc_category_merging",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D RELEASE -D EXPO_CONFIGURATION_RELEASE";
-				PRODUCT_BUNDLE_IDENTIFIER = host.exp.Exponent;
-				PRODUCT_NAME = "Expo Go";
-				PROVISIONING_PROFILE_SPECIFIER = "match AppStore host.exp.Exponent";
+				PRODUCT_BUNDLE_IDENTIFIER = dev.runanywhere.aistudio;
+				PRODUCT_NAME = "RunAnywhere AI Studio";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_STYLE = "non-global";
 				SWIFT_OBJC_BRIDGING_HEADER = "Exponent-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -979,7 +979,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = C8D8QTF339;
+				DEVELOPMENT_TEAM = AFAL2647U9;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
@@ -989,7 +989,7 @@
 					"@loader_path/Frameworks",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = host.exp.Tests;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.runanywhere.aistudio.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Expo Go.app/Exponent";
@@ -1011,7 +1011,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = C8D8QTF339;
+				DEVELOPMENT_TEAM = AFAL2647U9;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
@@ -1021,7 +1021,7 @@
 					"@loader_path/Frameworks",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
-				PRODUCT_BUNDLE_IDENTIFIER = host.exp.Tests;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.runanywhere.aistudio.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Expo Go.app/Exponent";
@@ -1043,7 +1043,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = C8D8QTF339;
+				DEVELOPMENT_TEAM = AFAL2647U9;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1060,7 +1060,7 @@
 				MTL_FAST_MATH = YES;
 				OTHER_LDFLAGS = "";
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = host.exp.Exponent.ExpoNotificationServiceExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.runanywhere.aistudio.NotificationServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1082,10 +1082,10 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "Apple Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = C8D8QTF339;
+				DEVELOPMENT_TEAM = AFAL2647U9;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = ExpoNotificationServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
@@ -1097,9 +1097,9 @@
 				MTL_FAST_MATH = YES;
 				OTHER_LDFLAGS = "";
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
-				PRODUCT_BUNDLE_IDENTIFIER = host.exp.Exponent.ExpoNotificationServiceExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.runanywhere.aistudio.NotificationServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "match AppStore host.exp.Exponent.ExpoNotificationServiceExtension";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OBJC_BRIDGING_HEADER = "ExpoNotificationServiceExtension/ExpoNotificationServiceExtension-Bridging-Header.h";

@@ -62,13 +62,18 @@ target 'Expo Go' do
       'expo-splash-screen',
       '@expo/ui',
       '@expo/app-integrity',
-      'expo-brownfield'
+      'expo-brownfield',
+      # Note: expo-av is excluded from auto-linking and added manually below
+      'expo-av'
     ],
     includeTests: true,
     flags: {
       :inhibit_warnings => false
     }
   })
+  
+  # expo-av (EXAV) is excluded - RunAnywhere voice AI uses its own native audio handling
+  # via @runanywhere/onnx for speech-to-text (Whisper) and text-to-speech
 
   # Install vendored pods.
   use_pods! 'vendored/unversioned/**/*.podspec.json'
@@ -104,6 +109,10 @@ target 'Expo Go' do
         :mac_catalyst_enabled => false
       )
     end
+    
+    # expo-av (EXAV) is completely excluded from the build
+    # RunAnywhere voice AI features use native audio handling via @runanywhere/onnx
+    puts "[RunAnywhere] expo-av excluded - using RunAnywhere native audio for voice AI"
 
     # Disabled as of CocoaPods 1.8.0.beta1 since pods_project seems to be nil
     # installer.pods_project.main_group.tab_width = '2';
@@ -111,6 +120,15 @@ target 'Expo Go' do
 
     installer.target_installation_results.pod_target_installation_results
       .each do |pod_name, target_installation_result|
+
+      # Fix for react-native-zip-archive unsupported '-G' flag
+      if pod_name == 'react-native-zip-archive'
+        target_installation_result.native_target.build_configurations.each do |config|
+          if config.build_settings['OTHER_CFLAGS']
+            config.build_settings['OTHER_CFLAGS'] = config.build_settings['OTHER_CFLAGS'].gsub('-G', '')
+          end
+        end
+      end
 
       # Enable hermes debugger even on release builds
       if ['React-hermes', 'hermes-engine', 'React-RuntimeHermes'].include?(pod_name)
@@ -141,6 +159,18 @@ target 'Expo Go' do
         target_installation_result.native_target.build_configurations.each do |config|
           config.build_settings['HEADER_SEARCH_PATHS'] ||= ['$(inherited)']
           config.build_settings['HEADER_SEARCH_PATHS'] << '"$(PODS_ROOT)/Headers/Public/StripePayments"'
+        end
+      end
+
+      # Fix for EXAV not finding ExpoModulesCore headers - disable module to avoid Clang scanner issues
+      if pod_name == 'EXAV'
+        target_installation_result.native_target.build_configurations.each do |config|
+          config.build_settings['HEADER_SEARCH_PATHS'] ||= ['$(inherited)']
+          config.build_settings['HEADER_SEARCH_PATHS'] << '"$(PODS_ROOT)/Headers/Public/ExpoModulesCore"'
+          config.build_settings['HEADER_SEARCH_PATHS'] << '"$(PODS_ROOT)/Headers/Private/ExpoModulesCore"'
+          # Disable module generation to avoid Clang dependency scanner issues
+          config.build_settings['DEFINES_MODULE'] = 'NO'
+          config.build_settings['CLANG_ENABLE_MODULES'] = 'NO'
         end
       end
 

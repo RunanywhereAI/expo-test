@@ -5,7 +5,7 @@
 #import <React/RCTUtils.h>
 #import <ReactCommon/RCTHost.h>
 #import <ReactCommon/RCTTurboModule.h>
-#import "Expo_Go-Swift.h"
+#import "RunAnywhere_AI_Studio-Swift.h"
 
 static const CGFloat EXPerfMonitorDefaultWidth = 260;
 static const CGFloat EXPerfMonitorMinimumHeight = 176;

@@ -1,9 +1,9 @@
 {
   "expo": {
     "name": "RunAnywhere AI Studio",
-    "description": "Expo Go with on-device AI capabilities powered by RunAnywhere SDK",
+    "description": "On-device AI development environment powered by RunAnywhere SDK. Run LLMs, speech recognition, and ML models locally on your device.",
     "slug": "runanywhere-ai-studio",
-    "privacy": "unlisted",
+    "privacy": "public",
     "sdkVersion": "54.0.0",
     "version": "1.0.0",
     "platforms": [
@@ -11,7 +11,6 @@
       "android"
     ],
     "primaryColor": "#6366F1",
-    "icon": "https://s3.amazonaws.com/exp-brand-assets/ExponentEmptyManifest_192.png",
     "updates": {
       "checkAutomatically": "NEVER",
       "fallbackToCacheTimeout": 0
@@ -19,7 +18,10 @@
     "userInterfaceStyle": "automatic",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "dev.runanywhere.aistudio"
+      "bundleIdentifier": "dev.runanywhere.aistudio",
+      "infoPlist": {
+        "CFBundleDisplayName": "RunAnywhere AI"
+      }
     },
     "newArchEnabled": true,
     "android": {
