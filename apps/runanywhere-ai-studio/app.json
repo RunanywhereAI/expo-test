@@ -18,7 +18,7 @@
     "userInterfaceStyle": "automatic",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "host.exp.exponent",
+      "bundleIdentifier": "com.runanywhere.aistudio",
       "infoPlist": {
         "CFBundleDisplayName": "RunAnywhere AI"
       }
