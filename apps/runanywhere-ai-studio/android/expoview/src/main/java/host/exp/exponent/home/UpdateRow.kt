@@ -61,7 +61,7 @@ private fun UpdateRowContents(
   )
   if (!isCompatible && !omitCompatibility) {
     ItemRowTag(
-      text = "Not compatible with this version of Expo Go",
+      text = "Not compatible with this version of RunAnywhere AI Studio",
       modifier = Modifier.padding(top = 4.dp)
     )
   }

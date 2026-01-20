@@ -32,6 +32,7 @@ class HomeViewModel: ObservableObject {
 
   var selectedAccount: Account? { authService.selectedAccount }
   var isLoggedIn: Bool { authService.isLoggedIn }
+  var userName: String? { user?.username ?? selectedAccount?.name }
 
   var shakeToShowDevMenu: Bool { settingsManager.shakeToShowDevMenu }
   var threeFingerLongPressEnabled: Bool { settingsManager.threeFingerLongPressEnabled }

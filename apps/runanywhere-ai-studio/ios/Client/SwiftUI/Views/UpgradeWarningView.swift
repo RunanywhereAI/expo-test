@@ -22,7 +22,7 @@ struct UpgradeWarningView: View {
             HStack(spacing: 8) {
               Image(systemName: "exclamationmark.triangle.fill")
                 .foregroundColor(Color(red: 0.98, green: 0.7, blue: 0.2))
-              Text("New Expo Go version coming soon!")
+              Text("New RunAnywhere AI Studio version coming soon!")
                 .font(.system(size: 13, weight: .semibold))
             }
 
@@ -41,7 +41,7 @@ struct UpgradeWarningView: View {
           }
 
           if let betaSdkVersion {
-            (Text("A new version of Expo Go will be released to the store soon, and it will ")
+            (Text("A new version of RunAnywhere AI Studio will be released to the store soon, and it will ")
               .font(.system(size: 13))
               .foregroundColor(.primary)
               + Text("only support SDK \(betaSdkVersion).")
@@ -81,7 +81,7 @@ struct UpgradeWarningView: View {
           UIApplication.shared.open(url)
         }
       }
-      (Text("To continue using this version of Expo Go, you can ")
+      (Text("To continue using this version of RunAnywhere AI Studio, you can ")
         .font(.system(size: 13))
         .foregroundColor(.primary)
         + Text("disable automatic app updates")

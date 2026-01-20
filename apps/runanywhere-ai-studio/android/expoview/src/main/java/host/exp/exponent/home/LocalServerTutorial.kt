@@ -36,7 +36,7 @@ fun LocalServerTutorial(
       }
     } else {
       Text(
-        "Press here to sign in to your Expo account and see the projects you have recently been working on.",
+        "Press here to sign in to your account and see the projects you have recently been working on.",
         modifier = Modifier.clickable {
           onLoginClick()
         }

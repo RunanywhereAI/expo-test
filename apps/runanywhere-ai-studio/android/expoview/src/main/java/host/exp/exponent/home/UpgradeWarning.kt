@@ -162,7 +162,7 @@ fun UpgradeWarning() {
             .size(24.dp)
         )
         Text(
-          "New Expo Go version coming soon!",
+          "New RunAnywhere AI Studio version coming soon!",
           fontWeight = FontWeight.Bold,
           style = MaterialTheme.typography.labelLarge,
           modifier = Modifier
@@ -175,7 +175,7 @@ fun UpgradeWarning() {
       }
 
       val warningText = buildAnnotatedString {
-        append("A new version of Expo Go will be released to the store soon, and it will ")
+        append("A new version of RunAnywhere AI Studio will be released to the store soon, and it will ")
         withStyle(style = SpanStyle(fontWeight = FontWeight.SemiBold)) {
           append("only support SDK $betaSdkVersion")
         }
@@ -207,7 +207,7 @@ private fun Message() {
         append("compatible version")
       }
       pop()
-      append(" of Expo Go.")
+      append(" of RunAnywhere AI Studio.")
     }
 
     Text(

@@ -61,7 +61,7 @@ open Exponent.xcworkspace
 
 3. **Firebase**: Firebase is configured with placeholder values. The app works without real Firebase credentials.
 
-4. **Code Signing**: Use your own Apple Developer team and bundle ID (`dev.runanywhere.aistudio`).
+4. **Code Signing**: Use your own Apple Developer team and bundle ID (`com.runanywhere.aistudio`).
 
 ---
 
@@ -77,6 +77,7 @@ open Exponent.xcworkspace
 8. [Issue 3: EXAV Module - ExpoModulesCore Header Not Found](#issue-3-exav-module---expomodulescore-header-not-found)
 9. [General Build Tips](#general-build-tips)
 10. [Version Information](#version-information)
+11. [UI/UX Redesign](#uiux-redesign-january-19-2026)
 
 ---
 
@@ -118,9 +119,9 @@ Forked Expo Go app and rebranded it as **RunAnywhere AI Studio** with integrated
 
 **Changes Made**:
 1. Updated `project.pbxproj`:
-   - `PRODUCT_BUNDLE_IDENTIFIER`: `host.exp.Exponent` → `dev.runanywhere.aistudio`
-   - `PRODUCT_BUNDLE_IDENTIFIER` (Tests): `host.exp.Tests` → `dev.runanywhere.aistudio.Tests`
-   - `PRODUCT_BUNDLE_IDENTIFIER` (Extension): `host.exp.Exponent.ExpoNotificationServiceExtension` → `dev.runanywhere.aistudio.NotificationServiceExtension`
+   - `PRODUCT_BUNDLE_IDENTIFIER`: `host.exp.Exponent` → `com.runanywhere.aistudio`
+   - `PRODUCT_BUNDLE_IDENTIFIER` (Tests): `host.exp.Tests` → `com.runanywhere.aistudio.Tests`
+   - `PRODUCT_BUNDLE_IDENTIFIER` (Extension): `host.exp.Exponent.ExpoNotificationServiceExtension` → `com.runanywhere.aistudio.NotificationServiceExtension`
    - `DEVELOPMENT_TEAM`: Set to `AFAL2647U9` for all targets
    - `CODE_SIGN_STYLE`: Set to `Automatic`
    - `CODE_SIGN_IDENTITY`: Set to `Apple Development`
@@ -912,9 +913,9 @@ The app was originally configured with Expo's official bundle identifier (`host.
 ### Solution
 
 1. **Update Bundle Identifiers** in `project.pbxproj`:
-   - Main app: `dev.runanywhere.aistudio`
-   - Tests: `dev.runanywhere.aistudio.Tests`
-   - Notification Extension: `dev.runanywhere.aistudio.NotificationServiceExtension`
+   - Main app: `com.runanywhere.aistudio`
+   - Tests: `com.runanywhere.aistudio.Tests`
+   - Notification Extension: `com.runanywhere.aistudio.NotificationServiceExtension`
 
 2. **Set your Development Team** for all targets:
    ```
@@ -1110,14 +1111,245 @@ After `pod install`, verify RunAnywhere modules are loaded:
 
 ---
 
+## Known Warnings (Safe to Ignore)
+
+### ExpoBlurView NativeViewManagerAdapter Warning
+
+**Warning**:
+```
+The native view manager for module(ExpoBlurView) from NativeViewManagerAdapter isn't exported by expo-modules-core. Views of this type may not render correctly.
+```
+
+**Explanation**:
+This is a **harmless informational warning**, not an error. The view IS exported and works correctly.
+
+- **New naming convention**: Views are exported as `ModuleName_ViewName` (e.g., `ExpoBlur_ExpoBlurView`)
+- **Legacy lookup**: Some code paths still look for the old name (`ExpoBlurView`)
+- **View renders correctly**: The new naming convention is used and the view works fine
+
+**Why it happens**: The Expo Go home client has legacy compatibility code that checks for old-style view names. When it doesn't find them, it logs this warning. However, the actual rendering uses the new naming convention which works.
+
+**Status**: Safe to ignore - view renders correctly.
+
+---
+
 ## Version Information
 
 - **App Version**: 1.0.0
-- **Bundle ID**: dev.runanywhere.aistudio
+- **Bundle ID**: com.runanywhere.aistudio
 - **Minimum iOS**: 15.1
 - **React Native**: 0.83.1
 - **Expo SDK**: 54.0.0
 - **RunAnywhere SDK**: 0.17.4
+
+---
+
+## UI/UX Redesign (January 19, 2026) - App Store Compliant
+
+### Overview
+
+The app UI follows Expo Go's App Store-approved architecture with RunAnywhere branding. This design is compliant with both Apple App Store and Google Play Store policies.
+
+### App Store Compliance Strategy
+
+**Apple App Store (Guideline 2.5.2)**:
+- JavaScript in interpreters is allowed (how Expo/React Native works)
+- Native runtime is pre-bundled and reviewed
+- Positioned as a legitimate developer tool
+
+**Google Play Store**:
+- Interpreted code (JS) is allowed
+- No native code downloads at runtime
+- Developer tools are acceptable use cases
+
+### Design Philosophy
+
+1. **Developer Tool Focus**: Like Expo Go, this is primarily a development companion app
+2. **Permission Diagnostics**: Essential for testing app behaviors (Audio, Location, Geofencing)
+3. **Transparent Functionality**: URL entry is the primary action, not hidden
+4. **RunAnywhere Branding**: Orange accent (#FF5500), consistent typography
+
+### Tab Structure (Matches Expo Go)
+
+| Tab | Purpose | Features |
+|-----|---------|----------|
+| Home | Load apps, dev servers, projects | URL entry, QR code, recently opened, projects/snacks |
+| Diagnostics | Test permissions | Audio, Background Location, Geofencing |
+| Settings | App configuration | Theme, gestures, tracking, account, legal |
+
+### iOS Files Created/Modified
+
+| File | Type | Description |
+|------|------|-------------|
+| `Client/SwiftUI/DesignSystem.swift` | Modified | RunAnywhere brand colors (#FF5500), typography, spacing |
+| `Client/SwiftUI/HomeRootView.swift` | Modified | 3-tab structure matching Expo Go |
+| `Client/SwiftUI/RAHomeView.swift` | Created | Home with URL entry, dev servers, projects |
+| `Client/SwiftUI/RADiagnosticsTabView.swift` | Created | Permission diagnostics (Audio, Location, Geofencing) |
+| `Client/SwiftUI/RASettingsView.swift` | Created | Settings with gestures, theme, account |
+| `Client/SwiftUI/HomeViewModel.swift` | Modified | Added userName computed property |
+
+### Android Files Modified
+
+| File | Description |
+|------|-------------|
+| `android/app/src/main/res/values/colors.xml` | RunAnywhere brand colors |
+| `android/app/src/main/res/values/styles.xml` | Updated themes with dark backgrounds |
+| `android/expoview/src/main/res/values/colors.xml` | ExpoView brand colors |
+
+### Color Palette (from RunAnywhere Design System)
+
+| Color | Hex | Usage |
+|-------|-----|-------|
+| Primary Accent | `#FF5500` | Buttons, active states, brand elements |
+| Primary Blue | `#3B82F6` | Secondary elements |
+| Primary Green | `#10B981` | Success states |
+| Primary Red | `#EF4444` | Error states |
+| Background Primary (Dark) | `#0F172A` | Main dark background |
+| Background Secondary (Dark) | `#1A1F2E` | Card backgrounds |
+| Text Secondary | `#94A3B8` | Tertiary text |
+
+### Loading Expo Apps (Primary Functionality)
+
+**The Home tab provides direct access to app loading:**
+
+1. **URL Entry Field**: Enter `exp://192.168.x.x:8081` directly on Home screen
+2. **Dev Servers**: Auto-discovered local Metro servers shown below URL field
+3. **Recently Opened**: Quick access to previously loaded apps
+4. **Projects/Snacks**: Expo account projects (if signed in)
+
+### How to Load an Expo App
+
+1. Run `npx expo start` in your project terminal
+2. Copy the URL shown (e.g., `exp://192.168.1.100:8081`)
+3. Paste it in the URL field on the Home tab
+4. Tap the arrow button to connect
+
+### Developer Menu (Inside Running Apps)
+
+Once an app is loaded, access the developer menu via:
+- **Shake device** (if enabled in Settings)
+- **Three-finger long press** (if enabled in Settings)
+
+### Diagnostics Tab - Permission Testing
+
+Essential for verifying app behaviors:
+- **Audio**: Test foreground/background playback, silent mode
+- **Background Location**: Test location tracking in various states
+- **Geofencing**: Test region monitoring with custom coordinates
+
+### Key Implementation Details
+
+```swift
+// RAHomeView - Main home screen with URL entry
+struct RAHomeView: View {
+  @EnvironmentObject var viewModel: HomeViewModel
+  
+  // URL entry field for loading Expo apps
+  // Dev servers auto-discovery
+  // Recently opened apps
+  // Projects and Snacks (if signed in)
+}
+
+// RADiagnosticsTabView - Permission testing
+struct RADiagnosticsTabView: View {
+  // Audio diagnostics
+  // Location diagnostics  
+  // Geofencing diagnostics
+}
+
+// RASettingsView - App configuration
+struct RASettingsView: View {
+  // Theme selection
+  // Developer menu gestures (shake, 3-finger press)
+  // Tracking permissions
+  // Account management
+}
+```
+
+### App Store Submission Strategy
+
+**Legitimate Developer Tool Features (Visible)**:
+- URL entry for loading development builds
+- Permission diagnostics (Audio, Location, Geofencing)
+- Developer menu gesture configuration
+- RunAnywhere branding
+- Privacy policy and terms links
+
+**This follows Expo Go's approved model**:
+- Pre-bundled native runtime (reviewed by Apple/Google)
+- JavaScript-only updates at runtime
+- Transparent about functionality
+- Positioned as development companion
+
+**App Store Metadata**:
+- **Name**: RunAnywhere AI Studio
+- **Category**: Developer Tools
+- **Description**: "Development companion for RunAnywhere SDK. Test and preview React Native apps with on-device AI capabilities."
+
+### Testing After UI Changes
+
+1. Build and run the app
+2. Verify all 3 tabs appear (Home, Diagnostics, Settings)
+3. On Home tab, enter a URL from `npx expo start` and verify app loads
+4. Test Diagnostics tab - verify Audio, Location, Geofencing views work
+5. In Settings, verify theme switching, gesture toggles work
+6. Test developer menu gestures inside a loaded app
+
+---
+
+## UI Build Errors & Fixes
+
+### Error: ONNX Runtime Undefined Symbols
+
+**Error**:
+```
+Undefined symbol: _OrtGetApiBase
+Undefined symbol: _OrtSessionOptionsAppendExecutionProvider_CoreML
+```
+
+**Cause**: The `onnxruntime.xcframework` needs to be copied after any `npm install` or when the node_modules are reset.
+
+**Fix**: Copy the framework from the SDK:
+```bash
+cp -R /path/to/runanywhere-all/sdks/sdk/runanywhere-react-native/packages/onnx/ios/Frameworks/onnxruntime.xcframework \
+  node_modules/@runanywhere/onnx/ios/Frameworks/
+
+pod install
+```
+
+**Status**: ✅ Fixed - Must re-apply after every `npm install`
+
+---
+
+## Text Branding Changes (January 19, 2026)
+
+All user-facing "Expo Go" text has been replaced with "RunAnywhere AI Studio".
+
+### iOS Files Updated
+
+| File | Changes |
+|------|---------|
+| `Views/UserReviewSection.swift` | "Enjoying Expo Go?" → "Enjoying RunAnywhere AI Studio?" |
+| `Views/UpgradeWarningView.swift` | All "Expo Go" references updated |
+| `Views/SnacksSection.swift` | SDK version error messages updated |
+| `Views/NavigationHeader.swift` | Default app name fallback updated |
+| `Rows/UpdateRow.swift` | Compatibility message updated |
+| `Services/SettingsManager.swift` | Default app name updated |
+| `EXRootViewController.m` | Local network permission message updated |
+
+### Android Files Updated
+
+| File | Changes |
+|------|---------|
+| `home/UserReviewSection.kt` | "Enjoying Expo Go?" → "Enjoying RunAnywhere AI Studio?" |
+| `home/UpgradeWarning.kt` | All "Expo Go" references updated |
+| `home/SettingsTopBar.kt` | App name in top bar updated |
+| `home/UpdateRow.kt` | Compatibility message updated |
+| `home/SnackRow.kt` | SDK version error messages updated |
+| `exceptions/ManifestException.kt` | All error messages updated |
+| `res/values/strings.xml` | App name and notification channel names |
+
+**Note**: Internal class names (e.g., `ExpoGoNavigation`, `ExpoGoReactNativeHost`) are left unchanged as they don't affect user-visible branding and changing them would require significant refactoring.
 
 ---
 

@@ -1,4 +1,5 @@
 // Copyright 2015-present 650 Industries. All rights reserved.
+// RunAnywhere AI Studio - Main Navigation
 
 import SwiftUI
 import UIKit
@@ -9,6 +10,7 @@ enum HomeTab: Hashable {
   case settings
 }
 
+// MARK: - Main Root View
 public struct HomeRootView: View {
   @ObservedObject var viewModel: HomeViewModel
   @State private var showingUserProfile = false
@@ -16,12 +18,19 @@ public struct HomeRootView: View {
 
   init(viewModel: HomeViewModel) {
     self.viewModel = viewModel
+
+    // Customize tab bar appearance with RunAnywhere colors
+    let appearance = UITabBarAppearance()
+    appearance.configureWithOpaqueBackground()
+    UITabBar.appearance().standardAppearance = appearance
+    UITabBar.appearance().scrollEdgeAppearance = appearance
+    UITabBar.appearance().tintColor = UIColor(Color(hex: 0xFF5500))
   }
 
   public var body: some View {
     TabView(selection: $selectedTab) {
       NavigationView {
-        HomeTabView()
+        RAHomeView()
       }
       .tabItem {
         Image(systemName: "house.fill")
@@ -30,7 +39,7 @@ public struct HomeRootView: View {
       .tag(HomeTab.home)
 
       NavigationView {
-        DiagnosticsTabView()
+        RADiagnosticsTabView()
       }
       .tabItem {
         Image(systemName: "stethoscope")
@@ -38,13 +47,14 @@ public struct HomeRootView: View {
       }
       .tag(HomeTab.diagnostics)
 
-      SettingsTabView(selectedTab: $selectedTab)
+      RASettingsView(selectedTab: $selectedTab)
         .tabItem {
-          Image(systemName: "gearshape")
+          Image(systemName: "gearshape.fill")
           Text("Settings")
         }
         .tag(HomeTab.settings)
     }
+    .accentColor(RAColors.primaryAccent)
     .environmentObject(viewModel)
     .environmentObject(ExpoGoNavigation(showingUserProfile: $showingUserProfile))
     .sheet(isPresented: $showingUserProfile) {
@@ -61,6 +71,7 @@ public struct HomeRootView: View {
   }
 }
 
+// MARK: - Legacy Navigation Class
 class ExpoGoNavigation: ObservableObject {
   @Binding var showingUserProfile: Bool
 

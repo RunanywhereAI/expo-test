@@ -57,7 +57,7 @@ fun SnackRow(snack: Home_AccountSnacksQuery.Snack) {
     AlertDialog(
       onDismissRequest = { showUnsupportedDialog = false },
       title = { Text("Unsupported SDK ($snackMajorVersion)") },
-      text = { Text("The currently running version of Expo Go supports SDK $goMajorVersion only. Update your Snack to this version to run it.") },
+      text = { Text("The currently running version of RunAnywhere AI Studio supports SDK $goMajorVersion only. Update your Snack to this version to run it.") },
       confirmButton = {
         TextButton(onClick = { showUnsupportedDialog = false }) {
           Text("OK")

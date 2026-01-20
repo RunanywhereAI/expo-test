@@ -16,6 +16,31 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import host.exp.exponent.services.ThemeSetting
 
+// RunAnywhere Brand Colors
+object RAColors {
+  val PrimaryAccent = Color(0xFFFF5500)
+  val PrimaryBlue = Color(0xFF3B82F6)
+  val PrimaryGreen = Color(0xFF10B981)
+  val PrimaryRed = Color(0xFFEF4444)
+  val PrimaryYellow = Color(0xFFEAB308)
+
+  // Dark Theme
+  val BackgroundPrimaryDark = Color(0xFF0F172A)
+  val BackgroundSecondaryDark = Color(0xFF1A1F2E)
+  val BackgroundTertiaryDark = Color(0xFF252B3A)
+  val TextPrimaryDark = Color(0xFFE6EDF3)
+  val TextSecondaryDark = Color(0xFF94A3B8)
+  val TextTertiaryDark = Color(0xFF64748B)
+
+  // Light Theme
+  val BackgroundPrimaryLight = Color(0xFFF8FAFC)
+  val BackgroundSecondaryLight = Color(0xFFFFFFFF)
+  val BackgroundTertiaryLight = Color(0xFFF1F5F9)
+  val TextPrimaryLight = Color(0xFF0F172A)
+  val TextSecondaryLight = Color(0xFF475569)
+  val TextTertiaryLight = Color(0xFF94A3B8)
+}
+
 val Typography = Typography(
   bodyLarge = TextStyle(
     fontFamily = FontFamily.Default,
@@ -23,28 +48,79 @@ val Typography = Typography(
     fontSize = 16.sp,
     lineHeight = 24.sp,
     letterSpacing = 0.5.sp
+  ),
+  titleLarge = TextStyle(
+    fontFamily = FontFamily.Default,
+    fontWeight = FontWeight.Bold,
+    fontSize = 22.sp,
+    lineHeight = 28.sp
+  ),
+  titleMedium = TextStyle(
+    fontFamily = FontFamily.Default,
+    fontWeight = FontWeight.SemiBold,
+    fontSize = 18.sp,
+    lineHeight = 24.sp
+  ),
+  labelLarge = TextStyle(
+    fontFamily = FontFamily.Default,
+    fontWeight = FontWeight.Medium,
+    fontSize = 14.sp,
+    lineHeight = 20.sp
+  ),
+  labelSmall = TextStyle(
+    fontFamily = FontFamily.Default,
+    fontWeight = FontWeight.Medium,
+    fontSize = 11.sp,
+    lineHeight = 16.sp
   )
 )
 
 val Shapes = Shapes(
-  small = RoundedCornerShape(4.dp)
+  small = RoundedCornerShape(4.dp),
+  medium = RoundedCornerShape(8.dp),
+  large = RoundedCornerShape(12.dp)
 )
 
+// RunAnywhere Light Theme
 private val LightColors = lightColorScheme(
-  primary = Color(0xFF5A5AD1),
-  surface = Color(0xFFFFFFFF),
-  background = Color(0xFFF7F7F7),
-  onBackground = Color(0xFF1C1B1F),
-  onSurfaceVariant = Color(0xFF757575)
+  primary = RAColors.PrimaryAccent,
+  onPrimary = Color.White,
+  primaryContainer = RAColors.PrimaryAccent.copy(alpha = 0.1f),
+  onPrimaryContainer = RAColors.PrimaryAccent,
+  secondary = RAColors.PrimaryBlue,
+  onSecondary = Color.White,
+  tertiary = RAColors.PrimaryGreen,
+  background = RAColors.BackgroundPrimaryLight,
+  onBackground = RAColors.TextPrimaryLight,
+  surface = RAColors.BackgroundSecondaryLight,
+  onSurface = RAColors.TextPrimaryLight,
+  surfaceVariant = RAColors.BackgroundTertiaryLight,
+  onSurfaceVariant = RAColors.TextSecondaryLight,
+  outline = Color(0xFFE2E8F0),
+  error = RAColors.PrimaryRed,
+  errorContainer = RAColors.PrimaryRed.copy(alpha = 0.1f),
+  onError = Color.White
 )
 
+// RunAnywhere Dark Theme
 private val DarkColors = darkColorScheme(
-  primary = Color(0xFF9EA1FF),
-  background = Color(0xFF000000),
-  surface = Color(0xFF161B22),
-  onSurface = Color(0xFFE6EDF3),
-  onSurfaceVariant = Color(0xFF8B949E),
-  outline = Color(0xFF30363D)
+  primary = RAColors.PrimaryAccent,
+  onPrimary = Color.White,
+  primaryContainer = RAColors.PrimaryAccent.copy(alpha = 0.15f),
+  onPrimaryContainer = RAColors.PrimaryAccent,
+  secondary = RAColors.PrimaryBlue,
+  onSecondary = Color.White,
+  tertiary = RAColors.PrimaryGreen,
+  background = RAColors.BackgroundPrimaryDark,
+  onBackground = RAColors.TextPrimaryDark,
+  surface = RAColors.BackgroundSecondaryDark,
+  onSurface = RAColors.TextPrimaryDark,
+  surfaceVariant = RAColors.BackgroundTertiaryDark,
+  onSurfaceVariant = RAColors.TextSecondaryDark,
+  outline = Color(0xFF30363D),
+  error = RAColors.PrimaryRed,
+  errorContainer = RAColors.PrimaryRed.copy(alpha = 0.15f),
+  onError = Color.White
 )
 
 @Composable

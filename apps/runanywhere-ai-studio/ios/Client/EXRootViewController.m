@@ -159,7 +159,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)createLocalNetworkDeniedAlert
 {
   UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Local network access required"
-                                                                 message:@"Local network access has been denied. This permission is required to run projects in Expo Go. Enable \"Local Network\" for Expo Go from the Settings app."
+                                                                 message:@"Local network access has been denied. This permission is required to run projects in RunAnywhere AI Studio. Enable \"Local Network\" for RunAnywhere AI Studio from the Settings app."
                                                           preferredStyle:UIAlertControllerStyleAlert];
   UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
   [alert addAction:okAction];

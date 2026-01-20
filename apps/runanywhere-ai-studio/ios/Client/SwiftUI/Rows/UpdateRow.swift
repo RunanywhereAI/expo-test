@@ -31,7 +31,7 @@ struct UpdateRow: View {
             .lineLimit(1)
 
           if !isCompatible {
-            Text("Not compatible with this version of Expo Go")
+            Text("Not compatible with this version of RunAnywhere AI Studio")
               .font(.caption)
               .foregroundColor(.secondary)
               .lineLimit(1)

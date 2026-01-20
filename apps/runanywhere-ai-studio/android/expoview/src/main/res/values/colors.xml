@@ -1,20 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- RunAnywhere AI Studio - ExpoView Color Palette -->
 <resources>
-  <color name="colorPrimary">#1b73b4</color>
-  <color name="colorPrimaryDark">#011A2D</color>
-  <color name="colorAccentLight">#1b73b4</color>
-  <color name="colorAccent">#005eff</color>
-  <color name="colorAccentDark">#FFFFFF</color>
+  <!-- RunAnywhere Brand Colors -->
+  <color name="runAnywherePrimary">#FF5500</color>
+  <color name="runAnywhereSecondary">#3B82F6</color>
+  <color name="runAnywhereSuccess">#10B981</color>
+  <color name="runAnywhereError">#EF4444</color>
+
+  <!-- App Theme Colors -->
+  <color name="colorPrimary">#FF5500</color>
+  <color name="colorPrimaryDark">#0F172A</color>
+  <color name="colorAccentLight">#FF5500</color>
+  <color name="colorAccent">#FF5500</color>
+  <color name="colorAccentDark">#FF5500</color>
   <color name="colorText">#FFFFFF</color>
   <color name="white">#FFFFFF</color>
-  <color name="errorMessage">#FF0000</color>
+  <color name="errorMessage">#EF4444</color>
   <color name="errorLogButton">#66FFFFFF</color>
   <color name="colorLight">#F6F6F7</color>
-  <color name="spinnerItem">#AAAAAA</color>
-  <color name="editText">#AAAAAA</color>
-  <color name="buttonText">#EEEEEE</color>
-  <color name="headerText">#EEEEEE</color>
-  <color name="white_background">#FFFFFF</color>    
-  <color name="iconBackground">#FFFFFF</color>
-  <color name="splashscreen_background">#FFFFFF</color>
+  <color name="spinnerItem">#94A3B8</color>
+  <color name="editText">#94A3B8</color>
+  <color name="buttonText">#FFFFFF</color>
+  <color name="headerText">#FFFFFF</color>
+  <color name="white_background">#FFFFFF</color>
+  <color name="iconBackground">#0F172A</color>
+  <color name="splashscreen_background">#0F172A</color>
 </resources>

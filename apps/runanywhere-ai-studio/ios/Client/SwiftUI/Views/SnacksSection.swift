@@ -44,7 +44,7 @@ struct SnackRowWithAction: View {
       let supportedSDKMajor = getSDKMajorVersion(getSupportedSDKVersion())
       viewModel.showError(
         "Selected Snack uses unsupported SDK (\(snackSDKMajor))\n\n" +
-        "The currently running version of Expo Go supports SDK \(supportedSDKMajor) only. " +
+        "The currently running version of RunAnywhere AI Studio supports SDK \(supportedSDKMajor) only. " +
         "Update your Snack to this version to run it."
       )
       return

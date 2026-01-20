@@ -33,6 +33,9 @@ sealed interface Destination {
   object Home : Destination
 
   @Serializable
+  object Diagnostics : Destination
+
+  @Serializable
   object Settings : Destination
 
   @Serializable
@@ -70,6 +73,12 @@ val bottomBarDestinations = listOf(
     "Home",
     "Home",
     R.drawable.home
+  ),
+  BottomBarDestination(
+    Destination.Diagnostics,
+    "Diagnostics",
+    "Diagnostics",
+    R.drawable.diagnostics
   ),
   BottomBarDestination(
     Destination.Settings,
@@ -140,6 +149,18 @@ fun AppNavHost(
           BottomBar(
             navController = navController,
             currentDestination = Destination.Home
+          )
+        },
+        accountHeader = { NavAccountHeaderAction() }
+      )
+    }
+
+    composable<Destination.Diagnostics> {
+      DiagnosticsScreen(
+        bottomBar = {
+          BottomBar(
+            navController = navController,
+            currentDestination = Destination.Diagnostics
           )
         },
         accountHeader = { NavAccountHeaderAction() }

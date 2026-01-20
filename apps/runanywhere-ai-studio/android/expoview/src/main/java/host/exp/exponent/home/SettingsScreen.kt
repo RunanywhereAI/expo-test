@@ -3,46 +3,26 @@ package host.exp.exponent.home
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.RadioButton
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Switch
-import androidx.compose.material3.SwitchDefaults
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import expo.modules.devmenu.DevMenuPreferences
 import host.exp.exponent.generated.ExponentBuildConstants
+import host.exp.exponent.graphql.fragment.CurrentUserActorData
 import host.exp.exponent.services.ThemeSetting
 import host.exp.expoview.R
 import kotlinx.coroutines.launch
@@ -59,9 +39,10 @@ fun SettingsScreen(
   accountHeader: @Composable () -> Unit = { }
 ) {
   val selectedTheme by viewModel.selectedTheme.collectAsStateWithLifecycle()
+  val selectedAccount by viewModel.selectedAccount.collectAsStateWithLifecycle()
 
   Scaffold(
-    topBar = { SettingsTopBar(accountHeader = accountHeader) },
+    topBar = { RANavigationHeader(accountHeader = accountHeader) },
     bottomBar = bottomBar
   ) { paddingValues ->
     Column(
@@ -69,22 +50,41 @@ fun SettingsScreen(
         .fillMaxSize()
         .verticalScroll(rememberScrollState())
         .padding(paddingValues)
+        .padding(16.dp),
+      verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
+      // Theme Section
       ThemeSection(
         selectedTheme = selectedTheme,
         onThemeSelected = { viewModel.selectedTheme.value = it }
       )
 
+      // Developer Menu Section
       DeveloperMenuSection(viewModel.devMenuPreferencesAdapter)
 
+      // App Info Section
       AppInfoSection(
-        clientVersion = viewModel.expoVersion ?: "unknown",
+        clientVersion = viewModel.expoVersion ?: "1.0.0",
         supportedSdk = getMajorVersion(ExponentBuildConstants.TEMPORARY_SDK_VERSION)
       )
 
-      Spacer(modifier = Modifier.height(16.dp))
+      // Account Section (if signed in)
+      if (selectedAccount != null) {
+        AccountSection(
+          account = selectedAccount,
+          onSignOut = { viewModel.logout() }
+        )
+      }
 
-      DeleteAccountSection()
+      // Legal Section
+      LegalSection()
+
+      // Delete Account Section (if signed in)
+      if (selectedAccount != null) {
+        DeleteAccountSection()
+      }
+
+      Spacer(modifier = Modifier.height(16.dp))
     }
   }
 }
@@ -94,63 +94,86 @@ fun ThemeSection(
   selectedTheme: ThemeSetting,
   onThemeSelected: (ThemeSetting) -> Unit
 ) {
-  LabeledGroup(label = "Theme") {
-    ClickableItemRow(
-      text = "Automatic",
-      icon = {
-        Icon(
-          painter = painterResource(R.drawable.theme_auto),
-          contentDescription = "Automatic Theme Icon",
-          tint = MaterialTheme.colorScheme.onSurfaceVariant,
-          modifier = Modifier.size(20.dp)
+  Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+    Text(
+      text = "Theme",
+      style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
+      color = MaterialTheme.colorScheme.onSurface
+    )
+
+    Card(
+      colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+      shape = RoundedCornerShape(12.dp)
+    ) {
+      Column {
+        RAThemeOptionRow(
+          icon = R.drawable.theme_auto,
+          title = "Automatic",
+          isSelected = selectedTheme == ThemeSetting.Automatic,
+          onClick = { onThemeSelected(ThemeSetting.Automatic) }
         )
-      },
-      onClick = { onThemeSelected(ThemeSetting.Automatic) },
-      action = {
-        RadioButton(
-          selected = selectedTheme == ThemeSetting.Automatic,
-          onClick = null
+        HorizontalDivider()
+        RAThemeOptionRow(
+          icon = R.drawable.theme_light,
+          title = "Light",
+          isSelected = selectedTheme == ThemeSetting.Light,
+          onClick = { onThemeSelected(ThemeSetting.Light) }
+        )
+        HorizontalDivider()
+        RAThemeOptionRow(
+          icon = R.drawable.theme_dark,
+          title = "Dark",
+          isSelected = selectedTheme == ThemeSetting.Dark,
+          onClick = { onThemeSelected(ThemeSetting.Dark) }
         )
       }
+    }
+
+    Text(
+      text = "Automatic uses your device's system appearance setting.",
+      style = MaterialTheme.typography.bodySmall,
+      color = MaterialTheme.colorScheme.onSurfaceVariant
     )
-    HorizontalDivider()
-    ClickableItemRow(
-      text = "Light",
-      icon = {
-        Icon(
-          painter = painterResource(R.drawable.theme_light),
-          contentDescription = "Light Theme Icon",
-          tint = MaterialTheme.colorScheme.onSurfaceVariant,
-          modifier = Modifier.size(20.dp)
-        )
-      },
-      onClick = { onThemeSelected(ThemeSetting.Light) },
-      action = {
-        RadioButton(
-          selected = selectedTheme == ThemeSetting.Light,
-          onClick = null
-        )
-      }
+  }
+}
+
+@Composable
+fun RAThemeOptionRow(
+  icon: Int,
+  title: String,
+  isSelected: Boolean,
+  onClick: () -> Unit
+) {
+  Row(
+    modifier = Modifier
+      .fillMaxWidth()
+      .clickable { onClick() }
+      .padding(16.dp),
+    horizontalArrangement = Arrangement.spacedBy(12.dp),
+    verticalAlignment = Alignment.CenterVertically
+  ) {
+    Icon(
+      painter = painterResource(icon),
+      contentDescription = title,
+      tint = RAColors.PrimaryAccent,
+      modifier = Modifier.size(20.dp)
     )
-    HorizontalDivider()
-    ClickableItemRow(
-      text = "Dark",
-      icon = {
-        Icon(
-          painter = painterResource(R.drawable.theme_dark),
-          contentDescription = "Dark Theme Icon",
-          tint = MaterialTheme.colorScheme.onSurfaceVariant,
-          modifier = Modifier.size(20.dp)
-        )
-      },
-      onClick = { onThemeSelected(ThemeSetting.Dark) },
-      action = {
-        RadioButton(
-          selected = selectedTheme == ThemeSetting.Dark,
-          onClick = null
-        )
-      }
+
+    Text(
+      text = title,
+      style = MaterialTheme.typography.bodyLarge,
+      color = MaterialTheme.colorScheme.onSurface,
+      modifier = Modifier.weight(1f)
     )
+
+    if (isSelected) {
+      Icon(
+        painter = painterResource(R.drawable.check),
+        contentDescription = "Selected",
+        tint = RAColors.PrimaryAccent,
+        modifier = Modifier.size(20.dp)
+      )
+    }
   }
 }
 
@@ -162,36 +185,286 @@ fun AppInfoSection(
   val context = LocalContext.current
 
   fun copyToClipboard(label: String, text: String) {
-    val clipboard =
-      context.getSystemService(android.content.Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+    val clipboard = context.getSystemService(android.content.Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
     val clip = android.content.ClipData.newPlainText(label, text)
     clipboard.setPrimaryClip(clip)
   }
 
-  LabeledGroup(label = "App Info") {
-    ClickableItemRow(
-      text = "Client version",
-      onClick = { copyToClipboard("Client version", clientVersion) },
-      action = {
-        Text(
-          text = clientVersion,
-          style = MaterialTheme.typography.bodyMedium,
-          color = MaterialTheme.colorScheme.onSurfaceVariant
+  Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+    Text(
+      text = "App Info",
+      style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
+      color = MaterialTheme.colorScheme.onSurface
+    )
+
+    Card(
+      colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+      shape = RoundedCornerShape(12.dp)
+    ) {
+      Column {
+        RAInfoRow(
+          label = "Client Version",
+          value = clientVersion,
+          onClick = { copyToClipboard("Client Version", clientVersion) }
+        )
+        HorizontalDivider()
+        RAInfoRow(
+          label = "Supported SDK",
+          value = supportedSdk,
+          onClick = { copyToClipboard("Supported SDK", supportedSdk) }
+        )
+        HorizontalDivider()
+        RAInfoRow(
+          label = "Powered by",
+          value = "RunAnywhere + Expo",
+          onClick = { copyToClipboard("Powered by", "RunAnywhere + Expo") }
         )
       }
-    )
-    HorizontalDivider()
-    ClickableItemRow(
-      text = "Supported SDKs",
-      onClick = { copyToClipboard("Supported SDKs", supportedSdk) },
-      action = {
+    }
+
+    // Copy Build Info Button
+    Card(
+      modifier = Modifier
+        .fillMaxWidth()
+        .clickable {
+          val buildInfo = "RunAnywhere AI Studio\nVersion: $clientVersion\nSDK: $supportedSdk"
+          copyToClipboard("Build Info", buildInfo)
+        },
+      colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+      shape = RoundedCornerShape(12.dp)
+    ) {
+      Row(
+        modifier = Modifier
+          .fillMaxWidth()
+          .padding(16.dp),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically
+      ) {
+        Icon(
+          painter = painterResource(R.drawable.copy_icon),
+          contentDescription = "Copy",
+          tint = RAColors.PrimaryAccent,
+          modifier = Modifier.size(20.dp)
+        )
+        Spacer(modifier = Modifier.width(8.dp))
         Text(
-          text = supportedSdk,
-          style = MaterialTheme.typography.bodyMedium,
-          color = MaterialTheme.colorScheme.onSurfaceVariant
+          text = "Copy Build Info",
+          style = MaterialTheme.typography.bodyLarge,
+          color = RAColors.PrimaryAccent
         )
       }
+    }
+  }
+}
+
+@Composable
+fun RAInfoRow(
+  label: String,
+  value: String,
+  onClick: () -> Unit
+) {
+  Row(
+    modifier = Modifier
+      .fillMaxWidth()
+      .clickable { onClick() }
+      .padding(16.dp),
+    horizontalArrangement = Arrangement.SpaceBetween,
+    verticalAlignment = Alignment.CenterVertically
+  ) {
+    Text(
+      text = label,
+      style = MaterialTheme.typography.bodyLarge,
+      color = MaterialTheme.colorScheme.onSurface
     )
+    Text(
+      text = value,
+      style = MaterialTheme.typography.bodyMedium,
+      color = MaterialTheme.colorScheme.onSurfaceVariant
+    )
+  }
+}
+
+@Composable
+fun AccountSection(
+  account: CurrentUserActorData.Account?,
+  onSignOut: () -> Unit
+) {
+  Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+    Text(
+      text = "Account",
+      style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
+      color = MaterialTheme.colorScheme.onSurface
+    )
+
+    Card(
+      colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+      shape = RoundedCornerShape(12.dp)
+    ) {
+      Column(
+        modifier = Modifier.padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+      ) {
+        // User info
+        Row(
+          horizontalArrangement = Arrangement.spacedBy(12.dp),
+          verticalAlignment = Alignment.CenterVertically
+        ) {
+          // Avatar placeholder
+          Box(
+            modifier = Modifier
+              .size(48.dp)
+              .background(
+                RAColors.PrimaryAccent.copy(alpha = 0.1f),
+                RoundedCornerShape(24.dp)
+              ),
+            contentAlignment = Alignment.Center
+          ) {
+            Text(
+              text = account?.name?.take(1)?.uppercase() ?: "U",
+              style = MaterialTheme.typography.titleLarge,
+              color = RAColors.PrimaryAccent
+            )
+          }
+
+          Column {
+            Text(
+              text = account?.name ?: "User",
+              style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
+              color = MaterialTheme.colorScheme.onSurface
+            )
+            Text(
+              text = "Signed in",
+              style = MaterialTheme.typography.bodySmall,
+              color = RAColors.PrimaryGreen
+            )
+          }
+        }
+
+        // Sign Out Button
+        Button(
+          onClick = onSignOut,
+          modifier = Modifier.fillMaxWidth(),
+          colors = ButtonDefaults.buttonColors(
+            containerColor = RAColors.PrimaryAccent.copy(alpha = 0.1f),
+            contentColor = RAColors.PrimaryAccent
+          ),
+          shape = RoundedCornerShape(8.dp)
+        ) {
+          Text("Sign Out")
+        }
+      }
+    }
+  }
+}
+
+@Composable
+fun LegalSection() {
+  val uriHandler = LocalUriHandler.current
+
+  Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+    Text(
+      text = "Legal",
+      style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
+      color = MaterialTheme.colorScheme.onSurface
+    )
+
+    Card(
+      colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+      shape = RoundedCornerShape(12.dp)
+    ) {
+      Column {
+        // Privacy Policy
+        Row(
+          modifier = Modifier
+            .fillMaxWidth()
+            .clickable { uriHandler.openUri("https://runanywhere.dev/privacy") }
+            .padding(16.dp),
+          horizontalArrangement = Arrangement.spacedBy(12.dp),
+          verticalAlignment = Alignment.CenterVertically
+        ) {
+          Icon(
+            painter = painterResource(R.drawable.privacy_icon),
+            contentDescription = "Privacy",
+            tint = RAColors.PrimaryAccent,
+            modifier = Modifier.size(20.dp)
+          )
+          Text(
+            text = "Privacy Policy",
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onSurface,
+            modifier = Modifier.weight(1f)
+          )
+          Icon(
+            painter = painterResource(R.drawable.external_link),
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.size(16.dp)
+          )
+        }
+
+        HorizontalDivider()
+
+        // Terms of Service
+        Row(
+          modifier = Modifier
+            .fillMaxWidth()
+            .clickable { uriHandler.openUri("https://runanywhere.dev/terms") }
+            .padding(16.dp),
+          horizontalArrangement = Arrangement.spacedBy(12.dp),
+          verticalAlignment = Alignment.CenterVertically
+        ) {
+          Icon(
+            painter = painterResource(R.drawable.document_icon),
+            contentDescription = "Terms",
+            tint = RAColors.PrimaryAccent,
+            modifier = Modifier.size(20.dp)
+          )
+          Text(
+            text = "Terms of Service",
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onSurface,
+            modifier = Modifier.weight(1f)
+          )
+          Icon(
+            painter = painterResource(R.drawable.external_link),
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.size(16.dp)
+          )
+        }
+
+        HorizontalDivider()
+
+        // Visit Website
+        Row(
+          modifier = Modifier
+            .fillMaxWidth()
+            .clickable { uriHandler.openUri("https://runanywhere.dev") }
+            .padding(16.dp),
+          horizontalArrangement = Arrangement.spacedBy(12.dp),
+          verticalAlignment = Alignment.CenterVertically
+        ) {
+          Icon(
+            painter = painterResource(R.drawable.globe_icon),
+            contentDescription = "Website",
+            tint = RAColors.PrimaryAccent,
+            modifier = Modifier.size(20.dp)
+          )
+          Text(
+            text = "Visit Website",
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onSurface,
+            modifier = Modifier.weight(1f)
+          )
+          Icon(
+            painter = painterResource(R.drawable.external_link),
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.size(16.dp)
+          )
+        }
+      }
+    }
   }
 }
 
@@ -218,11 +491,103 @@ fun DeveloperMenuSection(
     }
   }
 
-  @Composable
-  fun Switch(
-    checked: Boolean,
-    onCheckedChange: (Boolean) -> Unit
+  Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+    Text(
+      text = "Developer Menu Gestures",
+      style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
+      color = MaterialTheme.colorScheme.onSurface
+    )
+
+    Card(
+      colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+      shape = RoundedCornerShape(12.dp)
+    ) {
+      Column {
+        RASwitchRow(
+          icon = R.drawable.launch_at_start,
+          title = "Show at launch",
+          checked = launchAtStart,
+          onCheckedChange = { newValue ->
+            launchAtStart = newValue
+            devMenuPreference.showsAtLaunch = newValue
+          }
+        )
+
+        HorizontalDivider()
+
+        RASwitchRow(
+          icon = R.drawable.shake,
+          title = "Shake device",
+          checked = enableShake,
+          onCheckedChange = { newValue ->
+            enableShake = newValue
+            devMenuPreference.motionGestureEnabled = newValue
+          }
+        )
+
+        HorizontalDivider()
+
+        RASwitchRow(
+          icon = R.drawable.three_finger_long_press,
+          title = "Three-finger long press",
+          checked = enableThreeFingerLongPress,
+          onCheckedChange = { newValue ->
+            enableThreeFingerLongPress = newValue
+            devMenuPreference.touchGestureEnabled = newValue
+          }
+        )
+
+        HorizontalDivider()
+
+        RASwitchRow(
+          icon = R.drawable.fab,
+          title = "Action button",
+          checked = showFab,
+          onCheckedChange = { newValue ->
+            showFab = newValue
+            devMenuPreference.showFab = newValue
+          }
+        )
+      }
+    }
+
+    Text(
+      text = "Selected gestures toggle the developer menu inside an experience. The menu lets you reload, return home, and access developer tools.",
+      style = MaterialTheme.typography.bodySmall,
+      color = MaterialTheme.colorScheme.onSurfaceVariant
+    )
+  }
+}
+
+@Composable
+fun RASwitchRow(
+  icon: Int,
+  title: String,
+  checked: Boolean,
+  onCheckedChange: (Boolean) -> Unit
+) {
+  Row(
+    modifier = Modifier
+      .fillMaxWidth()
+      .clickable { onCheckedChange(!checked) }
+      .padding(horizontal = 16.dp, vertical = 8.dp),
+    horizontalArrangement = Arrangement.spacedBy(12.dp),
+    verticalAlignment = Alignment.CenterVertically
   ) {
+    Icon(
+      painter = painterResource(icon),
+      contentDescription = title,
+      tint = MaterialTheme.colorScheme.onSurfaceVariant,
+      modifier = Modifier.size(20.dp)
+    )
+
+    Text(
+      text = title,
+      style = MaterialTheme.typography.bodyLarge,
+      color = MaterialTheme.colorScheme.onSurface,
+      modifier = Modifier.weight(1f)
+    )
+
     Switch(
       checked = checked,
       onCheckedChange = onCheckedChange,
@@ -231,85 +596,9 @@ fun DeveloperMenuSection(
         checkedTrackColor = MaterialTheme.colorScheme.primaryContainer,
         uncheckedThumbColor = MaterialTheme.colorScheme.outline,
         uncheckedTrackColor = MaterialTheme.colorScheme.surfaceVariant,
-        checkedBorderColor = Color.Transparent,
-        uncheckedBorderColor = Color.Transparent
+        checkedBorderColor = androidx.compose.ui.graphics.Color.Transparent,
+        uncheckedBorderColor = androidx.compose.ui.graphics.Color.Transparent
       )
-    )
-  }
-
-  @Composable
-  fun SwitchRow(
-    text: String,
-    checked: Boolean,
-    onCheckedChange: (Boolean) -> Unit,
-    iconPainter: Painter
-  ) {
-    ClickableItemRow(
-      text = text,
-      paddingVertical = 6.dp,
-      icon = {
-        Icon(
-          painter = iconPainter,
-          contentDescription = "$text icon",
-          tint = MaterialTheme.colorScheme.onSurfaceVariant,
-          modifier = Modifier.size(20.dp)
-        )
-      },
-      onClick = { onCheckedChange(!checked) },
-      action = {
-        Switch(
-          checked = checked,
-          onCheckedChange = onCheckedChange
-        )
-      }
-    )
-  }
-
-  LabeledGroup(label = "Developer Menu") {
-    SwitchRow(
-      text = "Show at launch",
-      checked = launchAtStart,
-      onCheckedChange = { newValue ->
-        launchAtStart = newValue
-        devMenuPreference.showsAtLaunch = newValue
-      },
-      iconPainter = painterResource(R.drawable.launch_at_start)
-    )
-
-    HorizontalDivider()
-
-    SwitchRow(
-      text = "Shake device",
-      checked = enableShake,
-      onCheckedChange = { newValue ->
-        enableShake = newValue
-        devMenuPreference.motionGestureEnabled = newValue
-      },
-      iconPainter = painterResource(R.drawable.shake)
-    )
-
-    HorizontalDivider()
-
-    SwitchRow(
-      text = "3 fingers long press",
-      checked = enableThreeFingerLongPress,
-      onCheckedChange = { newValue ->
-        enableThreeFingerLongPress = newValue
-        devMenuPreference.touchGestureEnabled = newValue
-      },
-      iconPainter = painterResource(R.drawable.three_finger_long_press)
-    )
-
-    HorizontalDivider()
-
-    SwitchRow(
-      text = "Action button",
-      checked = showFab,
-      onCheckedChange = { newValue ->
-        showFab = newValue
-        devMenuPreference.showFab = newValue
-      },
-      iconPainter = painterResource(R.drawable.fab)
     )
   }
 }
@@ -325,10 +614,9 @@ fun DeleteAccountSection() {
 
     coroutineScope.launch {
       try {
-        val redirectBase = "expauth://after-delete"
+        val redirectBase = "runanywhere://after-delete"
         val encodedRedirect = Uri.encode(redirectBase)
-        val authSessionURL =
-          "https://expo.dev/settings/delete-user-expo-go?post_delete_redirect_uri=$encodedRedirect"
+        val authSessionURL = "https://expo.dev/settings/delete-user-expo-go?post_delete_redirect_uri=$encodedRedirect"
 
         val intent = Intent(Intent.ACTION_VIEW, authSessionURL.toUri()).apply {
           addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -340,48 +628,44 @@ fun DeleteAccountSection() {
     }
   }
 
-  LabeledGroup(label = "Delete Account") {
+  Card(
+    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+    shape = RoundedCornerShape(12.dp)
+  ) {
     Column(
-      modifier = Modifier
-        .padding(
-          start = 16.dp,
-          top = 16.dp,
-          end = 16.dp,
-          bottom = 8.dp
-        )
+      modifier = Modifier.padding(16.dp),
+      verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
+      Text(
+        text = "Delete Account",
+        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
+        color = MaterialTheme.colorScheme.onSurface
+      )
+
       Text(
         text = "This action is irreversible. It will delete your personal account, projects, and activity.",
         style = MaterialTheme.typography.bodySmall,
-        color = MaterialTheme.colorScheme.secondary
+        color = MaterialTheme.colorScheme.onSurfaceVariant
       )
 
-      deletionError?.let {
-        Spacer(modifier = Modifier.height(8.dp))
+      deletionError?.let { error ->
         Text(
-          text = it,
+          text = error,
           style = MaterialTheme.typography.bodySmall,
           color = MaterialTheme.colorScheme.error
         )
       }
 
-      Spacer(modifier = Modifier.height(16.dp))
-
-      Row(
+      Button(
+        onClick = handleDeleteAccount,
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.End
+        colors = ButtonDefaults.buttonColors(
+          containerColor = RAColors.PrimaryRed.copy(alpha = 0.1f),
+          contentColor = RAColors.PrimaryRed
+        ),
+        shape = RoundedCornerShape(8.dp)
       ) {
-        Button(
-          onClick = handleDeleteAccount,
-          colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.errorContainer,
-            contentColor = MaterialTheme.colorScheme.error
-          ),
-          shape = RoundedCornerShape(4.dp),
-          border = BorderStroke(1.dp, MaterialTheme.colorScheme.error)
-        ) {
-          Text("Delete Account")
-        }
+        Text("Delete Account")
       }
     }
   }

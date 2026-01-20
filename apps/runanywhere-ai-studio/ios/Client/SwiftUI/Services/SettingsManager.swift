@@ -51,7 +51,7 @@ class SettingsManager: ObservableObject {
     let versions = EXVersions.sharedInstance()
 
     buildInfo = [
-      "appName": Bundle.main.infoDictionary?["CFBundleDisplayName"] ?? "Expo Go",
+      "appName": Bundle.main.infoDictionary?["CFBundleDisplayName"] ?? "RunAnywhere AI Studio",
       "appVersion": getFormattedAppVersion(),
       "expoRuntimeVersion": buildConstants?.expoRuntimeVersion ?? "Unknown",
       "supportedExpoSdks": versions.sdkVersion,

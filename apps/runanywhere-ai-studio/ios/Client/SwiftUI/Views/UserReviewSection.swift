@@ -14,7 +14,7 @@ struct UserReviewSection: View {
 
     VStack(alignment: .leading, spacing: 12) {
       HStack(alignment: .center) {
-        Text("Enjoying Expo Go?")
+        Text("Enjoying RunAnywhere AI Studio?")
           .font(.headline)
 
         Spacer()

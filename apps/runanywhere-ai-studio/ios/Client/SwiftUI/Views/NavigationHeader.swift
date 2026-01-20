@@ -16,7 +16,7 @@ struct NavigationHeader: View {
           .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
           .shadow(color: Color.black.opacity(0.15), radius: 2, x: 0, y: 1)
 
-        Text(viewModel.buildInfo["appName"] as? String ?? "Expo Go")
+        Text(viewModel.buildInfo["appName"] as? String ?? "RunAnywhere AI Studio")
           .font(.headline)
           .fontWeight(.semibold)
       }

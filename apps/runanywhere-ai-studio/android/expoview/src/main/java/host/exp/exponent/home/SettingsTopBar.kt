@@ -24,10 +24,10 @@ fun SettingsTopBar(
       Row(verticalAlignment = Alignment.CenterVertically) {
         Image(
           painter = painterResource(id = R.drawable.big_logo_new_filled),
-          contentDescription = "Expo Go logo",
+          contentDescription = "RunAnywhere AI Studio logo",
           modifier = Modifier.size(32.dp, 32.dp)
         )
-        Text("Expo Go", fontWeight = FontWeight.Bold)
+        Text("RunAnywhere AI Studio", fontWeight = FontWeight.Bold)
       }
     },
     actions = { accountHeader() }

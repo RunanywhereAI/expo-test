@@ -59,7 +59,7 @@ fun UserReviewSection(
         verticalAlignment = Alignment.CenterVertically
       ) {
         Text(
-          text = "Enjoying Expo Go?",
+          text = "Enjoying RunAnywhere AI Studio?",
           style = MaterialTheme.typography.titleMedium,
           fontWeight = FontWeight.Bold,
           modifier = Modifier.weight(1f)

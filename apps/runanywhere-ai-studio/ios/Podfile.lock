@@ -3956,7 +3956,7 @@ PODS:
   - RNZipArchive/Core (6.1.2):
     - React-Core
     - SSZipArchive (~> 2.2)
-  - RunAnywhereCore (0.16.11):
+  - RunAnywhereCore (0.17.4):
     - boost
     - DoubleConversion
     - fast_float
@@ -4998,7 +4998,7 @@ SPEC CHECKSUMS:
   RNSVG: ba3c3bc3cf413f32d1a7012274fe503c6fc1eadd
   RNWorklets: f2ed333c600377955ac5ab798a14210805de846d
   RNZipArchive: cea797a8c993b85d0781a5b253aa10b116c68a06
-  RunAnywhereCore: 11796c2eef4f96d7095433730547a3fe1284b8f0
+  RunAnywhereCore: 83c1cdd6274e6148728b5a68a59ae2e099e372d6
   RunAnywhereLlama: 0aaa2b99d848aef1c75283c85d435545641c93c1
   RunAnywhereONNX: b0513e86df8b382c6559de410d54ae3fc219f874
   SDWebImage: e9c98383c7572d713c1a0d7dd2783b10599b9838
