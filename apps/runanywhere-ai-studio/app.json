@@ -1,0 +1,37 @@
+{
+  "expo": {
+    "name": "RunAnywhere AI Studio",
+    "description": "On-device AI development environment powered by RunAnywhere SDK. Run LLMs, speech recognition, and ML models locally on your device.",
+    "slug": "runanywhere-ai-studio",
+    "privacy": "public",
+    "sdkVersion": "54.0.0",
+    "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "primaryColor": "#6366F1",
+    "updates": {
+      "checkAutomatically": "NEVER",
+      "fallbackToCacheTimeout": 0
+    },
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "host.exp.exponent",
+      "infoPlist": {
+        "CFBundleDisplayName": "RunAnywhere AI"
+      }
+    },
+    "newArchEnabled": true,
+    "android": {
+      "package": "host.exp.exponent"
+    },
+    "androidStatusBar": {
+      "barStyle": "dark-content"
+    },
+    "scheme": "runanywhere",
+    "jsEngine": "hermes",
+    "runtimeVersion": "1.0.0"
+  }
+}
