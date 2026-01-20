@@ -11,6 +11,9 @@ PODS:
     - ExpoModulesTestCore
   - EXApplication (7.0.7):
     - ExpoModulesCore
+  - EXAV (16.0.8):
+    - ExpoModulesCore
+    - ReactCommon/turbomodule/core
   - EXConstants (18.0.9):
     - ExpoModulesCore
   - EXJSONUtils (0.15.0)
@@ -4194,6 +4197,7 @@ DEPENDENCIES:
   - EASClient (from `../../../packages/expo-eas-client/ios`)
   - EASClient/Tests (from `../../../packages/expo-eas-client/ios`)
   - EXApplication (from `../../../packages/expo-application/ios`)
+  - EXAV (from `../../../node_modules/expo-av/ios`)
   - EXConstants (from `../../../packages/expo-constants/ios`)
   - EXJSONUtils (from `../../../packages/expo-json-utils/ios`)
   - EXJSONUtils/Tests (from `../../../packages/expo-json-utils/ios`)
@@ -4444,6 +4448,8 @@ EXTERNAL SOURCES:
     :path: "../../../packages/expo-eas-client/ios"
   EXApplication:
     :path: "../../../packages/expo-application/ios"
+  EXAV:
+    :path: "../../../node_modules/expo-av/ios"
   EXConstants:
     :path: "../../../packages/expo-constants/ios"
   EXJSONUtils:
@@ -4800,6 +4806,7 @@ SPEC CHECKSUMS:
   DoubleConversion: cb417026b2400c8f53ae97020b2be961b59470cb
   EASClient: 68127f1248d2b25fdc82dbbfb17be95d1c4700be
   EXApplication: 296622817d459f46b6c5fe8691f4aac44d2b79e7
+  EXAV: b60fcf142fae6684d295bc28cd7cfcb3335570ea
   EXConstants: a95804601ee4a6aa7800645f9b070d753b1142b3
   EXJSONUtils: 1d3e4590438c3ee593684186007028a14b3686cd
   EXManifests: 224345a575fca389073c416297b6348163f28d1a
@@ -5014,6 +5021,6 @@ SPEC CHECKSUMS:
   Yoga: 5456bb010373068fc92221140921b09d126b116e
   ZXingObjC: 8898711ab495761b2dbbdec76d90164a6d7e14c5
 
-PODFILE CHECKSUM: f1c1d2bf981e4c229856fa15d4a2aac9a73277c7
+PODFILE CHECKSUM: 20cc0364b46f508ea1a8ae9a409d3941d6543741
 
 COCOAPODS: 1.16.2

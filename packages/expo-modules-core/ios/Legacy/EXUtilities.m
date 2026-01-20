@@ -229,3 +229,26 @@ EX_REGISTER_MODULE();
 }
 
 @end
+
+#pragma mark - Legacy compatibility functions (restored from commit a3490d958a)
+
+#if TARGET_OS_OSX
+NSApplication * EXSharedApplication(void)
+{
+  return [NSApplication sharedApplication];
+}
+#else
+UIApplication * EXSharedApplication(void)
+{
+  if ([[[[NSBundle mainBundle] bundlePath] pathExtension] isEqualToString:@"appex"]) {
+    return nil;
+  }
+  return [[UIApplication class] performSelector:@selector(sharedApplication)];
+}
+#endif
+
+NSError *EXErrorWithMessage(NSString *message)
+{
+  NSDictionary<NSString *, id> *errorInfo = @{NSLocalizedDescriptionKey: message};
+  return [[NSError alloc] initWithDomain:@"EXModulesErrorDomain" code:0 userInfo:errorInfo];
+}
