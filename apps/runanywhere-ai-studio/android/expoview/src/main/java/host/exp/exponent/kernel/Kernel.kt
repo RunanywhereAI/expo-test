@@ -377,15 +377,38 @@ class Kernel : KernelInterface() {
 
   fun openHomeActivity() {
     val manager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+    
+    // RUNANYWHERE: Finish any existing ExperienceActivity tasks to prevent them from 
+    // being restored and trying to load kernel JS
     for (task: AppTask in manager.appTasks) {
-      val baseIntent = task.taskInfo.baseIntent
-      if ((HomeActivity::class.java.name == baseIntent.component!!.className)) {
-        task.moveToFront()
-        return
+      try {
+        val baseIntent = task.taskInfo.baseIntent
+        val className = baseIntent.component?.className ?: continue
+        if (className.contains("ExperienceActivity")) {
+          task.finishAndRemoveTask()
+        }
+      } catch (e: Exception) {
+        // Ignore - task may have already finished
       }
     }
+    
+    // Check if HomeActivity already exists
+    for (task: AppTask in manager.appTasks) {
+      try {
+        val baseIntent = task.taskInfo.baseIntent
+        if ((HomeActivity::class.java.name == baseIntent.component?.className)) {
+          task.moveToFront()
+          return
+        }
+      } catch (e: Exception) {
+        // Ignore
+      }
+    }
+    
     val intent = Intent(activityContext, HomeActivity::class.java)
     addIntentDocumentFlags(intent)
+    // Clear any existing activity stack on top
+    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
     activityContext!!.startActivity(intent)
   }
 
@@ -404,7 +427,8 @@ class Kernel : KernelInterface() {
     activityContext = activity
     if (intent.action != null && (ExpoHandlingDelegate.OPEN_APP_INTENT_ACTION == intent.action)) {
       if (!openExperienceFromNotificationIntent(intent)) {
-        openDefaultUrl()
+        // RUNANYWHERE: Open native home instead of kernel JS
+        openHomeActivity()
       }
       return
     }
@@ -498,8 +522,10 @@ class Kernel : KernelInterface() {
   }
 
   private fun openDefaultUrl() {
-    val defaultUrl = KernelConstants.HOME_MANIFEST_URL
-    openExperience(ExperienceOptions(defaultUrl, defaultUrl, null))
+    // RUNANYWHERE: Open native HomeActivity instead of loading kernel JS manifest
+    // The kernel JS causes crashes due to missing TurboModules (PlatformConstants)
+    // We use a native Compose home screen instead
+    openHomeActivity()
   }
 
   override fun openExperience(options: ExperienceOptions) {

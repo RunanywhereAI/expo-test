@@ -19,8 +19,6 @@ import host.exp.exponent.home.HomeActivityEvent
 import host.exp.exponent.home.HomeAppViewModel
 import host.exp.exponent.home.HomeAppViewModelFactory
 import host.exp.exponent.home.RootNavigation
-import host.exp.exponent.home.auth.AuthActivity
-import host.exp.exponent.home.auth.AuthResult
 import host.exp.exponent.kernel.ExpoViewKernel
 import host.exp.exponent.kernel.Kernel
 import host.exp.exponent.services.ThemeSetting
@@ -36,22 +34,11 @@ open class HomeActivity : AppCompatActivity() {
 
   val homeActivityEvents = MutableSharedFlow<HomeActivityEvent>()
 
-  val authLauncher = registerForActivityResult(AuthActivity.Contract()) { result ->
-    when (result) {
-      is AuthResult.Success -> {
-        viewModel.onNewAuthSession(result.sessionSecret)
-      }
-
-      is AuthResult.Canceled -> {}
-    }
-  }
-
   val viewModel: HomeAppViewModel by viewModels {
     HomeAppViewModelFactory(
       kernel.exponentHistoryService,
       ExpoViewKernel.instance,
-      homeActivityEvents,
-      authLauncher
+      homeActivityEvents
     )
   }
 

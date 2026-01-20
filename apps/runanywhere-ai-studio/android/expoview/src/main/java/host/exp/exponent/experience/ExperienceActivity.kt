@@ -155,13 +155,16 @@ open class ExperienceActivity : BaseExperienceActivity(), StartReactInstanceDele
     // TODO: audit this now that kernel logic is on the native side in Kotlin
     var shouldOpenImmediately = true
 
-    // If our activity was killed for memory reasons or because of "Don't keep activities",
-    // try to reload manifest using the savedInstanceState
-    if (savedInstanceState != null) {
-      val manifestUrl = savedInstanceState.getString(KernelConstants.MANIFEST_URL_KEY)
-      if (manifestUrl != null) {
-        this.manifestUrl = manifestUrl
-      }
+    // RUNANYWHERE: Check if this activity was restored from task history or saved state.
+    // If so, don't try to reload the experience - it will cause TurboModule errors.
+    // Instead, finish and let the user go back to the home screen.
+    val isLaunchedFromHistory = (intent.flags and Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) != 0
+    
+    if (savedInstanceState != null || isLaunchedFromHistory) {
+      // Activity is being restored - don't try to reload as context is lost
+      EXL.w(TAG, "ExperienceActivity restored (savedInstanceState=${savedInstanceState != null}, fromHistory=$isLaunchedFromHistory) - finishing to prevent kernel crash")
+      finish()
+      return
     }
 
     // On cold boot to experience, we're given this information from the Kotlin kernel, instead of
@@ -179,6 +182,13 @@ open class ExperienceActivity : BaseExperienceActivity(), StartReactInstanceDele
       if (isOptimistic) {
         shouldOpenImmediately = false
       }
+    }
+    
+    // RUNANYWHERE: If we don't have a manifest URL at this point, we shouldn't be running
+    if (this.manifestUrl == null && bundle?.getString(KernelConstants.MANIFEST_URL_KEY) == null) {
+      EXL.w(TAG, "ExperienceActivity created without manifest URL - finishing")
+      finish()
+      return
     }
 
     FirebaseCrashlytics.getInstance().log("ExperienceActivity.manifestUrl: ${this.manifestUrl}")

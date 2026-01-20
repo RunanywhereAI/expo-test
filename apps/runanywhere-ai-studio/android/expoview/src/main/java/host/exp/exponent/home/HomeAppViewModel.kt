@@ -3,7 +3,6 @@ package host.exp.exponent.home
 import android.app.Activity
 import android.app.Application
 import android.content.Context
-import androidx.activity.result.ActivityResultLauncher
 import androidx.core.content.edit
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
@@ -24,7 +23,6 @@ import host.exp.exponent.graphql.Home_AccountAppsQuery
 import host.exp.exponent.graphql.Home_AccountSnacksQuery
 import host.exp.exponent.graphql.ProjectsQuery
 import host.exp.exponent.graphql.fragment.CurrentUserActorData
-import host.exp.exponent.home.auth.AuthRequestType
 import host.exp.exponent.kernel.ExpoViewKernel
 import host.exp.exponent.services.ApolloClientService
 import host.exp.exponent.services.ExponentHistoryService
@@ -114,8 +112,7 @@ fun Int.toJDuration(unit: DurationUnit) = this.toDuration(unit).toJavaDuration()
 class HomeAppViewModelFactory(
   private val exponentHistoryService: ExponentHistoryService,
   private val expoViewKernel: ExpoViewKernel,
-  private val homeActivityEvents: MutableSharedFlow<HomeActivityEvent>,
-  private val authLauncher: ActivityResultLauncher<AuthRequestType>
+  private val homeActivityEvents: MutableSharedFlow<HomeActivityEvent>
 ) : ViewModelProvider.Factory {
   @Suppress("UNCHECKED_CAST")
   override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
@@ -126,8 +123,7 @@ class HomeAppViewModelFactory(
         application,
         exponentHistoryService,
         expoViewKernel,
-        homeActivityEvents,
-        authLauncher
+        homeActivityEvents
       ) as T
     }
     throw IllegalArgumentException("Unknown ViewModel class")
@@ -138,8 +134,7 @@ class HomeAppViewModel(
   application: Application,
   private val exponentHistoryService: ExponentHistoryService,
   expoViewKernel: ExpoViewKernel,
-  homeActivityEvents: MutableSharedFlow<HomeActivityEvent>,
-  private val authLauncher: ActivityResultLauncher<AuthRequestType>
+  homeActivityEvents: MutableSharedFlow<HomeActivityEvent>
 ) : AndroidViewModel(application) {
   val userReviewState = MutableStateFlow(UserReviewState())
 
@@ -299,8 +294,9 @@ class HomeAppViewModel(
     initialValue = emptyList()
   )
 
+  // RUNANYWHERE: Auth removed - login is a no-op
   fun login() {
-    authLauncher.launch(AuthRequestType.LOGIN)
+    // Authentication screens have been removed
   }
 
   fun onNewAuthSession(sessionSecret: String) {

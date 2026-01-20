@@ -2,7 +2,6 @@
 // RunAnywhere AI Studio - Settings View
 
 import SwiftUI
-import AuthenticationServices
 import AppTrackingTransparency
 
 struct RASettingsView: View {
@@ -10,10 +9,6 @@ struct RASettingsView: View {
   @EnvironmentObject var viewModel: HomeViewModel
   @State private var shouldShowTrackingSection = false
   @State private var isTrackingRequestInFlight = false
-  @State private var isDeleting = false
-  @State private var deletionError: String?
-  @State private var authSession: ASWebAuthenticationSession?
-  private let context = RAAuthPresentationContextProvider()
 
   var body: some View {
     NavigationView {
@@ -32,11 +27,6 @@ struct RASettingsView: View {
 
           // App Info Section
           appInfoSection
-
-          // Account Section (if authenticated)
-          if viewModel.isAuthenticated {
-            accountSection
-          }
 
           // Legal Section
           legalSection
@@ -189,68 +179,6 @@ struct RASettingsView: View {
     }
   }
 
-  // MARK: - Account Section
-  private var accountSection: some View {
-    VStack(alignment: .leading, spacing: RASpacing.medium) {
-      Text("Account")
-        .font(RATypography.headline)
-        .foregroundColor(RAColors.textPrimary)
-
-      VStack(alignment: .leading, spacing: RASpacing.medium) {
-        HStack(spacing: RASpacing.medium) {
-          RAUserAvatar(
-            profilePhoto: viewModel.user?.profilePhoto,
-            username: viewModel.user?.username ?? "User",
-            size: 48
-          )
-
-          VStack(alignment: .leading, spacing: RASpacing.xxSmall) {
-            Text(viewModel.user?.username ?? "User")
-              .font(RATypography.headline)
-              .foregroundColor(RAColors.textPrimary)
-            Text("Signed in")
-              .font(RATypography.caption)
-              .foregroundColor(RAColors.statusGreen)
-          }
-        }
-
-        if let error = deletionError {
-          Text(error)
-            .font(RATypography.caption)
-            .foregroundColor(.white)
-            .padding(RASpacing.medium)
-            .frame(maxWidth: .infinity)
-            .background(RAColors.primaryRed)
-            .cornerRadius(RABorderRadius.medium)
-        }
-
-        Button(action: { viewModel.signOut() }) {
-          Text("Sign Out")
-            .font(RATypography.body)
-            .foregroundColor(RAColors.primaryAccent)
-            .frame(maxWidth: .infinity)
-            .padding(RASpacing.medium)
-            .background(RAColors.primaryAccent.opacity(0.1))
-            .cornerRadius(RABorderRadius.medium)
-        }
-
-        Button(action: handleDeleteAccount) {
-          Text(isDeleting ? "Deleting..." : "Delete Account")
-            .font(RATypography.body)
-            .foregroundColor(RAColors.primaryRed)
-            .frame(maxWidth: .infinity)
-            .padding(RASpacing.medium)
-            .background(RAColors.primaryRed.opacity(0.1))
-            .cornerRadius(RABorderRadius.medium)
-        }
-        .disabled(isDeleting)
-      }
-      .padding(RASpacing.large)
-      .background(RAColors.backgroundSecondary)
-      .cornerRadius(RABorderRadius.large)
-    }
-  }
-
   // MARK: - Legal Section
   private var legalSection: some View {
     VStack(alignment: .leading, spacing: RASpacing.medium) {
@@ -345,44 +273,6 @@ struct RASettingsView: View {
     }
   }
 
-  private func handleDeleteAccount() {
-    guard !isDeleting else { return }
-
-    deletionError = nil
-    isDeleting = true
-
-    let redirectBase = "runanywhere://after-delete"
-    let websiteOrigin = "https://expo.dev"
-    guard let encodedRedirect = redirectBase.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-          let url = URL(string: "\(websiteOrigin)/settings/delete-user-expo-go?post_delete_redirect_uri=\(encodedRedirect)") else {
-      deletionError = "Failed to create delete account URL"
-      isDeleting = false
-      return
-    }
-
-    let session = ASWebAuthenticationSession(url: url, callbackURLScheme: "runanywhere") { [self] callbackURL, error in
-      authSession = nil
-      isDeleting = false
-
-      if let error {
-        if case ASWebAuthenticationSessionError.canceledLogin = error {
-          return
-        }
-        deletionError = error.localizedDescription
-        return
-      }
-
-      if callbackURL != nil {
-        viewModel.signOut()
-        selectedTab = .home
-      }
-    }
-
-    session.presentationContextProvider = context
-    session.prefersEphemeralWebBrowserSession = false
-    authSession = session
-    session.start()
-  }
 }
 
 // MARK: - Theme Option Row
@@ -414,17 +304,6 @@ struct RAThemeOptionRow: View {
       .padding(RASpacing.large)
     }
     .buttonStyle(.plain)
-  }
-}
-
-// MARK: - Auth Context Provider
-private class RAAuthPresentationContextProvider: NSObject, ASWebAuthenticationPresentationContextProviding {
-  func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
-    let window = UIApplication.shared.connectedScenes
-      .compactMap { $0 as? UIWindowScene }
-      .flatMap { $0.windows }
-      .first { $0.isKeyWindow }
-    return window ?? ASPresentationAnchor()
   }
 }
 

@@ -1,11 +1,11 @@
 // Copyright 2015-present 650 Industries. All rights reserved.
+// RUNANYWHERE: Authentication has been removed - this app uses anonymous mode only
 
 import Foundation
 import Combine
 
 @MainActor
 class HomeViewModel: ObservableObject {
-  let authService: AuthenticationService
   let dataService: DataService
   let serverService: DevelopmentServerService
   let settingsManager: SettingsManager
@@ -16,11 +16,6 @@ class HomeViewModel: ObservableObject {
   @Published var errorToShow: ErrorInfo?
   @Published var isNetworkAvailable = true
 
-  @Published var user: UserActor?
-  @Published var selectedAccountId: String?
-  @Published var isAuthenticating = false
-  @Published var isAuthenticated = false
-
   @Published var developmentServers: [DevelopmentServer] = []
   @Published var projects: [ExpoProject] = []
   @Published var snacks: [Snack] = []
@@ -30,9 +25,12 @@ class HomeViewModel: ObservableObject {
   private var cancellables = Set<AnyCancellable>()
   private let persistenceManager = PersistenceManager.shared
 
-  var selectedAccount: Account? { authService.selectedAccount }
-  var isLoggedIn: Bool { authService.isLoggedIn }
-  var userName: String? { user?.username ?? selectedAccount?.name }
+  // RUNANYWHERE: Auth removed - these are stubs for compatibility
+  var selectedAccount: Account? { nil }
+  var isLoggedIn: Bool { false }
+  var isAuthenticated: Bool { false }
+  var userName: String? { nil }
+  var user: UserActor? { nil }
 
   var shakeToShowDevMenu: Bool { settingsManager.shakeToShowDevMenu }
   var threeFingerLongPressEnabled: Bool { settingsManager.threeFingerLongPressEnabled }
@@ -41,7 +39,6 @@ class HomeViewModel: ObservableObject {
 
   convenience init() {
     self.init(
-      authService: AuthenticationService(),
       dataService: DataService(),
       serverService: DevelopmentServerService(),
       settingsManager: SettingsManager()
@@ -49,12 +46,10 @@ class HomeViewModel: ObservableObject {
   }
 
   init(
-    authService: AuthenticationService,
     dataService: DataService,
     serverService: DevelopmentServerService,
     settingsManager: SettingsManager
   ) {
-    self.authService = authService
     self.dataService = dataService
     self.serverService = serverService
     self.settingsManager = settingsManager
@@ -66,11 +61,6 @@ class HomeViewModel: ObservableObject {
 
   func onViewWillAppear() {
     serverService.startDiscovery()
-    serverService.setSessionSecret(authService.sessionSecret)
-
-    if isAuthenticated, let account = selectedAccount {
-      dataService.startPolling(accountName: account.name)
-    }
 
     Task {
       await refreshData()
@@ -82,49 +72,26 @@ class HomeViewModel: ObservableObject {
     serverService.stopDiscovery()
   }
 
+  // RUNANYWHERE: Auth removed - these are no-ops
   func signIn() async {
-    do {
-      try await authService.signIn()
-      if let account = selectedAccount {
-        dataService.startPolling(accountName: account.name)
-      }
-    } catch {
-      showError("Failed to sign in")
-    }
+    // Authentication has been removed
   }
 
   func signUp() async {
-    do {
-      try await authService.signUp()
-      if let account = selectedAccount {
-        dataService.startPolling(accountName: account.name)
-      }
-    } catch {
-      showError("Failed to sign up")
-    }
+    // Authentication has been removed
   }
 
   func signOut() {
-    authService.signOut()
-    dataService.clearData()
-    dataService.stopPolling()
+    // Authentication has been removed
   }
 
   func selectAccount(accountId: String) {
-    authService.selectAccount(accountId: accountId)
-    if let account = selectedAccount {
-      dataService.startPolling(accountName: account.name)
-    }
+    // Authentication has been removed
   }
 
   func refreshData() async {
-    guard let account = selectedAccount else { return }
-
-    async let task = dataService.fetchProjectsAndData(accountName: account.name)
     serverService.discoverDevelopmentServers()
     serverService.refreshRemoteSessions()
-
-    await task
   }
 
   func addToRecentlyOpened(url: String, name: String, iconUrl: String? = nil) {
@@ -198,24 +165,7 @@ class HomeViewModel: ObservableObject {
   }
 
   private func setupSubscriptions() {
-    authService.$user
-      .sink { [weak self] in self?.user = $0 }
-      .store(in: &cancellables)
-
-    authService.$selectedAccountId
-      .sink { [weak self] in self?.selectedAccountId = $0 }
-      .store(in: &cancellables)
-
-    authService.$isAuthenticating
-      .sink { [weak self] in self?.isAuthenticating = $0 }
-      .store(in: &cancellables)
-
-    authService.$isAuthenticated
-      .sink { [weak self] isAuthenticated in
-        self?.isAuthenticated = isAuthenticated
-        self?.serverService.setSessionSecret(self?.authService.sessionSecret)
-      }
-      .store(in: &cancellables)
+    // RUNANYWHERE: Auth subscriptions removed
 
     dataService.$projects
       .sink { [weak self] in self?.projects = $0 }
@@ -240,17 +190,6 @@ class HomeViewModel: ObservableObject {
     settingsManager.objectWillChange
       .sink { [weak self] _ in
         self?.objectWillChange.send()
-      }
-      .store(in: &cancellables)
-
-    authService.$user
-      .combineLatest(authService.$selectedAccountId)
-      .sink { [weak self] user, selectedAccountId in
-        guard let self, let user, let selectedAccountId,
-          let account = user.accounts.first(where: { $0.id == selectedAccountId }) else {
-          return
-        }
-        self.dataService.startPolling(accountName: account.name)
       }
       .store(in: &cancellables)
   }

@@ -13,7 +13,6 @@ enum HomeTab: Hashable {
 // MARK: - Main Root View
 public struct HomeRootView: View {
   @ObservedObject var viewModel: HomeViewModel
-  @State private var showingUserProfile = false
   @State private var selectedTab: HomeTab = .home
 
   init(viewModel: HomeViewModel) {
@@ -56,11 +55,7 @@ public struct HomeRootView: View {
     }
     .accentColor(RAColors.primaryAccent)
     .environmentObject(viewModel)
-    .environmentObject(ExpoGoNavigation(showingUserProfile: $showingUserProfile))
-    .sheet(isPresented: $showingUserProfile) {
-      AccountSheet()
-        .environmentObject(viewModel)
-    }
+    .environmentObject(ExpoGoNavigation())
     .alert(item: $viewModel.errorToShow) { error in
       Alert(
         title: Text("Error"),
@@ -71,15 +66,10 @@ public struct HomeRootView: View {
   }
 }
 
-// MARK: - Legacy Navigation Class
+// MARK: - Navigation Class (Auth removed - stub only)
 class ExpoGoNavigation: ObservableObject {
-  @Binding var showingUserProfile: Bool
-
-  init(showingUserProfile: Binding<Bool>) {
-    self._showingUserProfile = showingUserProfile
-  }
-
+  // RUNANYWHERE: Auth removed - showUserProfile is a no-op
   func showUserProfile() {
-    showingUserProfile = true
+    // Authentication has been removed - no account sheet to show
   }
 }

@@ -484,5 +484,5 @@ struct RAUserAvatar: View {
 #Preview {
   RAHomeView()
     .environmentObject(HomeViewModel())
-    .environmentObject(ExpoGoNavigation(showingUserProfile: .constant(false)))
+    .environmentObject(ExpoGoNavigation())
 }

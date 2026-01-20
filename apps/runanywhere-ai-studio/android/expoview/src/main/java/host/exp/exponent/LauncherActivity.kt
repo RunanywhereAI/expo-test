@@ -43,8 +43,10 @@ class LauncherActivity : AppCompatActivity() {
     }
     NativeModuleDepsProvider.instance.inject(LauncherActivity::class.java, this)
 
-    // Kernel's JS needs to be started for the dev menu to work when the app is launched through the deep link.
-    kernel.startJSKernel(this)
+    // RUNANYWHERE: Skip kernel JS loading - we use native home screen instead.
+    // The kernel JS was causing crashes due to missing TurboModules (PlatformConstants).
+    // User apps are loaded via handleIntent -> openExperience which doesn't need kernel JS.
+    // kernel.startJSKernel(this) // Disabled - kernel JS not needed for native home
     kernel.handleIntent(this, intent)
 
     Handler(mainLooper).postDelayed(

@@ -2,8 +2,45 @@
 
 This document contains solutions to common iOS build issues encountered with the RunAnywhere AI Studio app.
 
-**Last Updated**: January 19, 2026  
-**Build Status**: ✅ **WORKING**
+**Last Updated**: January 20, 2026  
+**Build Status**: ⚠️ **INVESTIGATING** - TurboModule registration issue
+
+---
+
+## Current Known Issue: PlatformConstants TurboModule Error
+
+### Error Message
+```
+[runtime not ready]: Invariant Violation: 
+TurboModuleRegistry.getEnforcing(...): 'PlatformConstants' could not be found.
+Verify that a module by this name is registered in the native binary.
+```
+
+### Root Cause
+This is a **known issue** with React Native's New Architecture (TurboModules + Fabric) in Expo Go-style clients that dynamically load apps. The issue occurs because:
+
+1. React Native's New Architecture requires TurboModules to be registered before JS execution
+2. When loading dynamic apps from Metro servers, there's a timing issue where JS tries to access `PlatformConstants` before it's registered
+3. The New Architecture is **required** because `react-native-reanimated` depends on it
+
+### Current Status
+- **Affects**: Loading user apps from Metro development servers
+- **Does NOT affect**: Native home screen, settings, diagnostics
+- **Cannot disable New Architecture**: `react-native-reanimated` requires it
+
+### Attempted Solutions
+1. ❌ Disable New Architecture (`RCT_NEW_ARCH_ENABLED=0`) - Not possible, reanimated requires it
+2. ⏳ Investigating TurboModule registration order in `ExpoAppInstance`
+3. ⏳ Checking if official Expo Go has same issue or a fix
+
+### Workaround (Temporary)
+If you need to test apps, consider:
+1. Using the official Expo Go app from App Store for development testing
+2. Building a standalone development client with `npx expo prebuild`
+
+### References
+- [Expo SDK 52 New Architecture](https://expo.dev/changelog/2024-11-12-sdk-52)
+- [React Native TurboModules](https://reactnative.dev/docs/the-new-architecture/pillars-turbomodules)
 
 ---
 
@@ -1350,6 +1387,201 @@ All user-facing "Expo Go" text has been replaced with "RunAnywhere AI Studio".
 | `res/values/strings.xml` | App name and notification channel names |
 
 **Note**: Internal class names (e.g., `ExpoGoNavigation`, `ExpoGoReactNativeHost`) are left unchanged as they don't affect user-visible branding and changing them would require significant refactoring.
+
+---
+
+## App Store Submission (January 19, 2026)
+
+### Bundle ID and Signing
+
+| Setting | Value |
+|---------|-------|
+| Bundle ID | `com.runanywhere.aistudio` |
+| Development Team | `L86FH3K93L` (RunAnywhere, Inc) |
+| Notification Extension | `com.runanywhere.aistudio.NotificationServiceExtension` |
+
+### Error: hermesvm.framework MinimumOSVersion Missing
+
+**Error during App Store validation**:
+```
+Invalid MinimumOSVersion. Apps that only support 64-bit devices must specify 
+a deployment target of 8.0 or later. MinimumOSVersion in 
+'RunAnywhere AI Studio.app/Frameworks/hermesvm.framework' is ''.
+
+Missing Info.plist value. A value for the key 'MinimumOSVersion' in bundle 
+RunAnywhere AI Studio.app/Frameworks/hermesvm.framework is required.
+```
+
+**Cause**: The Hermes JavaScript engine framework (`hermesvm.framework`) shipped without the `MinimumOSVersion` key in its Info.plist, which Apple requires for App Store submission.
+
+**Why Podfile fix doesn't work**: The Podfile `post_install` hook runs during `pod install`, but CocoaPods copies the framework to the app bundle during the build phase AFTER this. So the fix gets overwritten.
+
+**Solution**: Added a **Run Script Build Phase** to the Xcode project that runs AFTER "[CP] Embed Pods Frameworks" to fix the Info.plist in the built product.
+
+**Build Phase Added** (ID: `RAFIX0001HERMESMINVERSION`):
+- Name: `[RunAnywhere] Fix hermesvm MinimumOSVersion`
+- Runs after: `[CP] Embed Pods Frameworks`
+- Script:
+```bash
+# Fix hermesvm.framework MinimumOSVersion for App Store validation
+HERMES_PLIST="${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermesvm.framework/Info.plist"
+if [ -f "$HERMES_PLIST" ]; then
+    /usr/libexec/PlistBuddy -c "Add :MinimumOSVersion string 15.1" "$HERMES_PLIST" 2>/dev/null || \
+    /usr/libexec/PlistBuddy -c "Set :MinimumOSVersion 15.1" "$HERMES_PLIST"
+    echo "[RunAnywhere] Fixed MinimumOSVersion in hermesvm.framework"
+fi
+```
+
+**This fix modifies**: `Exponent.xcodeproj/project.pbxproj`
+
+**Status**: ✅ Fixed via Xcode Build Phase (runs during every build)
+
+### Warning: Upload Symbols Failed (dSYM)
+
+**Warning**:
+```
+Upload Symbols Failed
+The archive did not include a dSYM for the hermesvm.framework with the UUIDs [...].
+```
+
+**This is non-blocking** - The app will still upload and work. It just means crash reports from the Hermes engine won't be fully symbolicated. This is a common issue with pre-built frameworks.
+
+### Xcode Scheme Renamed
+
+The Xcode scheme has been renamed from "Expo Go" to "RunAnywhere AI Studio" for consistency.
+
+**File changed**: `Exponent.xcodeproj/xcshareddata/xcschemes/RunAnywhere AI Studio.xcscheme`
+
+---
+
+## Kernel Bypass Fix (January 20, 2026)
+
+### Problem: TurboModuleRegistry PlatformConstants Error
+
+**Error in TestFlight/Release builds**:
+```
+[runtime not ready]: Invariant Violation: 
+TurboModuleRegistry.getEnforcing(...): 'PlatformConstants' could not be found.
+Verify that a module by this name is registered in the native binary.
+```
+
+### Root Cause
+
+The RunAnywhere AI Studio app was trying to load the **Expo Go kernel JavaScript bundle** at startup. This kernel:
+1. Is the React Native-based home screen for official Expo Go
+2. Expects ALL of Expo Go's native modules to be present
+3. Specifically requires `PlatformConstants` TurboModule which wasn't properly registered
+
+The custom RunAnywhere AI Studio build uses:
+- Native SwiftUI home screen (iOS)
+- Native Kotlin/Compose home screen (Android)
+
+So the kernel JavaScript is NOT NEEDED - we only need React Native when loading USER apps.
+
+### Architecture Understanding
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│              RunAnywhere AI Studio Architecture              │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │           Native Shell (iOS/Android)                 │   │
+│  │  - Native modules (Camera, FileSystem, etc.)        │   │
+│  │  - RunAnywhere SDK (LlamaCpp, ONNX)                 │   │
+│  │  - React Native runtime (for user apps)             │   │
+│  └─────────────────────────────────────────────────────┘   │
+│                           │                                 │
+│                           ▼                                 │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │      Native Home Screen (SwiftUI/Kotlin)             │   │
+│  │  - URL entry field                                  │   │
+│  │  - Recent apps                                      │   │
+│  │  - Settings, Diagnostics                            │   │
+│  │  ❌ NO kernel JS loaded                              │   │
+│  └─────────────────────────────────────────────────────┘   │
+│                           │                                 │
+│                    User enters URL                          │
+│                           ▼                                 │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │           User App JS (from Metro/Replit/etc.)       │   │
+│  │  - Full access to native modules                    │   │
+│  │  - Full access to RunAnywhere SDK                   │   │
+│  └─────────────────────────────────────────────────────┘   │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Solution
+
+#### Android Fix
+
+**File modified**: `android/expoview/src/main/java/host/exp/exponent/LauncherActivity.kt`
+
+The `LauncherActivity` was calling `kernel.startJSKernel(this)` at startup which loaded the kernel JavaScript. This has been disabled:
+
+```kotlin
+// BEFORE
+kernel.startJSKernel(this)
+kernel.handleIntent(this, intent)
+
+// AFTER
+// RUNANYWHERE: Skip kernel JS loading - we use native home screen instead.
+// The kernel JS was causing crashes due to missing TurboModules (PlatformConstants).
+// User apps are loaded via handleIntent -> openExperience which doesn't need kernel JS.
+// kernel.startJSKernel(this) // Disabled - kernel JS not needed for native home
+kernel.handleIntent(this, intent)
+```
+
+**Why this works**: 
+- `kernel.handleIntent()` can still open user apps without the kernel JS running
+- User apps use standard Expo SDK which doesn't require kernel-specific modules
+- The native Compose home screen handles all home screen functionality
+
+#### iOS Architecture
+
+**iOS already had the kernel bypass in place**. The `EXRootViewController` overrides `createRootAppAndMakeVisible` to show the SwiftUI `HomeViewController` instead of loading the kernel:
+
+```objc
+// EXRootViewController.m
+- (void)createRootAppAndMakeVisible
+{
+  _homeViewController = [[HomeViewController alloc] init];
+  if (_pendingInitialHomeURL) {
+    _homeViewController.initialURL = _pendingInitialHomeURL;
+  }
+  [self _showHomeViewController];
+}
+```
+
+This shows the native SwiftUI home screen without loading any React Native or kernel JavaScript.
+
+### What Users Can Do
+
+| Action | How it Works |
+|--------|--------------|
+| Launch app | Native home screen shows (no React Native) |
+| Enter URL | React Native initializes for THAT app only |
+| Load Replit app | App's JS bundle loaded, uses standard Expo modules |
+| Use RunAnywhere SDK | LlamaCpp/ONNX modules available in user apps |
+
+### Important Notes
+
+1. **kernel-manifest.json still exists** but is no longer loaded at startup
+2. **User apps work normally** - React Native initializes when loading user apps
+3. **All native modules available** - Camera, FileSystem, RunAnywhere SDK, etc.
+4. **Deep linking works** - `handleIntent()` processes URLs without kernel JS
+
+### If You Still See TurboModule Errors
+
+If you see `PlatformConstants could not be found` errors AFTER this fix, it may indicate:
+1. A build caching issue - clean DerivedData and rebuild
+2. A deeper TurboModule registration issue with React Native New Architecture
+3. The error is happening when loading a USER app, not at startup
+
+**To diagnose**: Check if the error happens:
+- At app startup (before you do anything) → Kernel issue
+- When you try to open a URL/app → User app or TurboModule registration issue
 
 ---
 
