@@ -479,6 +479,11 @@ ios/Client/SwiftUI/
 
 ### Phase 3: Branding Assets ✅ COMPLETE
 
+**Critical Build Settings** (`ios/Exponent.xcodeproj/project.pbxproj`):
+- `PRODUCT_NAME = "RunAnywhere AI Studio"` (was "Expo Go")
+- `EX_BUNDLE_NAME = "RunAnywhere AI Studio"` (was "Expo")
+- These control the actual app name shown on home screen, Settings, and App Store
+
 **iOS Native Assets** (copied from expo-test-2):
 - `ios/Exponent/Images.xcassets/AppIcon.appiconset/*` - App icons
 - `ios/Exponent/Images.xcassets/ExpoGoLaunchIcon.imageset/*` - Launch screen
@@ -572,7 +577,8 @@ ios/Client/SwiftUI/
 | `apps/runanywhere-ai-studio/ios/Exponent.xcodeproj/project.pbxproj` | Added hermesvm build phase |
 | `apps/runanywhere-ai-studio/ios/Exponent/ExpoKit/ExpoKit.m` | Removed GoogleMaps references |
 | `apps/runanywhere-ai-studio/ios/Build-Phases/generate-dynamic-macros.sh` | Graceful skip |
-| `apps/runanywhere-ai-studio/ios/Exponent/Supporting/Info.plist` | RunAnywhere display name, permissions text |
+| `apps/runanywhere-ai-studio/ios/Exponent/Supporting/Info.plist` | CFBundleDisplayName: "RunAnywhere AI Studio", permissions text |
+| `apps/runanywhere-ai-studio/ios/Exponent.xcodeproj/project.pbxproj` | PRODUCT_NAME, EX_BUNDLE_NAME = "RunAnywhere AI Studio" |
 | `apps/runanywhere-ai-studio/ios/Exponent/Supporting/EXBuildConstants.plist` | SDK version 54.0.0 |
 | `apps/runanywhere-ai-studio/ios/Exponent/Supporting/EXDynamicMacros.h` | SDK version 54.0.0 |
 | `apps/runanywhere-ai-studio/ios/Exponent/Images.xcassets/*` | RunAnywhere branded icons and images |
