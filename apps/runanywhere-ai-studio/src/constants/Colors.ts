@@ -6,8 +6,9 @@ export enum ColorTheme {
   DARK = 'dark',
 }
 
-const tintColor = '#4e9bde';
-const darkTintColor = '#1a74b3';
+// RunAnywhere brand colors
+const tintColor = '#FF5500';  // RunAnywhere orange
+const darkTintColor = '#E64500';  // Darker RunAnywhere orange for dark mode
 const error = '#dc3545';
 
 export default {

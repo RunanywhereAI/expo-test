@@ -41,11 +41,11 @@ export function UpgradeWarning({ collapsible = false }: Props) {
           <Row style={{ gap: spacing[2] }}>
             <WarningIcon size={iconSize.small} color={theme.status.warning} />
             <Text type="InterBold" size="small">
-              New Expo Go version coming soon!
+              New RunAnywhere version coming soon!
             </Text>
           </Row>
           <Text size="small" type="InterRegular">
-            A new version of Expo Go will be released to the store soon, and it will{' '}
+            A new version of RunAnywhere will be released to the store soon, and it will{' '}
             <Text size="small" type="InterSemiBold">
               only support SDK {betaSdkVersion}
             </Text>

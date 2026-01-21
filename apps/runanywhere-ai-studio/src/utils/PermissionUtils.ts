@@ -9,7 +9,7 @@ export async function requestCameraPermissionsAsync(): Promise<boolean> {
 export async function alertWithCameraPermissionInstructions(): Promise<void> {
   return Alert.alert(
     'Permission needed',
-    'In order to use the QR code scanner, you must give permission for Expo Go to access the camera. You can grant this permission in the Settings app.',
+    'In order to use the QR code scanner, you must give permission for RunAnywhere to access the camera. You can grant this permission in the Settings app.',
     [
       {
         text: 'Cancel',

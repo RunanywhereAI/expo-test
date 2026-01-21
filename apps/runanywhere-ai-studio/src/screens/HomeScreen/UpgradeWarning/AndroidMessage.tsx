@@ -20,7 +20,7 @@ export function AndroidMessage() {
           onPress={() => Linking.openURL('https://expo.dev/go')}>
           compatible version
         </Text>{' '}
-        of Expo Go.
+        of RunAnywhere.
       </Text>
     </>
   );

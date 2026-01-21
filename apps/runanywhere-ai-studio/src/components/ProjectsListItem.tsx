@@ -35,7 +35,7 @@ export function ProjectsListItem({ name, subtitle, firstTwoBranches, id, first, 
 
   function onPress() {
     // if there's only one branch for the project and there's only one update on that branch and
-    // it is compatible with this version of Expo Go, just launch it upon tapping the row instead of entering
+    // it is compatible with this version of RunAnywhere, just launch it upon tapping the row instead of entering
     // a drill-down UI for exploring branches/updates.
     if (firstTwoBranches.length === 1) {
       const branch = firstTwoBranches[0];

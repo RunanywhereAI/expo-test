@@ -104,7 +104,7 @@ export function HomeScreenHeader({ currentAccount }: Props) {
             />
           </View>
           <Text type="InterBold" color="default">
-            Expo Go
+            RunAnywhere
           </Text>
         </Row>
         {rightContent}

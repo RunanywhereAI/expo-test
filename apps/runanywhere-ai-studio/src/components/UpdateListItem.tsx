@@ -70,7 +70,7 @@ export function UpdateListItem({ update, first, last }: Props) {
                         size="small"
                         ellipsizeMode="tail"
                         numberOfLines={1}>
-                        Not compatible with this version of Expo Go
+                        Not compatible with this version of RunAnywhere
                       </Text>
                     </>
                   )}

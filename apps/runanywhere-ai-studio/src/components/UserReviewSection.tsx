@@ -32,7 +32,7 @@ export default function UserReviewSection({ snacks, apps }: Props) {
         </TouchableOpacity>
         <View padding="medium">
           <Text type="InterBold" size="small" style={styles.title}>
-            Enjoying Expo Go?
+            Enjoying RunAnywhere?
           </Text>
           <Text size="small" type="InterRegular" style={styles.subtitle}>
             Whether you love the app or feel we could be doing better, let us know! Your feedback

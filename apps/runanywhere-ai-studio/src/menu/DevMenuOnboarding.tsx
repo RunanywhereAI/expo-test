@@ -70,7 +70,7 @@ export function DevMenuOnboarding({ onClose }: Props) {
       }}>
       <View>
         <Text size="medium" maxFontSizeMultiplier={1.2}>
-          This is the developer menu. It gives you access to useful tools in Expo Go.
+          This is the developer menu. It gives you access to useful tools in RunAnywhere.
         </Text>
         <Spacer.Vertical size="medium" />
         <Text size="medium" maxFontSizeMultiplier={1.2}>

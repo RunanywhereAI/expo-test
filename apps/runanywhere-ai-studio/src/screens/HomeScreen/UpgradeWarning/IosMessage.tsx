@@ -18,7 +18,7 @@ export function IosMessage() {
         .
       </Text>
       <Text size="small" type="InterRegular">
-        To continue using this version of Expo Go, you can{' '}
+        To continue using this version of RunAnywhere, you can{' '}
         <Text size="small" type="InterSemiBold">
           disable automatic app updates
         </Text>{' '}

@@ -43,7 +43,7 @@ export function SnacksListItem(snackData: Props) {
       if (expoGoMajorVersion && snackMajorVersion) {
         Alert.alert(
           `Selected Snack uses unsupported SDK (${snackMajorVersion})`,
-          `The currently running version of Expo Go supports SDK ${expoGoMajorVersion} only. Update your Snack to this version to run it.`
+          `The currently running version of RunAnywhere supports SDK ${expoGoMajorVersion} only. Update your Snack to this version to run it.`
         );
       } else {
         // Unlikely to hit this it's a good fallback case if we somehow get
