@@ -16,7 +16,7 @@ $expo_updates_create_updates_resources = false
 
 prepare_react_native_project!
 
-target 'Expo Go' do
+target 'RunAnywhere AI Studio' do
   pod 'CocoaLumberjack', '~> 3.5.3'
   pod 'MBProgressHUD', '~> 1.2.0'
 

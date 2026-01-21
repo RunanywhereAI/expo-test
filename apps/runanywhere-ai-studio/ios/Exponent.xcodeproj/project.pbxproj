@@ -47,13 +47,13 @@
 		40CB1D772CD2A0C200CB3717 /* EXSplashScreenService.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CB1D6E2CD2A0C200CB3717 /* EXSplashScreenService.m */; };
 		4A62800A2E69DBF000D916B0 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 4A6280092E69DBF000D916B0 /* AppIcon.icon */; };
 		78CEE2D11ACD07D70095B124 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78CEE2D01ACD07D70095B124 /* Images.xcassets */; };
+		7B291D273A3DB3C3F5243C52 /* libPods-RunAnywhere AI Studio-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 300E5B693D8CFF6633DCC25D /* libPods-RunAnywhere AI Studio-Tests.a */; };
 		8397AA3E2CC969A5000A6349 /* EXVersionedNetworkInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8397AA3D2CC96997000A6349 /* EXVersionedNetworkInterceptor.swift */; };
 		84713BFB28584A0100E86B56 /* EXErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84713BFA28584A0100E86B56 /* EXErrorView.xib */; };
 		8746D75E24D04B2300BFAD22 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8746D75C24D04B2300BFAD22 /* LaunchScreen.storyboard */; };
 		8764788D270F1AF30076CA5F /* EXAppLoadingProgressWindowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8764788C270F1AF30076CA5F /* EXAppLoadingProgressWindowViewController.swift */; };
 		878B4AFE24C5B8CC00D23E0A /* EXAppLoadingProgressWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 878B4AFD24C5B8CC00D23E0A /* EXAppLoadingProgressWindowController.m */; };
 		8A8D97E82DAE4389009DBB9F /* EXPackagerLogHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8D97E72DAE4389009DBB9F /* EXPackagerLogHelper.swift */; };
-		ABE005EBFA92123617D22216 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D1A518C4DFB7D94147AC4B /* ExpoModulesProvider.swift */; };
 		B216039C2A017E490003168A /* EXExpoGoLauncherSelectionPolicyFilterAware.swift in Sources */ = {isa = PBXBuildFile; fileRef = B216039B2A017E490003168A /* EXExpoGoLauncherSelectionPolicyFilterAware.swift */; };
 		B22BB0342366F3F400EE04EC /* EXScopedErrorRecoveryModule.m in Sources */ = {isa = PBXBuildFile; fileRef = B22BB0322366F3F400EE04EC /* EXScopedErrorRecoveryModule.m */; };
 		B248B8812AD88337003C9C10 /* ExpoGoExpoUpdatesModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B248B8802AD88337003C9C10 /* ExpoGoExpoUpdatesModule.swift */; };
@@ -123,10 +123,11 @@
 		B5FB74EF1FF6DADC001C764B /* EXTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B5FB74231FF6DADB001C764B /* EXTest.m */; };
 		B5FB74F01FF6DADC001C764B /* EXScopedBridgeModule.m in Sources */ = {isa = PBXBuildFile; fileRef = B5FB74261FF6DADB001C764B /* EXScopedBridgeModule.m */; };
 		B5FB74F11FF6DADC001C764B /* EXScopedEventEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = B5FB74281FF6DADB001C764B /* EXScopedEventEmitter.m */; };
-		B832D3668B2FFD1CED2DDE12 /* libPods-Expo Go-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9003E4BAC9D7FD870EE69703 /* libPods-Expo Go-Tests.a */; };
+		B6123BA51D7221B66245219D /* libPods-RunAnywhere AI Studio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 23918599902D9D23EA9D6C47 /* libPods-RunAnywhere AI Studio.a */; };
 		BBE8539422B98829001FF9C2 /* EXScopedFontLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE8539322B98828001FF9C2 /* EXScopedFontLoader.m */; };
+		CAB3235796739E17A5857190 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA53361A3AC9F85F620873AF /* ExpoModulesProvider.swift */; };
 		CBB185782BE29F7A00E5067C /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = CBB185772BE29F7A00E5067C /* PrivacyInfo.xcprivacy */; };
-		EC8D7E182E36030D45964678 /* libPods-Expo Go.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D8ABD4D495DA97B3FFF6F8A3 /* libPods-Expo Go.a */; };
+		DCD4370675F7B2F66EED9C8F /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F717D9185BADD77065647F9 /* ExpoModulesProvider.swift */; };
 		F108698B2448B11D00B7DC04 /* EXDevMenuMotionInterceptor.m in Sources */ = {isa = PBXBuildFile; fileRef = F108698A2448B11D00B7DC04 /* EXDevMenuMotionInterceptor.m */; };
 		F108698E2448C6B900B7DC04 /* EXDevMenuGestureInterceptor.m in Sources */ = {isa = PBXBuildFile; fileRef = F108698D2448C6B900B7DC04 /* EXDevMenuGestureInterceptor.m */; };
 		F116A3C02445EBBB008FA957 /* EXDevMenuWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = F116A3BF2445EBBB008FA957 /* EXDevMenuWindow.m */; };
@@ -197,14 +198,17 @@
 		0799CFD921839B520039E97C /* EXSession.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EXSession.m; sourceTree = "<group>"; };
 		07C6733324D230FB003F3F5C /* EXAppLoaderExpoUpdates.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EXAppLoaderExpoUpdates.h; sourceTree = "<group>"; };
 		07C6733424D2310C003F3F5C /* EXAppLoaderExpoUpdates.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EXAppLoaderExpoUpdates.m; sourceTree = "<group>"; };
+		0F717D9185BADD77065647F9 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-RunAnywhere AI Studio-Tests/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		19B2EF731FB25A1A003F2E1B /* EXCachedResourceManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EXCachedResourceManager.h; sourceTree = "<group>"; };
 		19B2EF741FB25A1A003F2E1B /* EXCachedResourceManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EXCachedResourceManager.m; sourceTree = "<group>"; };
+		23918599902D9D23EA9D6C47 /* libPods-RunAnywhere AI Studio.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RunAnywhere AI Studio.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		25742BE52174B8BE003E7453 /* EXExpoUserNotificationCenterProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EXExpoUserNotificationCenterProxy.h; sourceTree = "<group>"; };
 		25742BE62174B8BE003E7453 /* EXExpoUserNotificationCenterProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EXExpoUserNotificationCenterProxy.m; sourceTree = "<group>"; };
 		265F3243A214713066396657 /* Pods-Expo Go (main)-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Expo Go (main)-Tests.release.xcconfig"; path = "Target Support Files/Pods-Expo Go (main)-Tests/Pods-Expo Go (main)-Tests.release.xcconfig"; sourceTree = "<group>"; };
 		28F885A328FEC26000CFD75C /* EXTextDirectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EXTextDirectionController.swift; sourceTree = "<group>"; };
 		2D5265E9294998B5001BB2BB /* EXDevelopmentHomeLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EXDevelopmentHomeLoader.h; sourceTree = "<group>"; };
 		2D5265EA294998B5001BB2BB /* EXDevelopmentHomeLoader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EXDevelopmentHomeLoader.m; sourceTree = "<group>"; };
+		300E5B693D8CFF6633DCC25D /* libPods-RunAnywhere AI Studio-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RunAnywhere AI Studio-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		31361A582260B2F600662769 /* EXScopedSecureStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EXScopedSecureStore.h; sourceTree = "<group>"; };
 		31361A592260B2F600662769 /* EXScopedSecureStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EXScopedSecureStore.m; sourceTree = "<group>"; };
 		31361A5F2261C65A00662769 /* EXPermissionsManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EXPermissionsManager.h; sourceTree = "<group>"; };
@@ -253,9 +257,10 @@
 		40CB1D6E2CD2A0C200CB3717 /* EXSplashScreenService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EXSplashScreenService.m; sourceTree = "<group>"; };
 		45675DFC5DFCA8A77C135D1D /* Pods-Expo Go (main)-Expo Go.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Expo Go (main)-Expo Go.release.xcconfig"; path = "Target Support Files/Pods-Expo Go (main)-Expo Go/Pods-Expo Go (main)-Expo Go.release.xcconfig"; sourceTree = "<group>"; };
 		4A6280092E69DBF000D916B0 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
-		70D1A518C4DFB7D94147AC4B /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-Expo Go/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
+		5529146B49A133E65E6229D2 /* Pods-RunAnywhere AI Studio-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunAnywhere AI Studio-Tests.debug.xcconfig"; path = "Target Support Files/Pods-RunAnywhere AI Studio-Tests/Pods-RunAnywhere AI Studio-Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		71773906C5EB4CA89B3A271F /* Pods-Expo Go (main)-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Expo Go (main)-Tests.debug.xcconfig"; path = "Target Support Files/Pods-Expo Go (main)-Tests/Pods-Expo Go (main)-Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		78CEE2C01ACD07D70095B124 /* Expo Go.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Expo Go.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		788236268AE7A4ACC61EE77B /* Pods-RunAnywhere AI Studio.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunAnywhere AI Studio.debug.xcconfig"; path = "Target Support Files/Pods-RunAnywhere AI Studio/Pods-RunAnywhere AI Studio.debug.xcconfig"; sourceTree = "<group>"; };
+		78CEE2C01ACD07D70095B124 /* RunAnywhere AI Studio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RunAnywhere AI Studio.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		78CEE2D01ACD07D70095B124 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8397AA3D2CC96997000A6349 /* EXVersionedNetworkInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EXVersionedNetworkInterceptor.swift; sourceTree = "<group>"; };
 		83BF8C0E87795C6808128A31 /* Pods-Expo Go.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Expo Go.release.xcconfig"; path = "Target Support Files/Pods-Expo Go/Pods-Expo Go.release.xcconfig"; sourceTree = "<group>"; };
@@ -267,7 +272,6 @@
 		88A25B1DAF71DFE5C4134A46 /* libPods-Expo Go-Expo Go (versioned).a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Expo Go-Expo Go (versioned).a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A8D97E72DAE4389009DBB9F /* EXPackagerLogHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EXPackagerLogHelper.swift; sourceTree = "<group>"; };
 		8EE60BD85240AF63736C047A /* Pods-Expo Go-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Expo Go-Tests.debug.xcconfig"; path = "Target Support Files/Pods-Expo Go-Tests/Pods-Expo Go-Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		9003E4BAC9D7FD870EE69703 /* libPods-Expo Go-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Expo Go-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6EAF60D92D03B190DFCD5D2 /* Pods-Expo Go-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Expo Go-Tests.release.xcconfig"; path = "Target Support Files/Pods-Expo Go-Tests/Pods-Expo Go-Tests.release.xcconfig"; sourceTree = "<group>"; };
 		B216039B2A017E490003168A /* EXExpoGoLauncherSelectionPolicyFilterAware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EXExpoGoLauncherSelectionPolicyFilterAware.swift; sourceTree = "<group>"; };
 		B22BB0322366F3F400EE04EC /* EXScopedErrorRecoveryModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXScopedErrorRecoveryModule.m; sourceTree = "<group>"; };
@@ -402,11 +406,13 @@
 		B5FB74261FF6DADB001C764B /* EXScopedBridgeModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXScopedBridgeModule.m; sourceTree = "<group>"; };
 		B5FB74271FF6DADB001C764B /* EXScopedEventEmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXScopedEventEmitter.h; sourceTree = "<group>"; };
 		B5FB74281FF6DADB001C764B /* EXScopedEventEmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXScopedEventEmitter.m; sourceTree = "<group>"; };
+		BA53361A3AC9F85F620873AF /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-RunAnywhere AI Studio/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
+		BB52BA2E06C109C55945CE1A /* Pods-RunAnywhere AI Studio-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunAnywhere AI Studio-Tests.release.xcconfig"; path = "Target Support Files/Pods-RunAnywhere AI Studio-Tests/Pods-RunAnywhere AI Studio-Tests.release.xcconfig"; sourceTree = "<group>"; };
 		BBE8539222B98828001FF9C2 /* EXScopedFontLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXScopedFontLoader.h; sourceTree = "<group>"; };
 		BBE8539322B98828001FF9C2 /* EXScopedFontLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXScopedFontLoader.m; sourceTree = "<group>"; };
 		C279B31A23EF096F3969DAD5 /* Pods-Expo Go.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Expo Go.debug.xcconfig"; path = "Target Support Files/Pods-Expo Go/Pods-Expo Go.debug.xcconfig"; sourceTree = "<group>"; };
 		CBB185772BE29F7A00E5067C /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		D8ABD4D495DA97B3FFF6F8A3 /* libPods-Expo Go.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Expo Go.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5FE327BAD3304D92910C968 /* Pods-RunAnywhere AI Studio.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunAnywhere AI Studio.release.xcconfig"; path = "Target Support Files/Pods-RunAnywhere AI Studio/Pods-RunAnywhere AI Studio.release.xcconfig"; sourceTree = "<group>"; };
 		F10869892448B11D00B7DC04 /* EXDevMenuMotionInterceptor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EXDevMenuMotionInterceptor.h; sourceTree = "<group>"; };
 		F108698A2448B11D00B7DC04 /* EXDevMenuMotionInterceptor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EXDevMenuMotionInterceptor.m; sourceTree = "<group>"; };
 		F108698C2448C6B800B7DC04 /* EXDevMenuGestureInterceptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXDevMenuGestureInterceptor.h; sourceTree = "<group>"; };
@@ -453,7 +459,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F77DDB931E04AC1100624CA2 /* SafariServices.framework in Frameworks */,
-				EC8D7E182E36030D45964678 /* libPods-Expo Go.a in Frameworks */,
+				B6123BA51D7221B66245219D /* libPods-RunAnywhere AI Studio.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,7 +467,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B832D3668B2FFD1CED2DDE12 /* libPods-Expo Go-Tests.a in Frameworks */,
+				7B291D273A3DB3C3F5243C52 /* libPods-RunAnywhere AI Studio-Tests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -486,6 +492,7 @@
 			isa = PBXGroup;
 			children = (
 				34656423B7AD3C99D408EF4F /* ExpoModulesProvider.swift */,
+				0F717D9185BADD77065647F9 /* ExpoModulesProvider.swift */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -495,8 +502,8 @@
 			children = (
 				F77DDB921E04AC1100624CA2 /* SafariServices.framework */,
 				88A25B1DAF71DFE5C4134A46 /* libPods-Expo Go-Expo Go (versioned).a */,
-				D8ABD4D495DA97B3FFF6F8A3 /* libPods-Expo Go.a */,
-				9003E4BAC9D7FD870EE69703 /* libPods-Expo Go-Tests.a */,
+				23918599902D9D23EA9D6C47 /* libPods-RunAnywhere AI Studio.a */,
+				300E5B693D8CFF6633DCC25D /* libPods-RunAnywhere AI Studio-Tests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -565,6 +572,14 @@
 			path = AppInstance;
 			sourceTree = "<group>";
 		};
+		7390B2E556CEA494EF7B6DA5 /* RunAnywhere AI Studio */ = {
+			isa = PBXGroup;
+			children = (
+				BA53361A3AC9F85F620873AF /* ExpoModulesProvider.swift */,
+			);
+			name = "RunAnywhere AI Studio";
+			sourceTree = "<group>";
+		};
 		78CEE2B71ACD07D70095B124 = {
 			isa = PBXGroup;
 			children = (
@@ -589,7 +604,7 @@
 		78CEE2C11ACD07D70095B124 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				78CEE2C01ACD07D70095B124 /* Expo Go.app */,
+				78CEE2C01ACD07D70095B124 /* RunAnywhere AI Studio.app */,
 				B51333401CE649FE00E9FC9E /* ExponentIntegrationTests.xctest */,
 				B505BA0E20CAF77A0046ACFB /* Tests.xctest */,
 				FCF6D36D25B34BC200808BF5 /* ExpoNotificationServiceExtension.appex */,
@@ -614,8 +629,8 @@
 		994130004C859A4758AD583C /* ExpoModulesProviders */ = {
 			isa = PBXGroup;
 			children = (
-				CB1F0CEE33FA52600597D003 /* Expo Go */,
 				2676C57A9176C75127D22133 /* Tests */,
+				7390B2E556CEA494EF7B6DA5 /* RunAnywhere AI Studio */,
 			);
 			name = ExpoModulesProviders;
 			sourceTree = "<group>";
@@ -631,6 +646,10 @@
 				45675DFC5DFCA8A77C135D1D /* Pods-Expo Go (main)-Expo Go.release.xcconfig */,
 				71773906C5EB4CA89B3A271F /* Pods-Expo Go (main)-Tests.debug.xcconfig */,
 				265F3243A214713066396657 /* Pods-Expo Go (main)-Tests.release.xcconfig */,
+				788236268AE7A4ACC61EE77B /* Pods-RunAnywhere AI Studio.debug.xcconfig */,
+				D5FE327BAD3304D92910C968 /* Pods-RunAnywhere AI Studio.release.xcconfig */,
+				5529146B49A133E65E6229D2 /* Pods-RunAnywhere AI Studio-Tests.debug.xcconfig */,
+				BB52BA2E06C109C55945CE1A /* Pods-RunAnywhere AI Studio-Tests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -1040,14 +1059,6 @@
 			path = ScopedModule;
 			sourceTree = "<group>";
 		};
-		CB1F0CEE33FA52600597D003 /* Expo Go */ = {
-			isa = PBXGroup;
-			children = (
-				70D1A518C4DFB7D94147AC4B /* ExpoModulesProvider.swift */,
-			);
-			name = "Expo Go";
-			sourceTree = "<group>";
-		};
 		F12A1AB722ABD461008542C6 /* Build-Phases */ = {
 			isa = PBXGroup;
 			children = (
@@ -1080,9 +1091,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		78CEE2BF1ACD07D70095B124 /* Expo Go */ = {
+		78CEE2BF1ACD07D70095B124 /* RunAnywhere AI Studio */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 78CEE2E31ACD07D70095B124 /* Build configuration list for PBXNativeTarget "Expo Go" */;
+			buildConfigurationList = 78CEE2E31ACD07D70095B124 /* Build configuration list for PBXNativeTarget "RunAnywhere AI Studio" */;
 			buildPhases = (
 				F9FE21357CDA656D80CBF8B4 /* [CP] Check Pods Manifest.lock */,
 				78CEE2F21ACDF25E0095B124 /* Generate Dynamic Macros */,
@@ -1105,9 +1116,9 @@
 			fileSystemSynchronizedGroups = (
 				2D1A6CC92D9B38910007E94A /* Notifications */,
 			);
-			name = "Expo Go";
+			name = "RunAnywhere AI Studio";
 			productName = Exponent;
-			productReference = 78CEE2C01ACD07D70095B124 /* Expo Go.app */;
+			productReference = 78CEE2C01ACD07D70095B124 /* RunAnywhere AI Studio.app */;
 			productType = "com.apple.product-type.application";
 		};
 		B505BA0D20CAF77A0046ACFB /* Tests */ = {
@@ -1235,7 +1246,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				78CEE2BF1ACD07D70095B124 /* Expo Go */,
+				78CEE2BF1ACD07D70095B124 /* RunAnywhere AI Studio */,
 				B513333F1CE649FE00E9FC9E /* ExponentIntegrationTests */,
 				B505BA0D20CAF77A0046ACFB /* Tests */,
 				FCF6D36C25B34BC200808BF5 /* ExpoNotificationServiceExtension */,
@@ -1336,15 +1347,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Expo Go/Pods-Expo Go-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-RunAnywhere AI Studio/Pods-RunAnywhere AI Studio-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Expo Go/Pods-Expo Go-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-RunAnywhere AI Studio/Pods-RunAnywhere AI Studio-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Expo Go/Pods-Expo Go-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RunAnywhere AI Studio/Pods-RunAnywhere AI Studio-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		78CEE2F21ACDF25E0095B124 /* Generate Dynamic Macros */ = {
@@ -1368,15 +1379,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Expo Go/Pods-Expo Go-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-RunAnywhere AI Studio/Pods-RunAnywhere AI Studio-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Expo Go/Pods-Expo Go-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-RunAnywhere AI Studio/Pods-RunAnywhere AI Studio-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Expo Go/Pods-Expo Go-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RunAnywhere AI Studio/Pods-RunAnywhere AI Studio-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A04F3C9AC66B709E16F4F5AB /* [Expo] Configure project */ = {
@@ -1408,15 +1419,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Expo Go-Tests/Pods-Expo Go-Tests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-RunAnywhere AI Studio-Tests/Pods-RunAnywhere AI Studio-Tests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Expo Go-Tests/Pods-Expo Go-Tests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-RunAnywhere AI Studio-Tests/Pods-RunAnywhere AI Studio-Tests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Expo Go-Tests/Pods-Expo Go-Tests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RunAnywhere AI Studio-Tests/Pods-RunAnywhere AI Studio-Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B915B6736A073215103D76E4 /* [Expo] Configure project */ = {
@@ -1430,17 +1441,17 @@
 			inputPaths = (
 				"$(SRCROOT)/.xcode.env",
 				"$(SRCROOT)/.xcode.env.local",
-				"$(SRCROOT)/Pods/Target Support Files/Pods-Expo Go-Tests/expo-configure-project.sh",
+				"$(SRCROOT)/Pods/Target Support Files/Pods-RunAnywhere AI Studio-Tests/expo-configure-project.sh",
 			);
 			name = "[Expo] Configure project";
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(SRCROOT)/Pods/Target Support Files/Pods-Expo Go-Tests/ExpoModulesProvider.swift",
+				"$(SRCROOT)/Pods/Target Support Files/Pods-RunAnywhere AI Studio-Tests/ExpoModulesProvider.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-Expo\\ Go-Tests/expo-configure-project.sh\"\n";
+			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-RunAnywhere\\ AI\\ Studio-Tests/expo-configure-project.sh\"\n";
 		};
 		B9B26483058A19438FCA6016 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1457,7 +1468,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Expo Go-Tests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-RunAnywhere AI Studio-Tests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1476,17 +1487,17 @@
 				"$(SRCROOT)/.xcode.env",
 				"$(SRCROOT)/.xcode.env.local",
 				"$(SRCROOT)/Exponent/Supporting/Exponent.entitlements",
-				"$(SRCROOT)/Pods/Target Support Files/Pods-Expo Go/expo-configure-project.sh",
+				"$(SRCROOT)/Pods/Target Support Files/Pods-RunAnywhere AI Studio/expo-configure-project.sh",
 			);
 			name = "[Expo] Configure project";
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(SRCROOT)/Pods/Target Support Files/Pods-Expo Go/ExpoModulesProvider.swift",
+				"$(SRCROOT)/Pods/Target Support Files/Pods-RunAnywhere AI Studio/ExpoModulesProvider.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-Expo\\ Go/expo-configure-project.sh\"\n";
+			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-RunAnywhere\\ AI\\ Studio/expo-configure-project.sh\"\n";
 		};
 		C9D8FB1F6F0BC1A178671F84 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1494,15 +1505,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Expo Go-Tests/Pods-Expo Go-Tests-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-RunAnywhere AI Studio-Tests/Pods-RunAnywhere AI Studio-Tests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Expo Go-Tests/Pods-Expo Go-Tests-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-RunAnywhere AI Studio-Tests/Pods-RunAnywhere AI Studio-Tests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Expo Go-Tests/Pods-Expo Go-Tests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RunAnywhere AI Studio-Tests/Pods-RunAnywhere AI Studio-Tests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F9FE21357CDA656D80CBF8B4 /* [CP] Check Pods Manifest.lock */ = {
@@ -1520,7 +1531,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Expo Go-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-RunAnywhere AI Studio-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1658,7 +1669,7 @@
 				40CB1D772CD2A0C200CB3717 /* EXSplashScreenService.m in Sources */,
 				402EB0AE2DAE561500A2B4A0 /* EXProgressHUD.m in Sources */,
 				28F885A428FEC26000CFD75C /* EXTextDirectionController.swift in Sources */,
-				ABE005EBFA92123617D22216 /* ExpoModulesProvider.swift in Sources */,
+				CAB3235796739E17A5857190 /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1676,6 +1687,7 @@
 				B5854ED920D0790C001D2F6E /* EXDevTestCase.m in Sources */,
 				B5854EEB20D07D4D001D2F6E /* EXLinkingTests.m in Sources */,
 				FB4B49E32E5D99D79400A124 /* ExpoModulesProvider.swift in Sources */,
+				DCD4370675F7B2F66EED9C8F /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1701,12 +1713,12 @@
 /* Begin PBXTargetDependency section */
 		B505BA1420CAF77A0046ACFB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 78CEE2BF1ACD07D70095B124 /* Expo Go */;
+			target = 78CEE2BF1ACD07D70095B124 /* RunAnywhere AI Studio */;
 			targetProxy = B505BA1320CAF77A0046ACFB /* PBXContainerItemProxy */;
 		};
 		B51333461CE649FE00E9FC9E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 78CEE2BF1ACD07D70095B124 /* Expo Go */;
+			target = 78CEE2BF1ACD07D70095B124 /* RunAnywhere AI Studio */;
 			targetProxy = B51333451CE649FE00E9FC9E /* PBXContainerItemProxy */;
 		};
 		FCF6D37325B34BC200808BF5 /* PBXTargetDependency */ = {
@@ -1868,7 +1880,7 @@
 		};
 		78CEE2E41ACD07D70095B124 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C279B31A23EF096F3969DAD5 /* Pods-Expo Go.debug.xcconfig */;
+			baseConfigurationReference = 788236268AE7A4ACC61EE77B /* Pods-RunAnywhere AI Studio.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				APP_OWNER = Expo;
@@ -1940,7 +1952,7 @@
 		};
 		78CEE2E51ACD07D70095B124 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 83BF8C0E87795C6808128A31 /* Pods-Expo Go.release.xcconfig */;
+			baseConfigurationReference = D5FE327BAD3304D92910C968 /* Pods-RunAnywhere AI Studio.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				APP_OWNER = Expo;
@@ -2010,7 +2022,7 @@
 		};
 		B505BA1520CAF77A0046ACFB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8EE60BD85240AF63736C047A /* Pods-Expo Go-Tests.debug.xcconfig */;
+			baseConfigurationReference = 5529146B49A133E65E6229D2 /* Pods-RunAnywhere AI Studio-Tests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -2042,7 +2054,7 @@
 		};
 		B505BA1620CAF77A0046ACFB /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A6EAF60D92D03B190DFCD5D2 /* Pods-Expo Go-Tests.release.xcconfig */;
+			baseConfigurationReference = BB52BA2E06C109C55945CE1A /* Pods-RunAnywhere AI Studio-Tests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -2208,7 +2220,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		78CEE2E31ACD07D70095B124 /* Build configuration list for PBXNativeTarget "Expo Go" */ = {
+		78CEE2E31ACD07D70095B124 /* Build configuration list for PBXNativeTarget "RunAnywhere AI Studio" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				78CEE2E41ACD07D70095B124 /* Debug */,
