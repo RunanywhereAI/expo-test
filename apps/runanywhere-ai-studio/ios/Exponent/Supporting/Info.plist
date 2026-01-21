@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>Expo Go</string>
+	<string>RunAnywhere AI</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -33,8 +33,8 @@
 			<array>
 				<string>exp</string>
 				<string>exps</string>
-				<string>fb1696089354000816</string>
-				<string>expauth</string>
+				<string>runanywhere</string>
+				<string>runanywhere-ai</string>
 			</array>
 		</dict>
 		<dict>
@@ -71,7 +71,7 @@
 	<key>FacebookAutoLogAppEventsEnabled</key>
 	<false/>
 	<key>FacebookDisplayName</key>
-	<string>Expo Go</string>
+	<string>RunAnywhere AI</string>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-3940256099942544~1458002511</string>
 	<key>GADDelayAppMeasurementInit</key>
@@ -92,33 +92,35 @@
 		<true/>
 	</dict>
 	<key>NSCalendarsFullAccessUsageDescription</key>
-	<string>Allow Expo projects to access your calendar</string>
+	<string>Allow RunAnywhere AI to access your calendar</string>
 	<key>NSCalendarsUsageDescription</key>
-	<string>Allow Expo projects to access your calendar</string>
+	<string>Allow RunAnywhere AI to access your calendar</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Allow Expo Go to access your camera to take photos</string>
+	<string>Allow RunAnywhere AI to access your camera for AI-powered features</string>
 	<key>NSContactsUsageDescription</key>
-	<string>Allow Expo projects to access your contacts</string>
+	<string>Allow RunAnywhere AI to access your contacts</string>
 	<key>NSLocalNetworkUsageDescription</key>
-	<string>Expo Go needs access to your local network to load projects from your development server</string>
+	<string>RunAnywhere AI needs access to your local network for development</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Allow Expo projects to use your location</string>
+	<string>Allow RunAnywhere AI to use your location</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Allow Expo projects to use your location</string>
+	<string>Allow RunAnywhere AI to use your location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>The app shows you the current location on a map and makes it available when you request it</string>
+	<string>RunAnywhere AI uses your location for location-based AI features</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Allow Expo projects to access your microphone</string>
+	<string>Allow RunAnywhere AI to access your microphone for speech recognition and audio AI features</string>
 	<key>NSMotionUsageDescription</key>
-	<string>Allow Expo projects to access your device accelerometer</string>
+	<string>Allow RunAnywhere AI to access your device sensors</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Give Expo projects permission to save photos</string>
+	<string>Allow RunAnywhere AI to save photos</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Give Expo projects permission to access your photos</string>
+	<string>Allow RunAnywhere AI to access your photos for AI processing</string>
 	<key>NSRemindersFullAccessUsageDescription</key>
-	<string>Allow Expo projects to access your reminders</string>
+	<string>Allow RunAnywhere AI to access your reminders</string>
 	<key>NSRemindersUsageDescription</key>
-	<string>Allow Expo projects to access your reminders</string>
+	<string>Allow RunAnywhere AI to access your reminders</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Allow RunAnywhere AI to use speech recognition for voice commands</string>
 	<key>NSUserTrackingUsageDescription</key>
 	<string>This identifier will be used to deliver personalized ads to you</string>
 	<key>RCTNewArchEnabled</key>
