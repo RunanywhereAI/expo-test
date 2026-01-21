@@ -477,13 +477,43 @@ ios/Client/SwiftUI/
 
 ---
 
-### Phase 3: Branding Assets
+### Phase 3: Branding Assets ✅ COMPLETE
 
-**Files to copy from expo-test-2**:
-- `ios/Exponent/Images.xcassets/AppIcon.appiconset/*`
-- `ios/Exponent/Images.xcassets/ExpoGoLaunchIcon.imageset/*`
-- `ios/Exponent/Images.xcassets/expo-go-logo.imageset/*`
-- `ios/Exponent/Images.xcassets/Icon.imageset/*`
+**iOS Native Assets** (copied from expo-test-2):
+- `ios/Exponent/Images.xcassets/AppIcon.appiconset/*` - App icons
+- `ios/Exponent/Images.xcassets/ExpoGoLaunchIcon.imageset/*` - Launch screen
+- `ios/Exponent/Images.xcassets/expo-go-logo.imageset/*` - Logo
+- `ios/Exponent/Images.xcassets/Icon.imageset/*` - Icon variants
+- `ios/Exponent/Images.xcassets/branch-icon.imageset/*`
+- `ios/Exponent/Images.xcassets/cli.imageset/*`
+- `ios/Exponent/Images.xcassets/snack.imageset/*`
+- `ios/Exponent/Images.xcassets/shake-device.imageset/*`
+- `ios/Exponent/Images.xcassets/three-finger-long-press.imageset/*`
+- `ios/Exponent/Images.xcassets/update-icon.imageset/*`
+
+**iOS Native Config**:
+- `ios/Exponent/Supporting/Info.plist`:
+  - `CFBundleDisplayName`: "RunAnywhere AI"
+  - Permission descriptions updated
+  - URL schemes: `runanywhere`, `runanywhere-ai`
+
+**React Native Branding** (src/ directory):
+- `src/constants/Colors.ts`: Changed tint from `#4e9bde` (Expo blue) → `#FF5500` (RunAnywhere orange)
+- `src/assets/client-logo.png`: Replaced with RunAnywhere logo
+- **Text changes** ("Expo Go" → "RunAnywhere"):
+  - `src/screens/HomeScreen/HomeScreenHeader.tsx` - Header title
+  - `src/components/UserReviewSection.tsx` - Review prompt
+  - `src/menu/DevMenuOnboarding.tsx` - Dev menu intro
+  - `src/components/UpdateListItem.tsx` - Compatibility message
+  - `src/components/SnacksListItem.tsx` - SDK warning
+  - `src/components/ProjectsListItem.tsx` - Code comment
+  - `src/screens/HomeScreen/UpgradeWarning/index.tsx` - Upgrade title/body
+  - `src/screens/HomeScreen/UpgradeWarning/IosMessage.tsx` - iOS upgrade message
+  - `src/screens/HomeScreen/UpgradeWarning/AndroidMessage.tsx` - Android upgrade message
+  - `src/utils/PermissionUtils.ts` - Camera permission alert
+
+**App Config**:
+- `app.json`: `primaryColor: "#FF5500"`, `android.package: "com.runanywhere.aistudio"`
 
 ---
 
