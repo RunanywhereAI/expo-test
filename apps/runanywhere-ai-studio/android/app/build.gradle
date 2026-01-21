@@ -45,21 +45,21 @@ react {
 }
 
 android {
-  namespace "host.exp.exponent"
+  namespace "com.runanywhere.aistudio"
 
   buildFeatures {
     buildConfig true
   }
 
   defaultConfig {
-    applicationId 'host.exp.exponent'
-    versionCode 227
-    versionName '54.0.6'
+    applicationId 'com.runanywhere.aistudio'
+    versionCode 1
+    versionName '1.0.0'
 
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     // Deprecated. Used by net.openid:appauth
     manifestPlaceholders = [
-        'appAuthRedirectScheme': 'host.exp.exponent',
+        'appAuthRedirectScheme': 'com.runanywhere.aistudio',
         'appLabel': '@string/versioned_app_name'
     ]
   }

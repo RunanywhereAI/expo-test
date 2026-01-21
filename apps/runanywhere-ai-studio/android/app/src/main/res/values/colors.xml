@@ -1,16 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- RunAnywhere AI Studio - Color Palette -->
 <resources>
-  <!-- RunAnywhere brand colors -->
+  <!-- RunAnywhere Brand Colors -->
+  <color name="runAnywherePrimary">#FF5500</color>
+  <color name="runAnywhereSecondary">#3B82F6</color>
+  <color name="runAnywhereSuccess">#10B981</color>
+  <color name="runAnywhereError">#EF4444</color>
+  <color name="runAnywhereWarning">#EAB308</color>
+
+  <!-- Background Colors -->
+  <color name="backgroundPrimaryDark">#0F172A</color>
+  <color name="backgroundSecondaryDark">#1A1F2E</color>
+  <color name="backgroundTertiaryDark">#252B3A</color>
+
+  <!-- App Theme Colors -->
+  <color name="ic_launcher_background">#0F172A</color>
   <color name="colorPrimary">#FF5500</color>
-  <color name="colorPrimaryDark">#E64500</color>
+  <color name="colorPrimaryDark">#0F172A</color>
   <color name="colorAccentLight">#FF5500</color>
-  <color name="colorAccentDark">#FFFFFF</color>
+  <color name="colorAccentDark">#FF5500</color>
+  <color name="colorAccent">#FF5500</color>
   <color name="colorText">#FFFFFF</color>
   <color name="white">#FFFFFF</color>
-  <color name="errorMessage">#FF0000</color>
+  <color name="errorMessage">#EF4444</color>
   <color name="errorLogButton">#66FFFFFF</color>
   <color name="colorLight">#F6F6F7</color>
-  <color name="iconBackground">#FFFFFF</color>
-  <color name="splashscreen_background">#FFFFFF</color>
-  <color name="notification_icon_color">#005eff</color>
+  <color name="iconBackground">#0F172A</color>
+  <color name="splashscreen_background">#0F172A</color>
+  <color name="notification_icon_color">#FF5500</color>
+
+  <!-- Text Colors -->
+  <color name="textPrimary">#FFFFFF</color>
+  <color name="textSecondary">#94A3B8</color>
+  <color name="textTertiary">#64748B</color>
 </resources>

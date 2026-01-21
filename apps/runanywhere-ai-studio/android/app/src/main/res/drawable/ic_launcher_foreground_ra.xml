@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- AI Brain/Chip Icon - distinctive from Expo Go -->
+    
+    <!-- Neural network nodes - outer ring -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,24 a4,4 0 1,0 0.01,0" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M75,33 a4,4 0 1,0 0.01,0" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M84,54 a4,4 0 1,0 0.01,0" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M75,75 a4,4 0 1,0 0.01,0" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,84 a4,4 0 1,0 0.01,0" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M33,75 a4,4 0 1,0 0.01,0" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M24,54 a4,4 0 1,0 0.01,0" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M33,33 a4,4 0 1,0 0.01,0" />
+    
+    <!-- Center brain chip -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M42,42 L66,42 L66,66 L42,66 Z"
+        android:strokeWidth="2"
+        android:strokeColor="#FFFFFF" />
+    
+    <!-- Inner circuit pattern -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M48,48 L60,48 L60,60 L48,60 Z" />
+    
+    <!-- Connection lines from center to nodes -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M54,42 L54,28"
+        android:strokeWidth="2"
+        android:strokeColor="#FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M66,42 L75,33"
+        android:strokeWidth="2"
+        android:strokeColor="#FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M66,54 L80,54"
+        android:strokeWidth="2"
+        android:strokeColor="#FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M66,66 L75,75"
+        android:strokeWidth="2"
+        android:strokeColor="#FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M54,66 L54,80"
+        android:strokeWidth="2"
+        android:strokeColor="#FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M42,66 L33,75"
+        android:strokeWidth="2"
+        android:strokeColor="#FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M42,54 L28,54"
+        android:strokeWidth="2"
+        android:strokeColor="#FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M42,42 L33,33"
+        android:strokeWidth="2"
+        android:strokeColor="#FFFFFF" />
+    
+    <!-- Small "RA" text indicator -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillType="nonZero"
+        android:pathData="M51,52 L53,52 L53,56 L51,56 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillType="nonZero"
+        android:pathData="M55,52 L57,52 L57,56 L55,56 Z" />
+</vector>
