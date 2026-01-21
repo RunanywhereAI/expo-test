@@ -33,10 +33,10 @@ class ManifestException : ExponentException {
         when (it.getString("errorCode")) {
           "EXPERIENCE_SDK_VERSION_OUTDATED" -> {
             val projectType = if (isSnackURL) "This Snack" else "Project"
-            "$projectType is incompatible with this version of Expo Go"
+            "$projectType is incompatible with this version of RunAnywhere"
           }
-          "EXPERIENCE_SDK_VERSION_TOO_NEW" -> "Project is incompatible with this version of Expo Go"
-          "SNACK_NOT_FOUND_FOR_SDK_VERSION" -> "This Snack is incompatible with this version of Expo Go"
+          "EXPERIENCE_SDK_VERSION_TOO_NEW" -> "Project is incompatible with this version of RunAnywhere"
+          "SNACK_NOT_FOUND_FOR_SDK_VERSION" -> "This Snack is incompatible with this version of RunAnywhere"
           else -> null
         }
       } catch (e: JSONException) {
@@ -92,21 +92,21 @@ class ManifestException : ExponentException {
             val projectType = if (isSnackURL) "snack" else "project"
 
             formattedMessage =
-              "• The installed version of Expo Go is for <b>SDK $supportedSdk</b>.<br>" +
+              "• The installed version of RunAnywhere is for <b>SDK $supportedSdk</b>.<br>" +
               "• The $projectType you opened uses <b>SDK $sdkVersionRequired</b>."
             fixInstructions = if (isSnackURL) {
-              "Either select SDK $supportedSdk on <a href='https:/snack.expo.dev/'>https:/snack.expo.dev/</a> or install an older version of Expo Go that is compatible with your project." +
+              "Either select SDK $supportedSdk on <a href='https:/snack.expo.dev/'>https:/snack.expo.dev/</a> or install an older version of RunAnywhere that is compatible with your project." +
                 "<br>If your required SDK version is not listed on Snack, use an emulator or one of the online emulators inside of Snack<br><br>"
             } else {
-              "Either upgrade this project to SDK $supportedSdk or install an older version of Expo Go that is compatible with ${if (isSnackURL) "this" else "your"} $projectType.<br><br>" +
+              "Either upgrade this project to SDK $supportedSdk or install an older version of RunAnywhere that is compatible with ${if (isSnackURL) "this" else "your"} $projectType.<br><br>" +
                 "<a href='https://docs.expo.dev/workflow/upgrading-expo-sdk-walkthrough/'>Learn how to upgrade to SDK $supportedSdk.</a><br><br>"
-            } + "<a href='$expoDevLink'>Learn how to install Expo Go for SDK $sdkVersionRequired</a>."
+            } + "<a href='$expoDevLink'>Learn how to install RunAnywhere for SDK $sdkVersionRequired</a>."
             canRetry = false
           }
 
           "EXPERIENCE_SDK_VERSION_TOO_NEW" -> {
-            formattedMessage = "This project requires a newer version of Expo Go."
-            fixInstructions = "Download the latest version of Expo Go from the Play Store."
+            formattedMessage = "This project requires a newer version of RunAnywhere."
+            fixInstructions = "Download the latest version of RunAnywhere from the Play Store."
             canRetry = false
           }
 
@@ -141,14 +141,14 @@ class ManifestException : ExponentException {
               return@closure
             }
             formattedMessage =
-              "The snack \"${fullName}\" was found, but it is not compatible with your version of Expo Go. It was released for SDK $snackSdkVersionValue, but your Expo Go supports only SDK $supportedSdk."
+              "The snack \"${fullName}\" was found, but it is not compatible with your version of RunAnywhere. It was released for SDK $snackSdkVersionValue, but your RunAnywhere supports only SDK $supportedSdk."
 
             fixInstructions = if (supportedSdk < snackSdkVersionValue) {
-              "You need to update your Expo Go app in order to run this Snack."
+              "You need to update your RunAnywhere app in order to run this Snack."
             } else {
               "Snack needs to be upgraded to a current SDK version. To do it, open the project at <a href='https://snack.expo.dev'>Expo Snack website</a>. It will be automatically upgraded to a supported SDK version."
             }
-            fixInstructions += "<br><br><a href='https://docs.expo.dev/get-started/expo-go/#sdk-versions'>Learn more about SDK versions and Expo Go</a>."
+            fixInstructions += "<br><br><a href='https://docs.expo.dev/get-started/expo-go/#sdk-versions'>Learn more about SDK versions and RunAnywhere</a>."
             canRetry = false
           }
         }
