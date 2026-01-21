@@ -51,7 +51,7 @@
 #import "EXScopedModuleRegistryAdapter.h"
 #import "EXScopedModuleRegistryDelegate.h"
 
-#import "Expo_Go-Swift.h"
+#import "RunAnywhere_AI_Studio-Swift.h"
 
 RCT_EXTERN NSDictionary<NSString *, NSDictionary *> *EXGetScopedModuleClasses(void);
 RCT_EXTERN void EXRegisterScopedModule(Class, ...);

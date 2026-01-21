@@ -6,7 +6,7 @@
 #import "EXAppViewController.h"
 #import "EXAppLoadingProgressWindowController.h"
 #import "EXAppLoadingCancelView.h"
-#import "Expo_Go-Swift.h"
+#import "RunAnywhere_AI_Studio-Swift.h"
 #import "EXHomeModule.h"
 #import "EXEnvironment.h"
 #import "EXErrorRecoveryManager.h"

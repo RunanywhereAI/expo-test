@@ -27,7 +27,7 @@
 #import <React/RCTBridge.h>
 #import <React/RCTRootView.h>
 
-#import "Expo_Go-Swift.h"
+#import "RunAnywhere_AI_Studio-Swift.h"
 
 NSString *const RCTInstanceDidLoadBundle = @"RCTInstanceDidLoadBundle";
 
