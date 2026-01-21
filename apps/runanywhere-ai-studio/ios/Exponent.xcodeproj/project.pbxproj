@@ -1881,7 +1881,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L86FH3K93L;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
-				EX_BUNDLE_NAME = Expo;
+				EX_BUNDLE_NAME = "RunAnywhere AI Studio";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Exponent/Supporting/Exponent-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1923,7 +1923,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D DEBUG -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.runanywhere.aistudio;
-				PRODUCT_NAME = "Expo Go";
+				PRODUCT_NAME = "RunAnywhere AI Studio";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_STYLE = "non-global";
 				SWIFT_OBJC_BRIDGING_HEADER = "Exponent-Bridging-Header.h";
@@ -1952,7 +1952,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
-				EX_BUNDLE_NAME = Expo;
+				EX_BUNDLE_NAME = "RunAnywhere AI Studio";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Exponent/Supporting/Exponent-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1994,7 +1994,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D RELEASE -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.runanywhere.aistudio;
-				PRODUCT_NAME = "Expo Go";
+				PRODUCT_NAME = "RunAnywhere AI Studio";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_STYLE = "non-global";
 				SWIFT_OBJC_BRIDGING_HEADER = "Exponent-Bridging-Header.h";
