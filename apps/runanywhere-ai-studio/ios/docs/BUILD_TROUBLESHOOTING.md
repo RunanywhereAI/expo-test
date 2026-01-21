@@ -519,21 +519,42 @@ ios/Client/SwiftUI/
 
 ### Phase 4: Android Migration ✅ COMPLETE
 
+**Build Configuration** (`android/app/build.gradle`):
+- `namespace`: `host.exp.exponent` → `com.runanywhere.aistudio`
+- `applicationId`: `host.exp.exponent` → `com.runanywhere.aistudio`
+- `appAuthRedirectScheme`: `com.runanywhere.aistudio`
+- `versionCode`: 1, `versionName`: "1.0.0"
+
 **SDK Version Fix**:
 - Created `android/expoview/src/main/java/host/exp/exponent/generated/ExponentBuildConstants.java`
   - `TEMPORARY_SDK_VERSION = "54.0.0"` (was auto-generated with old SDK by expotools)
   - This fixes "Project is incompatible" errors on Android
 
-**Branding Updates**:
-- `android/app/src/main/res/values/strings.xml`:
-  - `versioned_app_name`: "Expo Go" → "RunAnywhere"
-  - `unversioned_app_name`: "Expo Go (unversioned)" → "RunAnywhere (unversioned)"
-- `android/app/src/main/res/values/colors.xml`:
-  - `colorPrimary`: `#1b73b4` (Expo blue) → `#FF5500` (RunAnywhere orange)
-  - `colorPrimaryDark`: `#011A2D` → `#E64500`
-  - `colorAccentLight`: `#1b73b4` → `#FF5500`
-- `android/expoview/src/main/java/host/exp/exponent/exceptions/ManifestException.kt`:
-  - All "Expo Go" error messages → "RunAnywhere"
+**Branding - strings.xml**:
+- `versioned_app_name`: "RunAnywhere AI Studio"
+- `unversioned_app_name`: "RunAnywhere AI Studio (dev)"
+- `preference_file_key`: `com.runanywhere.aistudio.SharedPreferences`
+- `error_default_client`: "...go back to RunAnywhere home..."
+
+**Branding - colors.xml** (Full palette):
+- `runAnywherePrimary`: #FF5500 (orange)
+- `runAnywhereSecondary`: #3B82F6 (blue)
+- `runAnywhereSuccess/Error/Warning`: Semantic colors
+- Dark background theme: `#0F172A` (backgroundPrimaryDark)
+- `ic_launcher_background`, `splashscreen_background`: Dark theme
+- `notification_icon_color`: #FF5500
+
+**Branding - ManifestException.kt**:
+- All "Expo Go" error messages → "RunAnywhere"
+
+**App Icons** (copied from expo-test-2):
+- `mipmap-*/ic_launcher.png` - Updated launcher icons
+- `mipmap-*/ic_launcher_foreground.png` - Adaptive icon foregrounds
+- `mipmap-*/ic_launcher_round.png` - Round icons
+- `mipmap-anydpi-v26/` - Adaptive icon XMLs
+- `mipmap-ldpi/` - Low density support
+- `drawable/ic_launcher_background_ra.xml` - RunAnywhere background
+- `drawable/ic_launcher_foreground_ra.xml` - RunAnywhere foreground
 
 **Note**: Kernel bypass (LauncherActivity.kt changes) not needed - vanilla Expo Go works correctly.
 
@@ -557,8 +578,11 @@ ios/Client/SwiftUI/
 | `apps/runanywhere-ai-studio/ios/Exponent/Images.xcassets/*` | RunAnywhere branded icons and images |
 | `apps/runanywhere-ai-studio/src/constants/Colors.ts` | Tint color: Expo blue → RunAnywhere orange |
 | `apps/runanywhere-ai-studio/src/**/*.tsx` | "Expo Go" text → "RunAnywhere" (12 files) |
-| `apps/runanywhere-ai-studio/android/app/src/main/res/values/strings.xml` | App name: RunAnywhere |
-| `apps/runanywhere-ai-studio/android/app/src/main/res/values/colors.xml` | Brand colors: RunAnywhere orange |
+| `apps/runanywhere-ai-studio/android/app/build.gradle` | namespace, applicationId: com.runanywhere.aistudio |
+| `apps/runanywhere-ai-studio/android/app/src/main/res/values/strings.xml` | Full RunAnywhere AI Studio branding |
+| `apps/runanywhere-ai-studio/android/app/src/main/res/values/colors.xml` | Complete RunAnywhere dark theme palette |
+| `apps/runanywhere-ai-studio/android/app/src/main/res/mipmap-*/*` | RunAnywhere launcher icons (all densities) |
+| `apps/runanywhere-ai-studio/android/app/src/main/res/drawable/*_ra.xml` | RunAnywhere adaptive icon config |
 | `apps/runanywhere-ai-studio/android/expoview/.../generated/ExponentBuildConstants.java` | SDK version 54.0.0 |
 | `apps/runanywhere-ai-studio/android/expoview/.../ManifestException.kt` | Error messages: RunAnywhere |
 
