@@ -3,7 +3,7 @@
 #import "EXLinkingManager.h"
 #import "EXScopedModuleRegistry.h"
 #import "EXUtil.h"
-#import "Expo_Go-Swift.h"
+#import "RunAnywhere_AI_Studio-Swift.h"
 
 #import <React/RCTBridge.h>
 #import <React/RCTEventDispatcher.h>

@@ -14,7 +14,7 @@
 #import "EXVersions.h"
 #import "EXBuildConstants.h"
 
-#import "Expo_Go-Swift.h"
+#import "RunAnywhere_AI_Studio-Swift.h"
 
 #import <React/RCTUtils.h>
 #import <sys/utsname.h>

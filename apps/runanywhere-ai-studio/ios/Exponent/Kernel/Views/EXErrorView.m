@@ -7,7 +7,7 @@
 #import "EXKernelAppRecord.h"
 #import "EXManifestResource.h"
 #import "EXUtil.h"
-#import "Expo_Go-Swift.h"
+#import "RunAnywhere_AI_Studio-Swift.h"
 
 @import EXManifests;
 

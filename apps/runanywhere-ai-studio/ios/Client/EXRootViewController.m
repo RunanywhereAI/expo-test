@@ -17,7 +17,7 @@
 #import "EXEmbeddedHomeLoader.h"
 #import "EXBuildConstants.h"
 #import "EXUtil.h"
-#import "Expo_Go-Swift.h"
+#import "RunAnywhere_AI_Studio-Swift.h"
 
 @import ExpoScreenOrientation;
 

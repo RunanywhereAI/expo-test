@@ -13,7 +13,7 @@
 #import "EXUpdatesDatabaseManager.h"
 #import "EXVersions.h"
 
-#import "Expo_Go-Swift.h"
+#import "RunAnywhere_AI_Studio-Swift.h"
 
 #import <React/RCTUtils.h>
 #import <sys/utsname.h>

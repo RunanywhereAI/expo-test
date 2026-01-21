@@ -20,7 +20,7 @@
 #import <React/RCTUtils.h>
 #import <React/RCTBridge.h>
 
-#import "Expo_Go-Swift.h"
+#import "RunAnywhere_AI_Studio-Swift.h"
 
 #import <ExpoModulesCore/EXModuleRegistryProvider.h>
 

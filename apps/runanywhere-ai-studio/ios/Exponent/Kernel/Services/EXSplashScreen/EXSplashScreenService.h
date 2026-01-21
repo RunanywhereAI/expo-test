@@ -3,7 +3,7 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import <ExpoModulesCore/EXSingletonModule.h>
-#import "Expo_Go-Swift.h"
+#import "RunAnywhere_AI_Studio-Swift.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

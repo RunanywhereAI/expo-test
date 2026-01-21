@@ -482,7 +482,28 @@ ios/Client/SwiftUI/
 **Critical Build Settings** (`ios/Exponent.xcodeproj/project.pbxproj`):
 - `PRODUCT_NAME = "RunAnywhere AI Studio"` (was "Expo Go")
 - `EX_BUNDLE_NAME = "RunAnywhere AI Studio"` (was "Expo")
+- Target renamed from "Expo Go" to "RunAnywhere AI Studio"
+- Scheme renamed from "Expo Go.xcscheme" to "RunAnywhere AI Studio.xcscheme"
+- Podfile target updated to match
 - These control the actual app name shown on home screen, Settings, and App Store
+
+**Swift Bridging Header** (required after target rename):
+When the target is renamed from "Expo Go" to "RunAnywhere AI Studio", Xcode auto-generates
+a new Swift bridging header named `RunAnywhere_AI_Studio-Swift.h` (spaces become underscores).
+
+Files updated from `Expo_Go-Swift.h` → `RunAnywhere_AI_Studio-Swift.h`:
+- `Client/EXRootViewController.m`
+- `Client/EXHomeAppManager.m`
+- `Exponent/Kernel/Services/EXUpdatesManager.h`
+- `Exponent/Kernel/Services/EXSplashScreen/EXSplashScreenService.h`
+- `Exponent/Kernel/Services/EXSplashScreen/EXSplashScreenService.m`
+- `Exponent/Kernel/Views/EXErrorView.m`
+- `Exponent/Kernel/Views/Loading/EXAppLoadingProgressWindowController.m`
+- `Exponent/Kernel/Views/Loading/EXProgressHUD.m`
+- `Exponent/Kernel/AppLoader/AppFetcher/EXAppFetcher.m`
+- `Exponent/Kernel/AppLoader/EXAppLoaderExpoUpdates.m`
+- `Exponent/Kernel/AppLoader/EXDevelopmentHomeLoader.m`
+- `Exponent/Versioned/Core/Internal/EXLinkingManager.m`
 
 **iOS Native Assets** (copied from expo-test-2):
 - `ios/Exponent/Images.xcassets/AppIcon.appiconset/*` - App icons
