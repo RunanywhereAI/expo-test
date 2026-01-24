@@ -17,6 +17,13 @@ config.watchFolders = [
   path.join(monorepoRoot, 'apps/common'), // Allow Metro to resolve common ThemeProvider
 ];
 
+// Ensure peer dependencies of @runanywhere/* packages resolve correctly from monorepo root
+// Without this, require('react-native-fs') from @runanywhere/core fails
+config.resolver.extraNodeModules = {
+  'react-native-fs': path.join(monorepoRoot, 'node_modules/react-native-fs'),
+  'react-native-zip-archive': path.join(monorepoRoot, 'node_modules/react-native-zip-archive'),
+};
+
 // Disable Babel's RC lookup, reducing the config loading in Babel - resulting in faster bootup for transformations
 config.transformer.enableBabelRCLookup = false;
 
