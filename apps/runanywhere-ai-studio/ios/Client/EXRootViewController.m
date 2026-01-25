@@ -3,6 +3,7 @@
 @import UIKit;
 
 #import <ExpoModulesCore/EXDefines.h>
+#import <ExpoModulesCore/EXModuleRegistryProvider.h>
 
 #import "EXAppViewController.h"
 #import "EXHomeAppManager.h"
@@ -17,6 +18,7 @@
 #import "EXEmbeddedHomeLoader.h"
 #import "EXBuildConstants.h"
 #import "EXUtil.h"
+#import "EXSplashScreenService.h"
 #import "RunAnywhere_AI_Studio-Swift.h"
 
 @import ExpoScreenOrientation;
@@ -87,19 +89,60 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)createRootAppAndMakeVisible
 {
+  // RUNANYWHERE: Show native home UI but still register home app record
+  // The home app record is needed for:
+  // 1. Dev menu functionality (mainHostForDevMenuManager)
+  // 2. Error handling and recovery
+  // 3. React Native bridge initialization
+  
+  // First, register the home app record (required for RN runtime)
   EXHomeAppManager *homeAppManager = [[EXHomeAppManager alloc] init];
-
-  // if developing, use development manifest from EXBuildConstants
   EXAbstractLoader *homeAppLoader;
   if ([EXBuildConstants sharedInstance].isDevKernel) {
     homeAppLoader = [[EXDevelopmentHomeLoader alloc] init];
   } else {
     homeAppLoader = [[EXEmbeddedHomeLoader alloc] init];
   }
-
   EXKernelAppRecord *homeAppRecord = [[EXKernelAppRecord alloc] initWithAppLoader:homeAppLoader appManager:homeAppManager];
   [[EXKernel sharedInstance].appRegistry registerHomeAppRecord:homeAppRecord];
-  [self moveAppToVisible:homeAppRecord];
+  
+  // Create and show our native home UI on top
+  RunAnywhereHomeViewController *nativeHome = [[RunAnywhereHomeViewController alloc] init];
+  
+  [self addChildViewController:nativeHome];
+  nativeHome.view.frame = self.view.bounds;
+  nativeHome.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+  [self.view addSubview:nativeHome.view];
+  [nativeHome didMoveToParentViewController:self];
+  
+  self.contentViewController = nativeHome;
+  
+  // Hide splash screen after a short delay
+  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    EXSplashScreenService *splashService = (EXSplashScreenService *)[EXModuleRegistryProvider getSingletonModuleForClass:[EXSplashScreenService class]];
+    
+    if (splashService) {
+      [splashService hideSplashScreenFor:self
+                                 options:EXSplashScreenDefault
+                         successCallback:^(BOOL hasEffect) {}
+                         failureCallback:^(NSString *message) {
+        // Fallback: manually remove splash screen views
+        for (UIView *subview in [self.view.subviews reverseObjectEnumerator]) {
+          if (subview != nativeHome.view) {
+            [subview removeFromSuperview];
+          }
+        }
+        [self.view bringSubviewToFront:nativeHome.view];
+      }];
+    } else {
+      for (UIView *subview in [self.view.subviews reverseObjectEnumerator]) {
+        if (subview != nativeHome.view) {
+          [subview removeFromSuperview];
+        }
+      }
+      [self.view bringSubviewToFront:nativeHome.view];
+    }
+  });
 }
 
 #pragma mark - EXAppBrowserController
@@ -153,8 +196,24 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)moveHomeToVisible
 {
   [[EXDevMenuManager sharedInstance] close];
-  [[self _getHomeAppManager] dispatchForegroundHomeEvent];
-  [self moveAppToVisible:[EXKernel sharedInstance].appRegistry.homeAppRecord];
+  
+  // RUNANYWHERE: Show native home instead of kernel JS home
+  // Find and show the native home view controller
+  for (UIViewController *child in self.childViewControllers) {
+    if ([child isKindOfClass:[RunAnywhereHomeViewController class]]) {
+      [self.view bringSubviewToFront:child.view];
+      self.contentViewController = child;
+      return;
+    }
+  }
+  
+  // Fallback: create new native home if not found
+  RunAnywhereHomeViewController *nativeHome = [[RunAnywhereHomeViewController alloc] init];
+  [self addChildViewController:nativeHome];
+  nativeHome.view.frame = self.view.bounds;
+  [self.view addSubview:nativeHome.view];
+  [nativeHome didMoveToParentViewController:self];
+  self.contentViewController = nativeHome;
 }
 
 - (BOOL)_isHomeVisible {
@@ -272,7 +331,9 @@ NS_ASSUME_NONNULL_BEGIN
     [self _applySupportedInterfaceOrientations];
   };
 
-  BOOL animated = (viewControllerToHide && viewControllerToShow);
+  // RUNANYWHERE: Check if hiding our native home (skip animation to avoid issues)
+  BOOL isHidingNativeHome = [viewControllerToHide isKindOfClass:[RunAnywhereHomeViewController class]];
+  BOOL animated = (viewControllerToHide && viewControllerToShow && !isHidingNativeHome);
   if (!animated) {
     return finalizeTransition();
   }

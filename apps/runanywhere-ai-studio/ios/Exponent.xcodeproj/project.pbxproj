@@ -147,6 +147,7 @@
 		FCF6D37425B34BC200808BF5 /* ExpoNotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = FCF6D36D25B34BC200808BF5 /* ExpoNotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		RA0001012025012400AUDIO01 /* NativeAudioModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = RA0001002025012400AUDIO01 /* NativeAudioModule.swift */; };
 		RA0001032025012400AUDIO01 /* NativeAudioModuleBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = RA0001022025012400AUDIO01 /* NativeAudioModuleBridge.m */; };
+		RA00020126012500RAHOME01 /* RunAnywhereHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = RA00020026012500RAHOME01 /* RunAnywhereHomeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -445,6 +446,7 @@
 		FCF6D37125B34BC200808BF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		RA0001002025012400AUDIO01 /* NativeAudioModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAudioModule.swift; sourceTree = "<group>"; };
 		RA0001022025012400AUDIO01 /* NativeAudioModuleBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NativeAudioModuleBridge.m; sourceTree = "<group>"; };
+		RA00020026012500RAHOME01 /* RunAnywhereHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunAnywhereHomeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -720,6 +722,7 @@
 			isa = PBXGroup;
 			children = (
 				F1F7433D24ABECD500EA5023 /* AppDelegate.swift */,
+				RA00020026012500RAHOME01 /* RunAnywhereHomeViewController.swift */,
 				RA0001002025012400AUDIO01 /* NativeAudioModule.swift */,
 				RA0001022025012400AUDIO01 /* NativeAudioModuleBridge.m */,
 				B56C65C5204768F2002B2424 /* EXHomeAppManager.h */,
@@ -1617,6 +1620,7 @@
 				B526B5081E6A543500606CAB /* ExpoKit.m in Sources */,
 				F1D6AF61244714C100AC1C74 /* EXDevMenuGestureRecognizer.m in Sources */,
 				F1F7433E24ABECD500EA5023 /* AppDelegate.swift in Sources */,
+				RA00020126012500RAHOME01 /* RunAnywhereHomeViewController.swift in Sources */,
 				RA0001012025012400AUDIO01 /* NativeAudioModule.swift in Sources */,
 				RA0001032025012400AUDIO01 /* NativeAudioModuleBridge.m in Sources */,
 				F1D6AF64244720E100AC1C74 /* EXDevMenuManager.m in Sources */,

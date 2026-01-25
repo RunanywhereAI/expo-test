@@ -25,6 +25,7 @@
 #import "EXDisabledDevLoadingView.h"
 #import "EXStatusBarManager.h"
 #import "EXKernelDevKeyCommands.h"
+#import "Client/Menu/EXDevMenuManager.h"
 #import "EXClientReleaseType.h"
 #import "ExpoGoReactNativeFactory.h"
 #import "EXUtil.h"

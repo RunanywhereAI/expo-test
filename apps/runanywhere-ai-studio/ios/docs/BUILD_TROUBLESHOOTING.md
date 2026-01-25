@@ -2,7 +2,7 @@
 
 This document contains solutions to iOS build issues encountered with the RunAnywhere AI Studio app during migration from the bleeding-edge `expo-test-2` to the stable 54.0.6 base.
 
-**Last Updated**: January 20, 2026  
+**Last Updated**: January 24, 2026  
 **Build Status**: ✅ **iOS & ANDROID FULLY WORKING** - Both platforms build successfully, load user apps from Replit
 
 ---
@@ -41,10 +41,12 @@ The following changes must be applied manually after cloning or after `npm insta
 
 | Step | Command | Why Not in Git |
 |------|---------|----------------|
-| 1. Fix react-native-zip-archive | `sed -i '' "s/-GCC_PREPROCESSOR.*inherited)\"/'-DHAVE_INTTYPES_H ...'/" node_modules/react-native-zip-archive/RNZipArchive.podspec` | node_modules is gitignored |
+| 1. Apply patches | `npx patch-package` | Patches are in `patches/` folder, auto-applied if postinstall script configured |
 | 2. Copy ONNX Runtime xcframework | `cp -R ../expo-test-2/.../onnxruntime.xcframework node_modules/@runanywhere/onnx/ios/Frameworks/` | node_modules is gitignored, binary too large for npm |
 
-**These must be re-applied every time you run `npm install`.**
+**Note**: The `react-native-zip-archive` fix is now handled by `patch-package`. The patch file is at `patches/react-native-zip-archive+6.1.2.patch`.
+
+**These must be re-applied every time you run `npm install` (unless postinstall hook is configured).**
 
 ---
 
@@ -64,9 +66,8 @@ cd /path/to/expo-test
 npm install --ignore-scripts
 
 # 2. Apply node_modules patches (REQUIRED after every npm install)
-# Fix react-native-zip-archive compiler flags
-sed -i '' "s/-GCC_PREPROCESSOR_DEFINITIONS.*inherited)\"/'-DHAVE_INTTYPES_H -DHAVE_PKCRYPT -DHAVE_STDINT_H -DHAVE_WZAES -DHAVE_ZLIB -DMZ_ZIP_NO_SIGNING'/" \
-  node_modules/react-native-zip-archive/RNZipArchive.podspec
+# Apply patch-package patches (fixes react-native-zip-archive)
+npx patch-package
 
 # Copy ONNX Runtime xcframework (not included in npm package due to size)
 cp -R ../expo-test-2/expo-test/node_modules/@runanywhere/onnx/ios/Frameworks/onnxruntime.xcframework \
@@ -85,6 +86,15 @@ open Exponent.xcworkspace
 #    - Select your development team in Signing & Capabilities
 #    - Select your device/simulator
 #    - Build and Run (Cmd+R)
+```
+
+**Tip**: To automate patch application, add to your root `package.json`:
+```json
+{
+  "scripts": {
+    "postinstall": "patch-package"
+  }
+}
 ```
 
 ### If Build Fails
@@ -315,15 +325,31 @@ pod install
 unsupported option '-G' for target 'arm64-apple-ios15.1'
 ```
 
-**Cause**: The `RNZipArchive.podspec` has malformed compiler flags.
-
-**Fix**: Patch the podspec after every `npm install`:
-```bash
-sed -i '' "s/-GCC_PREPROCESSOR_DEFINITIONS.*inherited)\"/'-DHAVE_INTTYPES_H -DHAVE_PKCRYPT -DHAVE_STDINT_H -DHAVE_WZAES -DHAVE_ZLIB -DMZ_ZIP_NO_SIGNING'/" \
-  node_modules/react-native-zip-archive/RNZipArchive.podspec
+**Cause**: The `RNZipArchive.podspec` has malformed compiler flags:
+```ruby
+# The bug - this is interpreted as "-G" flag + "CC_PREPROCESSOR_DEFINITIONS=..."
+s.compiler_flags = '-GCC_PREPROCESSOR_DEFINITIONS="HAVE_INTTYPES_H ..."'
 ```
 
-Or manually change in `node_modules/react-native-zip-archive/RNZipArchive.podspec`:
+**Fix (Recommended - patch-package)**:
+
+A patch file exists at `patches/react-native-zip-archive+6.1.2.patch`. Apply it:
+```bash
+npx patch-package
+```
+
+To set up automatic patching, add to `package.json`:
+```json
+{
+  "scripts": {
+    "postinstall": "patch-package"
+  }
+}
+```
+
+**Fix (Manual - if patch-package not available)**:
+
+Edit `node_modules/react-native-zip-archive/RNZipArchive.podspec`:
 ```ruby
 # Before
 s.compiler_flags = '-GCC_PREPROCESSOR_DEFINITIONS="HAVE_INTTYPES_H ..."'
@@ -331,6 +357,8 @@ s.compiler_flags = '-GCC_PREPROCESSOR_DEFINITIONS="HAVE_INTTYPES_H ..."'
 # After
 s.compiler_flags = '-DHAVE_INTTYPES_H -DHAVE_PKCRYPT -DHAVE_STDINT_H -DHAVE_WZAES -DHAVE_ZLIB -DMZ_ZIP_NO_SIGNING'
 ```
+
+Then run `pod install` again.
 
 ---
 
@@ -432,6 +460,53 @@ pod install
 ```
 
 **Important**: This must be re-applied after every clean `npm install` that recreates `node_modules`.
+
+---
+
+### Issue 8: Folly Coroutine Header Not Found
+
+**Error**:
+```
+RCT-Folly/folly/Expected.h:1587:10 'folly/coro/Coroutine.h' file not found
+```
+
+**Cause**: The Folly library's `Expected.h` conditionally includes coroutine headers based on `FOLLY_HAS_COROUTINES`. In some Xcode/React Native combinations, this flag is enabled but the coroutine headers don't exist.
+
+**Fix**: If this error occurs, add to Podfile's `post_install`:
+```ruby
+# Only if you encounter the Folly coroutine error
+installer.pods_project.targets.each do |target|
+  if target.name == 'RCT-Folly'
+    target.build_configurations.each do |config|
+      config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)']
+      config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] << 'FOLLY_HAS_COROUTINES=0'
+    end
+  end
+end
+```
+
+**Note**: This doesn't disable any React Native functionality - RN doesn't use Folly coroutines. It just tells Folly to skip compiling coroutine-based APIs.
+
+---
+
+### Issue 9: @react-native-community/slider Folly Compilation Errors
+
+**Error**:
+```
+No matching function for call to object of type 'const conditional_t<false, op_del_builtin_fn_, op_del_library_fn_>'
+```
+
+**Cause**: Version mismatch between `@react-native-community/slider` and the Folly version in the custom React Native fork.
+
+**Fix Options**:
+
+1. **Update slider** (try first):
+   ```bash
+   npm install @react-native-community/slider@5.1.2
+   cd ios && pod install
+   ```
+
+2. **If update doesn't work**, add Folly preprocessor definitions in Podfile (see Issue 8)
 
 ---
 
@@ -769,6 +844,405 @@ After `pod install`, verify in output:
 - **React Native**: 0.81.4
 - **Expo SDK**: ~54.0.12
 - **RunAnywhere SDK**: 0.17.4
+
+---
+
+## Android Build Guide
+
+### Android Quick Start
+
+```bash
+# 1. Navigate to the Android project
+cd apps/runanywhere-ai-studio/android
+
+# 2. Set environment variables
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+export ANDROID_SDK_ROOT="$HOME/Library/Android/sdk"
+
+# 3. Download RunAnywhere native libraries (REQUIRED)
+./gradlew :runanywhere_core:downloadNativeLibs \
+          :runanywhere_llamacpp:downloadNativeLibs \
+          :runanywhere_onnx:downloadNativeLibs \
+          --no-configuration-cache
+
+# 4. Create symlinks for library naming mismatch (REQUIRED)
+cd ../../../node_modules/@runanywhere/llamacpp/android/src/main/jniLibs/arm64-v8a
+ln -sf librac_backend_llamacpp.so librunanywhere_llamacpp.so
+
+cd ../../../../../../@runanywhere/onnx/android/src/main/jniLibs/arm64-v8a
+ln -sf librac_backend_onnx.so librunanywhere_onnx.so
+
+# 5. Patch ONNX CMakeLists.txt to make JNI library optional (see below)
+
+# 6. Return to android directory and build
+cd ../../../../../../../apps/runanywhere-ai-studio/android
+./gradlew :app:assembleMobileDebug --no-configuration-cache -PreactNativeArchitectures=arm64-v8a
+
+# 7. Install on device
+adb install -r app/build/outputs/apk/mobile/debug/app-mobile-debug.apk
+```
+
+### Android Manual Steps NOT in Git
+
+| Step | Why Not in Git |
+|------|----------------|
+| Download native libraries | Must be done via Gradle task |
+| Create symlinks | node_modules is gitignored, lost after npm install |
+| Patch ONNX CMakeLists.txt | node_modules is gitignored |
+
+**These must be re-applied every time you run `npm install`.**
+
+---
+
+### Android Issue 1: CMake Error - Native Libraries Not Found
+
+**Error**:
+```
+CMake Error at CMakeLists.txt:22 (message):
+  [RunAnywhereLlama] RABackendLlamaCPP not found at
+  .../jniLibs/arm64-v8a/librunanywhere_llamacpp.so
+  Run: ./gradlew :runanywhere_llamacpp:downloadNativeLibs
+```
+
+**Cause**: RunAnywhere SDK native libraries (`.so` files) are not included in npm packages. They must be downloaded via Gradle tasks.
+
+**Fix**:
+```bash
+./gradlew :runanywhere_core:downloadNativeLibs \
+          :runanywhere_llamacpp:downloadNativeLibs \
+          :runanywhere_onnx:downloadNativeLibs \
+          --no-configuration-cache
+```
+
+**Expected Output**:
+```
+[RunAnywhereCore] ✅ Using bundled native libraries from npm package (1 .so files)
+[RunAnywhereLlama] ✅ Using bundled native libraries from npm package (2 .so files)
+[RunAnywhereONNX] ✅ Using bundled native libraries from npm package (5 .so files)
+```
+
+---
+
+### Android Issue 2: Library File Naming Mismatch
+
+**Error**:
+```
+CMake Error at CMakeLists.txt:22 (message):
+  [RunAnywhereLlama] RABackendLlamaCPP not found at
+  .../jniLibs/arm64-v8a/librunanywhere_llamacpp.so
+```
+
+**Cause**: CMakeLists.txt expects different filenames than what's downloaded:
+
+| Expected (CMakeLists.txt) | Actual (Downloaded) |
+|---------------------------|---------------------|
+| `librunanywhere_llamacpp.so` | `librac_backend_llamacpp.so` |
+| `librunanywhere_onnx.so` | `librac_backend_onnx.so` |
+
+**Fix**: Create symbolic links:
+```bash
+# LlamaCPP
+cd node_modules/@runanywhere/llamacpp/android/src/main/jniLibs/arm64-v8a
+ln -sf librac_backend_llamacpp.so librunanywhere_llamacpp.so
+
+# ONNX
+cd node_modules/@runanywhere/onnx/android/src/main/jniLibs/arm64-v8a
+ln -sf librac_backend_onnx.so librunanywhere_onnx.so
+```
+
+**Note**: This must be re-done after every `npm install`.
+
+---
+
+### Android Issue 3: Missing librac_backend_onnx_jni.so
+
+**Error**:
+```
+CMake Error at CMakeLists.txt:37 (message):
+  [RunAnywhereONNX] RABackendONNX JNI not found at
+  .../jniLibs/arm64-v8a/librac_backend_onnx_jni.so
+```
+
+**Cause**: The npm package's CMakeLists.txt expects a JNI library that doesn't exist in the package.
+
+**Fix**: Modify `node_modules/@runanywhere/onnx/android/CMakeLists.txt`:
+
+**1. Change the JNI check from FATAL_ERROR to optional** (around lines 34-46):
+```cmake
+# Before (REQUIRED check)
+if(NOT EXISTS "${JNILIB_DIR}/librac_backend_onnx_jni.so")
+    message(FATAL_ERROR "[RunAnywhereONNX] RABackendONNX JNI not found...")
+endif()
+
+add_library(rac_backend_onnx_jni SHARED IMPORTED)
+# ... configuration ...
+
+# After (OPTIONAL check)
+if(EXISTS "${JNILIB_DIR}/librac_backend_onnx_jni.so")
+    add_library(rac_backend_onnx_jni SHARED IMPORTED)
+    set_target_properties(rac_backend_onnx_jni PROPERTIES
+        IMPORTED_LOCATION "${JNILIB_DIR}/librac_backend_onnx_jni.so"
+        IMPORTED_NO_SONAME TRUE
+    )
+    message(STATUS "[RunAnywhereONNX] Found RABackendONNX JNI at ${JNILIB_DIR}/librac_backend_onnx_jni.so")
+    set(HAS_RAC_BACKEND_ONNX_JNI TRUE)
+else()
+    message(STATUS "[RunAnywhereONNX] RABackendONNX JNI not found, skipping")
+    set(HAS_RAC_BACKEND_ONNX_JNI FALSE)
+endif()
+```
+
+**2. Update target_link_libraries** (around line 174):
+```cmake
+# Before:
+target_link_libraries(
+    ${PACKAGE_NAME}
+    ${LOG_LIB}
+    android
+    rac_commons
+    runanywhere_onnx
+    rac_backend_onnx_jni  # Remove this line
+    onnxruntime
+)
+
+# After:
+target_link_libraries(
+    ${PACKAGE_NAME}
+    ${LOG_LIB}
+    android
+    rac_commons
+    runanywhere_onnx
+    onnxruntime
+)
+
+# Link RABackendONNX JNI if available
+if(HAS_RAC_BACKEND_ONNX_JNI)
+    target_link_libraries(${PACKAGE_NAME} rac_backend_onnx_jni)
+endif()
+```
+
+**3. Clear CMake cache and rebuild**:
+```bash
+find node_modules/@runanywhere -name ".cxx" -type d -exec rm -rf {} +
+./gradlew :app:assembleMobileDebug --no-configuration-cache
+```
+
+---
+
+### Android Issue 4: Gradle Configuration Cache Errors
+
+**Error**:
+```
+Execution failed for task ':runanywhere_core:downloadNativeLibs'.
+> Invocation of 'file' references a Gradle script object from a Groovy closure
+  at execution time, which is unsupported with the configuration cache.
+```
+
+**Fix**: Always use `--no-configuration-cache` flag:
+```bash
+./gradlew :app:assembleMobileDebug --no-configuration-cache
+```
+
+Or add to `gradle.properties`:
+```properties
+org.gradle.configuration-cache=false
+```
+
+---
+
+### Android Issue 5: google-services.json Package Name Mismatch
+
+**Error**:
+```
+No matching client found for package name 'com.runanywhere.aistudio' in google-services.json
+```
+
+**Cause**: The `package_name` in `google-services.json` doesn't match the `applicationId` in `app/build.gradle`.
+
+**Fix**: Update `android/app/google-services.json`:
+```json
+"client": [
+  {
+    "client_info": {
+      "android_client_info": {
+        "package_name": "com.runanywhere.aistudio"
+      }
+    }
+  }
+]
+```
+
+---
+
+### Android Issue 6: BuildConfig Unresolved Reference
+
+**Error**:
+```
+Unresolved reference: BuildConfig
+```
+
+**Cause**: Files import `host.exp.exponent.BuildConfig` but the actual package is `com.runanywhere.aistudio.BuildConfig`.
+
+**Fix**: Update imports in:
+- `android/app/src/main/java/host/exp/exponent/MainApplication.kt`
+- `android/app/src/main/java/host/exp/exponent/generated/AppConstants.java`
+
+```kotlin
+// Before
+import host.exp.exponent.BuildConfig
+
+// After
+import com.runanywhere.aistudio.BuildConfig
+```
+
+---
+
+### Android Issue 7: NitroModules Not Found (Runtime Error)
+
+**Error** (at runtime when using RunAnywhere SDK features):
+```
+Error: Failed to get NitroModules: The native "NitroModules" Turbo/Native-Module could not be found.
+* Make sure react-native-nitro-modules/NitroModules is correctly autolinked
+```
+
+**Cause**: The `react-native-nitro-modules` native library is required by the RunAnywhere SDK but isn't automatically included via autolinking in the Expo Go fork.
+
+**Fix**: Manually add ALL RunAnywhere-related modules to `android/settings.gradle`:
+```gradle
+// RunAnywhere Native Modules
+// ===========================
+
+// NitroModules (required by RunAnywhere SDK)
+include ':react-native-nitro-modules'
+project(':react-native-nitro-modules').projectDir = 
+    new File(rootDir, '../../../node_modules/react-native-nitro-modules/android')
+
+// RunAnywhere Core
+include ':runanywhere_core'
+project(':runanywhere_core').projectDir = 
+    new File(rootDir, '../../../node_modules/@runanywhere/core/android')
+
+// RunAnywhere LlamaCpp
+include ':runanywhere_llamacpp'
+project(':runanywhere_llamacpp').projectDir = 
+    new File(rootDir, '../../../node_modules/@runanywhere/llamacpp/android')
+
+// RunAnywhere ONNX
+include ':runanywhere_onnx'
+project(':runanywhere_onnx').projectDir = 
+    new File(rootDir, '../../../node_modules/@runanywhere/onnx/android')
+```
+
+**Note**: The dependencies are already in `expoview/build.gradle`:
+```gradle
+implementation project(':react-native-nitro-modules')
+implementation project(':runanywhere_core')
+implementation project(':runanywhere_llamacpp')
+implementation project(':runanywhere_onnx')
+```
+
+But without the `settings.gradle` entries, Gradle doesn't know where to find the projects.
+
+---
+
+### NativeAudioModule Implementation
+
+The RunAnywhere SDK requires a `NativeAudioModule` for audio recording and playback. This is implemented natively on both platforms.
+
+#### Android Implementation
+
+**Files created**:
+- `android/expoview/src/main/java/host/exp/exponent/audio/NativeAudioModule.kt`
+- `android/expoview/src/main/java/host/exp/exponent/audio/NativeAudioPackage.kt`
+
+**NativeAudioModule.kt** provides:
+- `startRecording()` → Returns `{ path: string }` - Records 16kHz mono 16-bit PCM WAV
+- `stopRecording()` → Returns `{ path: string }` - Stops recording and returns file path
+- `cancelRecording()` → Cancels recording without saving
+- `getAudioLevel()` → Returns current audio level (0.0-1.0)
+- `playAudio(path)` / `pauseAudio()` / `resumeAudio()` / `stopAudio()` - Playback controls
+
+**Registration** in `ExpoGoReactNativeHost.kt`:
+```kotlin
+import host.exp.exponent.audio.NativeAudioPackage
+
+override fun getPackages(): List<ReactPackage> {
+  return listOf(
+    // ... other packages
+    NativeAudioPackage()  // Add this
+  )
+}
+```
+
+#### iOS Implementation
+
+**Files created**:
+- `ios/Client/NativeAudioModule.swift`
+- `ios/Client/NativeAudioModuleBridge.m`
+
+**NativeAudioModule.swift** provides the same API as Android:
+- `startRecording()` → Returns `{ path: string }`
+- `stopRecording()` → Returns `{ path: string }`
+- `cancelRecording()` / `getAudioLevel()` / playback methods
+
+**Bridging** in `Exponent-Bridging-Header.h`:
+```objc
+#import <React/RCTBridgeModule.h>
+```
+
+**Important**: The `startRecording` and `stopRecording` methods return `{ path: string }` (not `{ audioBase64: ... }` or `{ success: true }`). This is required for the RunAnywhere SDK's `transcribeFile()` function which expects a file path.
+
+---
+
+### Android Kernel Bypass
+
+The `Kernel.kt` has been modified to bypass loading the Expo Go kernel JavaScript:
+
+**File**: `android/expoview/src/main/java/host/exp/exponent/kernel/Kernel.kt`
+
+```kotlin
+// In openDefaultUrl()
+fun openDefaultUrl() {
+  // RUNANYWHERE: Skip kernel JS loading, go directly to native home
+  openHomeActivity()
+}
+
+// In openHomeActivity()
+fun openHomeActivity() {
+  // Finish any existing ExperienceActivity to prevent kernel JS loading
+  // Launch HomeActivity with CLEAR_TOP | SINGLE_TOP flags
+}
+```
+
+This prevents the `TurboModuleRegistry.getEnforcing(...): 'PlatformConstants' could not be found` error by ensuring the native home screen is shown instead of the React Native kernel.
+
+---
+
+### Android Build Configuration Files Modified
+
+| File | Changes |
+|------|---------|
+| `android/app/build.gradle` | applicationId: com.runanywhere.aistudio |
+| `android/app/google-services.json` | package_name: com.runanywhere.aistudio |
+| `android/app/src/main/AndroidManifest.xml` | Copied from expo-test-2 |
+| `android/app/src/main/java/.../MainApplication.kt` | BuildConfig import fix |
+| `android/app/src/main/java/.../generated/AppConstants.java` | BuildConfig import fix |
+| `android/expoview/build.gradle` | Added RunAnywhere module dependencies |
+| `android/expoview/src/main/java/.../audio/NativeAudioModule.kt` | Created |
+| `android/expoview/src/main/java/.../audio/NativeAudioPackage.kt` | Created |
+| `android/expoview/src/main/java/.../experience/ExpoGoReactNativeHost.kt` | Registered NativeAudioPackage |
+| `android/expoview/src/main/java/.../kernel/Kernel.kt` | Kernel bypass logic |
+
+---
+
+### Android APK Variants
+
+| Flavor | Description | Build Command |
+|--------|-------------|---------------|
+| `mobile` | Standard Android phones/tablets | `./gradlew :app:assembleMobileDebug` |
+| `quest` | Meta Quest VR headsets | `./gradlew :app:assembleQuestDebug` |
+
+**APK Location**: `app/build/outputs/apk/mobile/debug/app-mobile-debug.apk`
 
 ---
 

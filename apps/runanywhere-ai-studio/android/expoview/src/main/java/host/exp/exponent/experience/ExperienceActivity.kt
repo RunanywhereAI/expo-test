@@ -160,13 +160,16 @@ open class ExperienceActivity : BaseExperienceActivity(), StartReactInstanceDele
     // TODO: audit this now that kernel logic is on the native side in Kotlin
     var shouldOpenImmediately = true
 
-    // If our activity was killed for memory reasons or because of "Don't keep activities",
-    // try to reload manifest using the savedInstanceState
-    if (savedInstanceState != null) {
-      val manifestUrl = savedInstanceState.getString(KernelConstants.MANIFEST_URL_KEY)
-      if (manifestUrl != null) {
-        this.manifestUrl = manifestUrl
-      }
+    // RUNANYWHERE: Check if this activity was restored from task history or saved state.
+    // If so, don't try to reload the experience - it will cause TurboModule errors.
+    // Instead, finish and let the user go back to the home screen.
+    val isLaunchedFromHistory = (intent.flags and Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) != 0
+    
+    if (savedInstanceState != null || isLaunchedFromHistory) {
+      // Activity is being restored - don't try to reload as context is lost
+      EXL.w(TAG, "ExperienceActivity restored (savedInstanceState=${savedInstanceState != null}, fromHistory=$isLaunchedFromHistory) - finishing to prevent kernel crash")
+      finish()
+      return
     }
 
     // On cold boot to experience, we're given this information from the Kotlin kernel, instead of
@@ -184,6 +187,13 @@ open class ExperienceActivity : BaseExperienceActivity(), StartReactInstanceDele
       if (isOptimistic) {
         shouldOpenImmediately = false
       }
+    }
+    
+    // RUNANYWHERE: If we don't have a manifest URL at this point, we shouldn't be running
+    if (this.manifestUrl == null && bundle?.getString(KernelConstants.MANIFEST_URL_KEY) == null) {
+      EXL.w(TAG, "ExperienceActivity created without manifest URL - finishing")
+      finish()
+      return
     }
 
     FirebaseCrashlytics.getInstance().log("ExperienceActivity.manifestUrl: ${this.manifestUrl}")
@@ -490,14 +500,12 @@ open class ExperienceActivity : BaseExperienceActivity(), StartReactInstanceDele
       sdkVersion = RNObject.UNVERSIONED
     }
 
+    // RUNANYWHERE: Accept ALL SDK versions to be compatible with any Metro-served project
+    // Original check restricted to only Constants.SDK_VERSION, but we want to load any project
     if (RNObject.UNVERSIONED != sdkVersion) {
-      val isValidVersion = sdkVersion == Constants.SDK_VERSION
-      if (!isValidVersion) {
-        KernelProvider.instance.handleError(
-          sdkVersion + " is not a valid SDK version. Only ${Constants.SDK_VERSION} is supported."
-        )
-        return
-      }
+      // Always treat as valid - allow any SDK version to load
+      // Treat any SDK version as UNVERSIONED to use the built-in React Native
+      sdkVersion = RNObject.UNVERSIONED
     }
 
     soLoaderInit()

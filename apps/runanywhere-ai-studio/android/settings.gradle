@@ -12,8 +12,10 @@ pluginManagement {
 plugins { id("com.facebook.react.settings") }
 
 extensions.configure(com.facebook.react.ReactSettingsExtension) { ex ->
+  // Use full path to npx for Android Studio compatibility
+  def npxCommand = System.getenv("NPX_BINARY") ?: "/opt/homebrew/bin/npx"
   def command = [
-    'npx',
+    npxCommand,
     'expo-modules-autolinking',
     'react-native-config',
     '--json',
@@ -25,7 +27,9 @@ extensions.configure(com.facebook.react.ReactSettingsExtension) { ex ->
 
 include ':app'
 
-apply from: new File(["node", "--print", "require.resolve('expo/package.json')"].execute(null, rootDir).text.trim(), "../scripts/autolinking.gradle")
+// Use full path to node for Android Studio compatibility
+def nodeCommand = System.getenv("NODE_BINARY") ?: "/opt/homebrew/bin/node"
+apply from: new File([nodeCommand, "--print", "require.resolve('expo/package.json')"].execute(null, rootDir).text.trim(), "../scripts/autolinking.gradle")
 apply from: new File(rootDir, "versioning_linking.gradle")
 
 // Linked manually to used version from our RN fork
@@ -76,3 +80,26 @@ useExpoModules([
         '@expo/app-integrity'
     ]
 ])
+
+// RunAnywhere Native Modules
+// ===========================
+
+// NitroModules (required by RunAnywhere SDK)
+include ':react-native-nitro-modules'
+project(':react-native-nitro-modules').projectDir = 
+    new File(rootDir, '../../../node_modules/react-native-nitro-modules/android')
+
+// RunAnywhere Core
+include ':runanywhere_core'
+project(':runanywhere_core').projectDir = 
+    new File(rootDir, '../../../node_modules/@runanywhere/core/android')
+
+// RunAnywhere LlamaCpp
+include ':runanywhere_llamacpp'
+project(':runanywhere_llamacpp').projectDir = 
+    new File(rootDir, '../../../node_modules/@runanywhere/llamacpp/android')
+
+// RunAnywhere ONNX
+include ':runanywhere_onnx'
+project(':runanywhere_onnx').projectDir = 
+    new File(rootDir, '../../../node_modules/@runanywhere/onnx/android')

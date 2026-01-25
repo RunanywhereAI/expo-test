@@ -3,7 +3,7 @@ package host.exp.exponent.generated;
 import com.facebook.common.internal.DoNotStrip;
 
 import host.exp.exponent.experience.splashscreen.legacy.SplashScreenImageResizeMode;
-import host.exp.exponent.BuildConfig;
+import com.runanywhere.aistudio.BuildConfig;
 import host.exp.exponent.Constants;
 
 @DoNotStrip

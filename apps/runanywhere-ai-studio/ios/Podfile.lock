@@ -644,7 +644,7 @@ PODS:
   - nanopb/decode (3.30910.0)
   - nanopb/encode (3.30910.0)
   - Nimble (13.0.0)
-  - NitroModules (0.31.10):
+  - NitroModules (0.33.2):
     - boost
     - DoubleConversion
     - fast_float
@@ -2654,7 +2654,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
-  - react-native-slider (5.0.1):
+  - react-native-slider (5.1.2):
     - boost
     - DoubleConversion
     - fast_float
@@ -2672,7 +2672,7 @@ PODS:
     - React-graphics
     - React-ImageManager
     - React-jsi
-    - react-native-slider/common (= 5.0.1)
+    - react-native-slider/common (= 5.1.2)
     - React-NativeModulesApple
     - React-RCTFabric
     - React-renderercss
@@ -2683,7 +2683,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
-  - react-native-slider/common (5.0.1):
+  - react-native-slider/common (5.1.2):
     - boost
     - DoubleConversion
     - fast_float
@@ -3718,7 +3718,7 @@ PODS:
   - RNZipArchive/Core (6.1.2):
     - React-Core
     - SSZipArchive (~> 2.2)
-  - RunAnywhereCore (0.17.4):
+  - RunAnywhereCore (0.17.8):
     - boost
     - DoubleConversion
     - fast_float
@@ -3748,7 +3748,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
-  - RunAnywhereLlama (0.17.4):
+  - RunAnywhereLlama (0.17.7):
     - boost
     - DoubleConversion
     - fast_float
@@ -3779,7 +3779,7 @@ PODS:
     - RunAnywhereCore
     - SocketRocket
     - Yoga
-  - RunAnywhereONNX (0.17.4):
+  - RunAnywhereONNX (0.17.7):
     - boost
     - DoubleConversion
     - fast_float
@@ -4071,7 +4071,7 @@ DEPENDENCIES:
   - react-native-safe-area-context (from `../../../node_modules/react-native-safe-area-context`)
   - "react-native-segmented-control (from `../../../node_modules/@react-native-segmented-control/segmented-control`)"
   - "react-native-skia (from `../../../node_modules/@shopify/react-native-skia`)"
-  - "react-native-slider (from `../../../node_modules/@react-native-community/slider`)"
+  - "react-native-slider (from `../node_modules/@react-native-community/slider`)"
   - react-native-view-shot (from `../modules/react-native-view-shot`)
   - react-native-webview (from `../modules/react-native-webview`)
   - React-NativeModulesApple (from `../../../react-native-lab/react-native/packages/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
@@ -4410,7 +4410,7 @@ EXTERNAL SOURCES:
   react-native-skia:
     :path: "../../../node_modules/@shopify/react-native-skia"
   react-native-slider:
-    :path: "../../../node_modules/@react-native-community/slider"
+    :path: "../node_modules/@react-native-community/slider"
   react-native-view-shot:
     :path: "../modules/react-native-view-shot"
   react-native-webview:
@@ -4610,7 +4610,7 @@ SPEC CHECKSUMS:
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
   Nimble: 97d90931cca412a23224ff29e258809f75c258f7
-  NitroModules: 5bc319d441f4983894ea66b1d392c519536e6d23
+  NitroModules: 11bba9d065af151eae51e38a6425e04c3b223ff3
   OSSLibraryExample: e829af5c61a90a691f3e51c583d9c1236a12d8d3
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   PromisesSwift: 9d77319bbe72ebf6d872900551f7eeba9bce2851
@@ -4656,7 +4656,7 @@ SPEC CHECKSUMS:
   react-native-safe-area-context: a72764e0eb5d6b79b7450e5d0ae919eb1a4567b4
   react-native-segmented-control: bf6e0032726727498e18dd437ae88afcdbc18e99
   react-native-skia: 665cd52db7ad3d41e2a59c84e9c097343745c088
-  react-native-slider: 663776e5683e257de8df8091abc2d93ff6ec67db
+  react-native-slider: 34064ca1a6864d7b263e44dd76a2d794e8d26744
   react-native-view-shot: 6c008e58f4720de58370848201c5d4a082c6d4ca
   react-native-webview: 4cbb7f05f2c50671a7dcff4012d3e85faad271e4
   React-NativeModulesApple: 879fbdc5dcff7136abceb7880fe8a2022a1bd7c3
@@ -4700,9 +4700,9 @@ SPEC CHECKSUMS:
   RNSVG: 6f39605a4c4d200b11435c35bd077553c6b5963a
   RNWorklets: 09a47bd92d3da6e00420a060fcc86e23b745e980
   RNZipArchive: cea797a8c993b85d0781a5b253aa10b116c68a06
-  RunAnywhereCore: 83c1cdd6274e6148728b5a68a59ae2e099e372d6
-  RunAnywhereLlama: 0aaa2b99d848aef1c75283c85d435545641c93c1
-  RunAnywhereONNX: b0513e86df8b382c6559de410d54ae3fc219f874
+  RunAnywhereCore: 97fb3006745ea3dc6067cda5d0bbda7e04e92636
+  RunAnywhereLlama: 9bdcf7e6d43b59800483126d3aa1136ec4744f9b
+  RunAnywhereONNX: 67234c5215a45451c186a9463990400e7a019cba
   SDWebImage: e9c98383c7572d713c1a0d7dd2783b10599b9838
   SDWebImageAVIFCoder: afe194a084e851f70228e4be35ef651df0fc5c57
   SDWebImageSVGCoder: 15a300a97ec1c8ac958f009c02220ac0402e936c
@@ -4722,6 +4722,6 @@ SPEC CHECKSUMS:
   Yoga: a3ed390a19db0459bd6839823a6ac6d9c6db198d
   ZXingObjC: 8898711ab495761b2dbbdec76d90164a6d7e14c5
 
-PODFILE CHECKSUM: 38f3ac2805b34f1348939d29793983faf225fbba
+PODFILE CHECKSUM: 95d1f1eac8f004cd20b0401013e4b3cfb10bc577
 
 COCOAPODS: 1.16.2

@@ -16,7 +16,27 @@ public class ExponentBuildConstants {
   public static final String TEMPORARY_SDK_VERSION = "54.0.0";
 
   public static String getBuildMachineKernelManifestAndAssetRequestHeaders() {
-    // Return empty string for RunAnywhere - we don't use built-in kernel manifest
-    return "{}";
+    // Minimal kernel manifest for RunAnywhere AI Studio
+    // This provides the required structure for HomeActivity initialization
+    return "{\"manifest\":{" +
+        "\"id\":\"runanywhere-ai-studio\"," +
+        "\"createdAt\":\"2026-01-24T00:00:00.000Z\"," +
+        "\"runtimeVersion\":\"54.0.0\"," +
+        "\"launchAsset\":{\"key\":\"main\",\"contentType\":\"application/javascript\",\"url\":\"\"}," +
+        "\"assets\":[]," +
+        "\"extra\":{" +
+          "\"expoClient\":{" +
+            "\"name\":\"RunAnywhere AI Studio\"," +
+            "\"slug\":\"runanywhere-ai-studio\"," +
+            "\"version\":\"1.0.0\"," +
+            "\"sdkVersion\":\"54.0.0\"," +
+            "\"runtimeVersion\":\"54.0.0\"," +
+            "\"platforms\":[\"ios\",\"android\"]," +
+            "\"android\":{\"package\":\"com.runanywhere.aistudio\"}," +
+            "\"ios\":{\"bundleIdentifier\":\"com.runanywhere.aistudio\"}" +
+          "}," +
+          "\"scopeKey\":\"@runanywhere/ai-studio\"" +
+        "}" +
+      "},\"assetRequestHeaders\":{}}";
   }
 }

@@ -6,6 +6,7 @@ import com.facebook.react.defaults.DefaultReactNativeHost
 import com.facebook.react.shell.MainReactPackage
 import com.swmansion.worklets.WorkletsPackage
 import host.exp.exponent.ExponentManifest
+import host.exp.exponent.audio.NativeAudioPackage
 import host.exp.expoview.Exponent
 import versioned.host.exp.exponent.ExpoReanimatedPackage
 import versioned.host.exp.exponent.ExpoTurboPackage
@@ -44,6 +45,8 @@ class ExpoGoReactNativeHost(
       MainReactPackage(null),
       WorkletsPackage(),
       ExpoReanimatedPackage(),
+      // Native Audio for STT
+      NativeAudioPackage(),
       ExponentPackage(
         instanceManagerBuilderProperties.experienceProperties,
         instanceManagerBuilderProperties.manifest,
@@ -99,6 +102,8 @@ class KernelReactNativeHost(
       MainReactPackage(null),
       WorkletsPackage(),
       ExpoReanimatedPackage(),
+      // Native Audio for STT
+      NativeAudioPackage(),
       ExponentPackage.kernelExponentPackage(
         application.applicationContext,
         exponentManifest.getKernelManifestAndAssetRequestHeaders().manifest,

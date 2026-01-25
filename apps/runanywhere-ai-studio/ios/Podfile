@@ -102,6 +102,7 @@ target 'RunAnywhere AI Studio' do
         react_native_path,
         :mac_catalyst_enabled => false
       )
+      
     end
     
     # expo-av (EXAV) now works with auto-linking after adding EXEventEmitter.h to ExpoModulesCore
@@ -129,12 +130,19 @@ target 'RunAnywhere AI Studio' do
       .each do |pod_name, target_installation_result|
 
       # Fix for react-native-zip-archive unsupported '-G' flag
-      if pod_name == 'react-native-zip-archive'
+      if pod_name == 'react-native-zip-archive' || pod_name == 'RNZipArchive'
         target_installation_result.native_target.build_configurations.each do |config|
-          if config.build_settings['OTHER_CFLAGS']
-            config.build_settings['OTHER_CFLAGS'] = config.build_settings['OTHER_CFLAGS'].gsub('-G', '')
+          ['OTHER_CFLAGS', 'OTHER_LDFLAGS'].each do |flag_key|
+            if config.build_settings[flag_key]
+              if config.build_settings[flag_key].is_a?(Array)
+                config.build_settings[flag_key] = config.build_settings[flag_key].reject { |f| f == '-G' }
+              else
+                config.build_settings[flag_key] = config.build_settings[flag_key].gsub('-G', '')
+              end
+            end
           end
         end
+        puts "[RunAnywhere] Fixed -G flag for #{pod_name}"
       end
 
       # Enable hermes debugger even on release builds

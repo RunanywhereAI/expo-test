@@ -137,7 +137,18 @@ dependencies {
   implementation 'io.coil-kt.coil3:coil-network-okhttp:3.2.0'
   implementation 'androidx.compose.material3:material3:1.4.0-alpha10'
   implementation 'androidx.core:core-splashscreen:1.0.1'
-
+  
+  // =============================================================================
+  // RunAnywhere Native Modules
+  // =============================================================================
+  implementation project(':react-native-nitro-modules')
+  implementation project(':runanywhere_core')
+  implementation project(':runanywhere_llamacpp')
+  implementation project(':runanywhere_onnx')
+  // SDK Peer Dependencies (required by @runanywhere/core)
+  implementation project(':react-native-fs')
+  implementation project(':react-native-zip-archive')
+  // =============================================================================
 
   testImplementation 'junit:junit:4.13.2'
 

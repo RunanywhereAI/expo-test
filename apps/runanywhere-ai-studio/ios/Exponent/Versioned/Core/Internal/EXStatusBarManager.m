@@ -47,7 +47,18 @@ RCT_ENUM_CONVERTER(UIStatusBarAnimation, (@{
 - (void)setBridge:(RCTBridge *)bridge
 {
   _bridge = bridge;
-  _capturedStatusBarProperties = [[self _currentStatusBarProperties] mutableCopy];
+  
+  // RUNANYWHERE FIX: UIApplication APIs must be called on main thread
+  // setBridge can be called from JS thread, so dispatch to main
+  // Using dispatch_async to avoid potential deadlock during bridge init
+  if ([NSThread isMainThread]) {
+    _capturedStatusBarProperties = [[self _currentStatusBarProperties] mutableCopy];
+  } else {
+    dispatch_async(dispatch_get_main_queue(), ^{
+      self->_capturedStatusBarProperties = [[self _currentStatusBarProperties] mutableCopy];
+    });
+  }
+  
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(_bridgeDidForeground:)
                                                name:EX_UNVERSIONED(@"EXKernelBridgeDidForegroundNotification")
@@ -214,7 +225,15 @@ RCT_EXPORT_METHOD(_applyPropertiesAndForget:(NSDictionary *)properties)
 
 - (void)_bridgeDidBackground:(__unused NSNotification *)notif
 {
-  _capturedStatusBarProperties = [[self _currentStatusBarProperties] mutableCopy];
+  // RUNANYWHERE FIX: UIApplication APIs must be called on main thread
+  // Using dispatch_async to avoid potential deadlock during bridge teardown
+  if ([NSThread isMainThread]) {
+    _capturedStatusBarProperties = [[self _currentStatusBarProperties] mutableCopy];
+  } else {
+    dispatch_async(dispatch_get_main_queue(), ^{
+      self->_capturedStatusBarProperties = [[self _currentStatusBarProperties] mutableCopy];
+    });
+  }
 }
 
 #endif //TARGET_OS_TV
